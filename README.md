@@ -136,42 +136,52 @@ flowchart LR
 2. `🤖 AI / 🎬 流媒体`（最常见“可用性”问题）；
 3. 区域组（如 `🇭🇰 HK` / `🇯🇵 JP`，直接影响延迟与稳定性）。
 
-### 🗂️ 代理组与主要 Rule-Providers 对照（Clash Party 28 组）
+### 🗂️ 代理组与主要 Rule-Providers 对照（Clash Party 实际 28 业务组）
 
-> 说明：下表列的是“主要/高频命中”的 rule-provider，便于快速理解结构；并非穷举全部规则。
+> 只列“主要/高频命中”项，并标明规则来源仓库；不再混入节点组（HK/US/全球节点等）。
 
-| 代理组 | 主要 rule-providers（示例） |
-|---|---|
-| 🚀 节点选择 | 无（入口总控组，手动/策略选择） |
-| 🎯 全球直连 | 无（直连控制组） |
-| 🤖 AI | `openai` `claude` `gemini` `copilot` `szkane-ai` `acc-copilot` |
-| 🎬 流媒体（美区） | `youtube` `netflix` `spotify` `disney` `hulu` `primevideo` |
-| 📺 YouTube（归并到美区流媒体） | `youtube`（及前置 YouTube 域名精准规则） |
-| 🎵 Spotify（归并到美区流媒体） | `spotify` |
-| 💬 Telegram（归并到即时通讯） | `telegram` `telegram-ip` `telegramnl` `telegramsg` `telegramus` |
-| 📱 TikTok（归并到社交媒体） | `tiktok` |
-| 🧰 GitHub（归并到开发者服务） | `github` `gitlab` `docker` `szkane-developer` |
-| 🧪 测速 | 无（通常走手动测速/节点策略，不绑定 provider） |
-| 📰 国外媒体（归并到国外网站） | `cnn` `nytimes` `bloomberg` |
-| 🛒 电商（归并到国外网站） | `ebay` `nike` |
-| 🇭🇰 HK | 无（区域节点池，不直接命中 rule-provider） |
-| 🇹🇼 TW | 无（区域节点池，不直接命中 rule-provider） |
-| 🇯🇵 JP | 无（区域节点池，不直接命中 rule-provider） |
-| 🇸🇬 SG | 无（区域节点池，不直接命中 rule-provider） |
-| 🇺🇸 US | 无（区域节点池，不直接命中 rule-provider） |
-| 🇪🇺 EU | 无（区域节点池，不直接命中 rule-provider） |
-| 🌐 其他地区 | 无（区域节点池，不直接命中 rule-provider） |
-| ♻️ 自动选优 | 无（自动策略组，不直接命中 rule-provider） |
-| 🧱 漏网之鱼 | 主要承接上游未命中流量（无固定单一 provider） |
-| 📦 CDN | `cloudflare` `cloudflare-ip` `cloudfront-ip` `fastly-ip` `akamai` |
-| 🛡️ 广告拦截 | `anti-ad` `sukka-phishing` `hagezi-tif` `advertising` `privacy` |
-| 🔒 隐私（归并到广告拦截/安全） | `acc-prerepaireasyprivacy` `acc-unsupportvpn` |
-| 🧭 DNS相关（归并到 CDN/安全） | `acc-blockhttpdnsplus` `blockhttpdns` |
-| DIRECT | 无（系统内置动作） |
-| REJECT | 无（系统内置动作） |
-| FINAL（🐟 漏网之鱼） | `loyalsoldier-gfw` `loyalsoldier-greatfire` `szkane-proxygfw` + GEO 兜底 |
+| 代理组（与脚本一致） | 主要 rule-providers（示例） | 主要来源仓库 |
+|---|---|---|
+| 🤖 AI 服务 | `openai` `claude` `gemini` `copilot` `szkane-ai` `acc-copilot` | MetaCubeX / blackmatrix7 / szkane / Accademia |
+| 💰 加密货币 | `cryptocurrency` `binance` `szkane-web3` | blackmatrix7 / szkane |
+| 🏦 金融支付 | `paypal` `stripe` `visa` `tigerfintech` `acc-bank-*` `acc-vf-*` | blackmatrix7 / Accademia |
+| 📧 邮件服务 | `mail` `mailru` `protonmail` `spark` | blackmatrix7 |
+| 💬 即时通讯 | `telegram` `telegram-ip` `discord` `whatsapp` `line` `kakaotalk` `acc-signal` | MetaCubeX / blackmatrix7 / Accademia |
+| 📱 社交媒体 | `twitter` `twitter-ip` `tiktok` `facebook` `instagram` `snapchat` `reddit` | MetaCubeX / blackmatrix7 |
+| 🧑‍💼 会议协作 | `zoom` `slack` `teams` `atlassian` `notion` `remotedesktop` `acc-rustdesk` | ACL4SSR / blackmatrix7 / Accademia |
+| 📺 国内流媒体 | `bilibili` `iqiyi` `youku` `tencentvideo` `douyin` `neteasemusic` | blackmatrix7 |
+| 📺 东南亚流媒体 | `viu` `biliintl` `iqiyiintl` `wetv` `viki` `acc-kwai` | blackmatrix7 / Accademia |
+| 🇺🇸 美国流媒体 | `youtube` `netflix` `netflix-ip` `spotify` `disney` `hulu` `primevideo` | MetaCubeX / blackmatrix7 / szkane |
+| 🇭🇰 香港流媒体 | `mytvsuper` `tvb` `encoretvb` `nowe` `rthk` `szkane-bilihmt` | blackmatrix7 / szkane |
+| 🇹🇼 台湾流媒体 | `bahamut` `kktv` `litv` `hamivideo` `linetv` `friday` | blackmatrix7 |
+| 🇯🇵 日韩流媒体 | `abema` `dazn` `dmm` `tver` `niconico` `rakuten` | blackmatrix7 |
+| 🇪🇺 欧洲流媒体 | `bbc` `itv` `all4` `my5` `skygo` `britboxuk` `szkane-uk` | MetaCubeX / blackmatrix7 / szkane |
+| 🕹️ 国内游戏 | `steamcn` `wanmeishijie` `wankahuanju` `majsoul` | blackmatrix7 |
+| 🎮 国外游戏 | `steam` `epic` `playstation` `xbox` `riot` `ea` `hoyoverse` | blackmatrix7 |
+| 🔍 搜索引擎 | `google` `google-ip` `googlesearch` `bing` `scholar` `yandex` | MetaCubeX / blackmatrix7 |
+| 📟 开发者服务 | `github` `docker` `gitlab` `python` `developer` `szkane-developer` | blackmatrix7 / szkane |
+| Ⓜ️ 微软服务 | `onedrive` `microsoft` `microsoftedge` `acc-microsoftapps` | blackmatrix7 / Accademia |
+| 🍎 苹果服务 | `apple` `icloud` `appstore` `appletv` `applemusic` `acc-apple` `acc-applenews` | blackmatrix7 / Accademia |
+| 📥 下载更新 | `googlefcm` `systemota` `download` `ubuntu` `mozilla` `android` `acc-macappupgrade` | blackmatrix7 / Accademia |
+| ☁️ 云与CDN | `cloudflare` `cloudflare-ip` `cloudfront-ip` `fastly-ip` `akamai` `acc-fastly` | MetaCubeX / blackmatrix7 / Accademia |
+| 🛰️ BT/PT Tracker | `privatetracker` `acc-emuleserver` | blackmatrix7 / Accademia |
+| 🏠 国内网站 | `cn` `cn-ip` `acc-geositecn` `acc-chinamax` `acc-china` `acc-geo-d-asia-china` | MetaCubeX / blackmatrix7 / Accademia |
+| 🚫 受限网站 | `loyalsoldier-gfw` `loyalsoldier-greatfire` `szkane-proxygfw` | Loyalsoldier / szkane |
+| 🌐 国外网站 | `proxy` `cnn` `nytimes` `bloomberg` `ebay` `wikipedia` `acc-waybackmachine` | blackmatrix7 / Accademia / szkane |
+| 🐟 漏网之鱼 | 以 GEOSITE/GEOIP/FINAL 兜底为主（非单一固定 provider） | MetaCubeX（geo 规则） |
+| 🛑 广告拦截 | `anti-ad` `sukka-phishing` `hagezi-tif` `advertising` `privacy` `acc-unsupportvpn` | DustinWin / SukkaW / Hagezi / blackmatrix7 / Accademia |
 
-> 如果你想看“严格按脚本分组名（如 `📧 邮件服务`、`🎮 国外游戏`、`🍎 苹果服务`）的完整 provider 清单”，我也可以再补一版完整矩阵。
+> 仓库对照：
+> - **MetaCubeX**：`MetaCubeX/meta-rules-dat`
+> - **blackmatrix7**：`blackmatrix7/ios_rule_script`
+> - **Accademia**：`Accademia/Additional_Rule_For_Clash`
+> - **ACL4SSR**：`ACL4SSR/ACL4SSR`（Zoom）
+> - **Loyalsoldier**：`Loyalsoldier/clash-rules`
+> - **DustinWin**：`DustinWin/ruleset_geodata`（anti-ad）
+> - **SukkaW**：`SukkaW/Surge`（phishing）
+> - **Hagezi**：`hagezi/dns-blocklists`（TIF）
+> - **szkane**：`szkane/Rules`（AI/UK/开发等补充）
+
 
 ---
 
