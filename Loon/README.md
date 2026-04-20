@@ -51,6 +51,45 @@
 
 ---
 
+## 🔌 协议支持（Loon 自家引擎）
+
+Loon 的协议栈自己实现，**覆盖面比 Surge 宽、比 Shadowrocket 稍窄**，综合性价比不错：
+
+| 协议 | 支持 | 说明 |
+|---|:-:|---|
+| **Shadowsocks (SS)** | ✅ | AEAD + SS 2022 |
+| **ShadowsocksR (SSR)** | ✅ | 兼容老机场 |
+| **VMess** | ✅ | ws/grpc/h2 |
+| **VLESS** | ✅ | 含 **REALITY** |
+| **XTLS-Vision** | ✅ | |
+| **Trojan** | ✅ | |
+| **Hysteria v1** | ✅ | |
+| **Hysteria 2** | ✅ | |
+| **TUIC v5** | ✅ | |
+| **WireGuard** | ✅ | 作为子代理 |
+| **Snell v3 / v4** | ✅ | 少有的 iOS 客户端支持 Snell |
+| **AnyTLS / ShadowTLS** | ⚠️ | 部分版本支持，以官方更新日志为准 |
+| **SOCKS5 / HTTP(S)** | ✅ | |
+
+Loon 在 iOS 上的协议覆盖面仅次于 Shadowrocket，**比 Surge 多了 VLESS/REALITY/Hysteria 2/TUIC**。
+
+### iOS 四大付费客户端协议对比（速决表）
+| 协议 | SR (¥20) | **Loon (¥198)** | Surge (¥648) | QX (¥68) |
+|---|:-:|:-:|:-:|:-:|
+| Hysteria 2 | ✅ | **✅** | ⚠️ 5.9+ | ❌ |
+| TUIC v5 | ✅ | **✅** | ❌ | ❌ |
+| VLESS REALITY | ✅ | **✅** | ❌ | ⚠️ |
+| XTLS-Vision | ✅ | **✅** | ❌ | ⚠️ |
+| WireGuard | ✅ | **✅** | ✅ | ❌ |
+| Snell v4 | ✅ | **✅** | ✅ | ❌ |
+| 稳定性 | 普通 | **好** | 极好 | 好 |
+| 插件生态 | ❌ | **✅** | ⚠️ Modules | ⚠️ Scripts |
+| macOS 支持 | ✅ | ❌ | ✅ | ❌ |
+
+**选 Loon 的场景**：协议要全 + 需要稳定 + 不差钱但不想买 Surge（¥648 太贵）+ 要插件生态（签到/去广告）。
+
+---
+
 ## 一、下载 Loon
 
 - **iOS**：App Store 搜「Loon」，价格约 ¥198 / 区。需要非中国区 Apple ID。

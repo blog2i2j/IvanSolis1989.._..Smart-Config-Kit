@@ -46,6 +46,31 @@
 
 ---
 
+## 🔌 协议支持（Mihomo 内核）
+
+CMFA / FlClash / mihomo-party-android 底层都是 **Mihomo 内核**，所以协议支持和桌面端的 Clash Verge Rev / Mihomo Party 完全一样：
+
+| 协议 | 支持 | 说明 |
+|---|:-:|---|
+| **Shadowsocks (SS)** | ✅ | 全套 AEAD + SS 2022 |
+| **ShadowsocksR (SSR)** | ✅ | 兼容老机场 |
+| **VMess** | ✅ | ws/grpc/h2/httpupgrade |
+| **VLESS** | ✅ | 含 **REALITY** + **XTLS-Vision** |
+| **Trojan** | ✅ | + Trojan-Go 扩展 |
+| **Hysteria v1 / v2** | ✅ | QUIC-based，弱网友好 |
+| **TUIC v5** | ✅ | QUIC-based |
+| **WireGuard** | ✅ | 作为出站 |
+| **AnyTLS / ShadowTLS / Snell v4 / SSH / Mieru** | ✅ | 新协议/小众协议全覆盖 |
+| **SOCKS5 / HTTP(S)** | ✅ | |
+
+**移动端上协议支持最全的组合就是 CMFA + Mihomo**，几乎没有你机场能给但它不能跑的。
+
+### 提示
+- CMFA YAML 是静态格式，区域组是 `url-test`（按延迟择优），**无 Smart + LightGBM**。LightGBM 需要 JS 覆写运行时注入，Android 目前没有客户端支持 JS 覆写。
+- 想要 Smart + LightGBM 的唯一路径是桌面端 Clash Party / Clash Verge Rev / Mihomo Party。
+
+---
+
 ## 一、下载 CMFA 客户端
 
 1. 开源地址：https://github.com/MetaCubeX/ClashMetaForAndroid/releases

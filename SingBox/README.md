@@ -48,6 +48,47 @@
 
 ---
 
+## 🔌 协议支持（sing-box 核）
+
+sing-box 由 SagerNet 团队开发，是目前**新协议实现最前沿**的代理内核（Hysteria 2 / TUIC v5 / AnyTLS 都最早或同步实现在 sing-box）。
+
+| 协议 | 支持 | 说明 |
+|---|:-:|---|
+| **Shadowsocks (SS)** | ✅ | 全套 AEAD + **SS 2022-blake3**（sing-box 是 2022 协议的参考实现）|
+| **ShadowsocksR (SSR)** | ❌ | 已废弃，sing-box 不实现 |
+| **VMess** | ✅ | ws/grpc/h2 |
+| **VLESS** | ✅ | **REALITY** + **XTLS-Vision** |
+| **Trojan** | ✅ | |
+| **Hysteria v1** | ✅ | |
+| **Hysteria 2** | ✅ | 协议最权威实现 |
+| **TUIC v5** | ✅ | 协议最权威实现 |
+| **WireGuard** | ✅ | 作为出站 |
+| **AnyTLS** | ✅ | 较新 |
+| **ShadowTLS v1/v2/v3** | ✅ | 协议原作者也在 sing-box |
+| **Naive** | ⚠️ | 旧协议，保留兼容 |
+| **Tor** | ✅ | 作为特殊出站 |
+| **SSH** | ✅ | 作为出站隧道 |
+| **SOCKS5 / HTTP(S)** | ✅ | |
+
+**如果你的机场给的是 Hysteria 2 / TUIC / AnyTLS / ShadowTLS 等新协议，优先选 sing-box**——它往往比 Mihomo 更早实现最新的协议变种。
+
+### 和 Mihomo 核对比一张图
+| 维度 | Mihomo | sing-box |
+|---|---|---|
+| SSR 兼容 | ✅ | ❌ |
+| Snell | ✅ | ❌ |
+| Mieru | ✅ | ❌ |
+| LightGBM 自动择优 | ✅（Smart 分支） | ❌ |
+| 新协议首发速度 | 慢一步 | **快，参考实现** |
+| 内存占用 | 较高 | **较低** |
+| JS 覆写（脚本化配置） | ✅（Clash Verge/Mihomo Party）| ❌ |
+| 规则集热更新 | ✅（rule-providers）| ✅（rule_set remote）|
+| Clash API 兼容 | ✅ 原生 | ✅ 兼容 |
+
+**一句话选核**：有 SSR / 想要 LightGBM → Mihomo；只跑新协议、看重内存/性能 → sing-box。
+
+---
+
 ## 1. 设计说明（和 Clash Party 的一致性）
 
 该 sing-box 版本与 Clash Party 主线保持以下一致：

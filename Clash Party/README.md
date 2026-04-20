@@ -51,6 +51,38 @@
 
 ---
 
+## 🔌 协议支持（Mihomo / Clash.Meta / Smart 内核）
+
+Clash Party 系列（Mihomo Party / Clash Verge Rev / Clash Nyanpasu）底层都是 **Mihomo 内核**，支持的科学上网协议如下：
+
+| 协议 | 支持 | 说明 |
+|---|:-:|---|
+| **Shadowsocks (SS)** | ✅ | 全套 AEAD 密码 + **SS 2022 (blake3)** |
+| **ShadowsocksR (SSR)** | ✅ | 旧协议，仍兼容 |
+| **VMess** | ✅ | 含 ws / grpc / h2 / httpupgrade 传输层 |
+| **VLESS** | ✅ | 含 **REALITY** + **XTLS-Vision** + XTLS-rprx-splice |
+| **Trojan** | ✅ | 支持 Trojan-Go 扩展字段 |
+| **Hysteria v1** | ✅ | QUIC-based，弱网友好 |
+| **Hysteria 2** | ✅ | 当前最流行的抗审查 UDP 协议 |
+| **TUIC v5** | ✅ | QUIC-based，含 v4 兼容 |
+| **WireGuard** | ✅ | 作为出站，内核级别 |
+| **AnyTLS** | ✅ | 新型 TLS 混淆（mihomo 1.18+） |
+| **ShadowTLS v1/v2/v3** | ✅ | TLS 伪装层 |
+| **Snell v4** | ✅ | Surge 自家协议，Mihomo 兼容 |
+| **SSH** | ✅ | 作为出站隧道 |
+| **Mieru** | ✅ | 新协议（mihomo Alpha） |
+| **SOCKS5 / HTTP(S)** | ✅ | 基础兜底 |
+
+**Mihomo 是目前协议支持最全面的开源内核**，几乎覆盖所有主流方案。付费的 Surge / Quantumult X 反而不如它全。
+
+### 如何选协议？一句话建议
+- **首选 VLESS + REALITY + XTLS-Vision**：目前抗审查最强、速度最快的组合
+- **弱网 / 跨运营商 → Hysteria 2 或 TUIC v5**：UDP-based，QUIC 多路复用
+- **老机场只给 SS / VMess → 照样能用**，别追新协议
+- **机场给 Snell（通常是 Surge 机场）→ 也能跑**，但少见
+
+---
+
 ## 一、安装客户端
 
 ### Mihomo Party（推荐）

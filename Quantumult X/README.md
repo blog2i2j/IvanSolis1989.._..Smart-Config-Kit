@@ -53,6 +53,46 @@
 
 ---
 
+## 🔌 协议支持（Quantumult X 自家引擎）
+
+QX 的协议栈**是四大 iOS 付费客户端里最窄的**，换来的是脚本化 / resource_parser 生态最强：
+
+| 协议 | 支持 | 说明 |
+|---|:-:|---|
+| **Shadowsocks (SS)** | ✅ | 含 AEAD |
+| **ShadowsocksR (SSR)** | ✅ | 兼容老机场 |
+| **VMess** | ✅ | ws/grpc 传输层 |
+| **VLESS** | ⚠️ | 基础支持，REALITY 兼容性随版本变化 |
+| **REALITY / XTLS-Vision** | ⚠️ | 实际效果有限，不如 SR/Loon |
+| **Trojan** | ✅ | |
+| **Hysteria v1** | ❌ | 不支持 |
+| **Hysteria 2** | ❌ | 不支持 |
+| **TUIC v5** | ❌ | 不支持 |
+| **WireGuard** | ❌ | 不支持 |
+| **Snell** | ❌ | 不支持 |
+| **AnyTLS / ShadowTLS / Mieru** | ❌ | 不支持 |
+| **HTTP/2 / HTTPS / SOCKS5 / HTTP** | ✅ | |
+
+**QX 的定位**：专注 SS/VMess/Trojan 这三类最主流协议 + 把脚本生态做到极致。如果你的机场只给这三类协议，QX 完全够用；如果主推 Hysteria 2 / TUIC / REALITY 类新协议，**建议改用 Shadowrocket 或 Loon**。
+
+### 什么时候选 QX（不是协议原因）？
+- 你有大量需要脚本化签到的订阅（BoxJs 生态、VIP 破解、去广告）
+- 你订阅的机场是非标准格式，需要 `resource_parser_url` 解析
+- 你不在乎新协议（Hysteria 2 / TUIC）
+
+### iOS 四大付费客户端协议最终对比
+| 协议 | SR (¥20) | Loon (¥198) | Surge (¥648) | **QX (¥68)** |
+|---|:-:|:-:|:-:|:-:|
+| Hysteria 2 | ✅ | ✅ | ⚠️ 5.9+ | **❌** |
+| TUIC v5 | ✅ | ✅ | ❌ | **❌** |
+| VLESS REALITY | ✅ | ✅ | ❌ | **⚠️** |
+| WireGuard | ✅ | ✅ | ✅ | **❌** |
+| Snell v4 | ✅ | ✅ | ✅ | **❌** |
+| 脚本化 / 自动化 | 一般 | 好 | **极好** | **极好** |
+| resource_parser 生态 | ❌ | ❌ | ❌ | **✅ 独有** |
+
+---
+
 ## 一、下载 Quantumult X
 
 - **iOS**：App Store 搜「Quantumult X」，约 ¥68 / 区。需要非中国区 Apple ID。

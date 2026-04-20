@@ -57,6 +57,43 @@
 
 ---
 
+## 🔌 协议支持（Shadowrocket 引擎）
+
+Shadowrocket 有自家实现的协议栈（不是 Mihomo，也不是 sing-box），但覆盖面**异常齐全**，是 iOS 付费客户端里协议支持最广的：
+
+| 协议 | 支持 | 说明 |
+|---|:-:|---|
+| **Shadowsocks (SS)** | ✅ | 含 SS 2022 |
+| **ShadowsocksR (SSR)** | ✅ | 保留支持 |
+| **VMess** | ✅ | ws/grpc/h2 |
+| **VLESS** | ✅ | **REALITY** + **XTLS-Vision** |
+| **Trojan** | ✅ | + Trojan-Go |
+| **Hysteria v1 / v2** | ✅ | UDP QUIC |
+| **TUIC v5** | ✅ | UDP QUIC |
+| **WireGuard** | ✅ | 作为子代理节点 |
+| **Snell v3 / v4** | ✅ | 少有的 iOS 客户端支持 Snell |
+| **AnyTLS** | ✅ | 较新版本支持（SR 2.2.56+）|
+| **ShadowTLS** | ✅ | 较新版本支持 |
+| **Mieru** | ⚠️ | 部分版本支持 |
+| **SOCKS5 / HTTP(S)** | ✅ | |
+
+**iOS 上 ¥20 性价比之王**。如果你只是普通用户不需要脚本生态，SR 的协议支持已经超过 Surge / QX（两者都不支持 VLESS REALITY 或 Hysteria 2）。
+
+### 和 Surge / Loon / QX 对比协议能力
+| 协议 | Shadowrocket | Surge 5 | Loon | QX |
+|---|:-:|:-:|:-:|:-:|
+| Hysteria 2 | ✅ | ⚠️ 5.9+ | ✅ | ❌ |
+| TUIC v5 | ✅ | ❌ | ✅ | ❌ |
+| VLESS REALITY | ✅ | ❌ 需 External | ✅ | ⚠️ 受限 |
+| XTLS-Vision | ✅ | ❌ | ✅ | ⚠️ 受限 |
+| WireGuard | ✅ | ✅ | ✅ | ❌ |
+| Snell v4 | ✅ | ✅ | ✅ | ❌ |
+| 价格（2026-04） | **¥20** | ¥648 | ¥198 | ¥68 |
+
+**结论**：纯看协议宽度 + 价格，SR 是 iOS 最佳选择。Loon 协议一样全但贵 10 倍（用 Loon 是为插件生态）。Surge 协议偏保守（稳定性换覆盖面）。QX 协议最窄（换 resource_parser 脚本生态）。
+
+---
+
 ## 一、下载 Shadowrocket
 
 - **iOS**：App Store 搜索「Shadowrocket」（需非中国大陆 Apple ID，美区 $2.99）。

@@ -48,6 +48,35 @@
 
 ---
 
+## 🔌 协议支持（Surge 5 自家引擎）
+
+Surge 不用开源内核，自己实现协议栈。**追求稳定不追求新**——协议覆盖面偏窄但成熟度极高：
+
+| 协议 | 支持 | 说明 |
+|---|:-:|---|
+| **Shadowsocks (SS)** | ✅ | AEAD + SS 2022 |
+| **ShadowsocksR (SSR)** | ❌ | Surge 不支持 |
+| **VMess** | ✅ | ws/h2 |
+| **VLESS** | ❌ | 原生不支持；可用 External Proxy 桥接 |
+| **REALITY / XTLS-Vision** | ❌ | 必须 External Proxy 调用 Xray/sing-box |
+| **Trojan** | ✅ | |
+| **Hysteria v1** | ❌ | Surge 5.9- 不支持 |
+| **Hysteria 2** | ⚠️ | Surge 5.9+ 开始支持（**近期更新**）|
+| **TUIC v5** | ❌ | 不支持 |
+| **WireGuard** | ✅ | 作为二级代理（完整支持）|
+| **Snell v4** | ✅（**Surge 自家协议的主场**）| Surge 团队设计的协议 |
+| **HTTP/2 / HTTPS / SOCKS5 / HTTP** | ✅ | |
+| **External Proxy（外部代理桥接）** | ✅ | 可调用 sing-box / v2ray / xray 二进制执行不支持的协议，再注入 Surge 策略组 |
+
+**Surge 的定位**：iOS/macOS 上最稳定、脚本生态最强、MITM 最好用；协议覆盖面输给 Shadowrocket（便宜 30 倍）。如果你机场主推 VLESS REALITY / Hysteria 2 / TUIC，Surge 可能需要 External Proxy 绕过去，不如直接用 SR 或 Loon。
+
+### 什么时候选 Surge（不是协议原因）？
+- 家里有很多自动化需求（签到脚本、Telegram Bot、HomeKit 联动）
+- 需要 Mac + iPhone 同步配置（Surge 有 iCloud 同步 + Surge Mac）
+- 长期稳定运行（Surge 的稳定性换 ¥648）
+
+---
+
 ## 一、下载 Surge
 
 Surge 是付费软件，无免费版：

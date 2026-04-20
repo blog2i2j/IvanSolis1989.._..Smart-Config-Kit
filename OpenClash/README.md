@@ -51,6 +51,32 @@
 
 ---
 
+## 🔌 协议支持（OpenClash + Mihomo 内核）
+
+OpenClash 底层调用 **Mihomo 二进制**，所以协议支持和桌面端 Mihomo 一样齐全。切换 Smart 内核（Alpha 分支）后 LightGBM 自动择优可用。
+
+| 协议 | 支持 | 说明 |
+|---|:-:|---|
+| **Shadowsocks (SS)** | ✅ | 含 AEAD 2022-blake3 |
+| **ShadowsocksR (SSR)** | ✅ | 老协议 |
+| **VMess** | ✅ | ws/grpc/h2/httpupgrade |
+| **VLESS** | ✅ | **REALITY** + **XTLS-Vision** |
+| **Trojan** | ✅ | + Trojan-Go |
+| **Hysteria v1 / v2** | ✅ | UDP QUIC |
+| **TUIC v5** | ✅ | UDP QUIC |
+| **WireGuard** | ✅ | 作为出站 |
+| **AnyTLS / ShadowTLS / Snell v4 / SSH / Mieru** | ✅ | 全覆盖 |
+| **SOCKS5 / HTTP(S)** | ✅ | |
+
+**软路由部署 OpenClash + Mihomo 是"一次配置，全家设备享用"的最佳方案**——iPhone/安卓手机/电视/游戏机连上路由器 WiFi 就自动分流，不用每台设备装客户端。
+
+### 路由器协议兼容性提示
+- **ARM64 CPU** 的路由器（R4S/R5S/AX 刷机）：所有协议都能跑
+- **MIPS CPU** 的路由器（部分老路由器）：Mihomo 提供 mips 版本，但 **Hysteria 2 / TUIC / WireGuard** 的 QUIC/内核模块可能不稳定；保险起见用 SS / VMess / Trojan
+- **x86 软路由**：最佳选择，协议全兼容
+
+---
+
 ## 一、前置准备
 
 ## 版本选择建议（先看这个）
