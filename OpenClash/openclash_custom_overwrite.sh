@@ -2,7 +2,26 @@
 . /usr/share/openclash/log.sh
 
 # ============================================================================
-# Clash Smart v5.3.3-oc-slim — OpenClash 覆写脚本（R4S 4GB 内存优化版，DNS 冷启动修复 + RP 代理对齐 Clash Party）
+# Clash Smart v5.3.4-oc-slim — OpenClash 覆写脚本（R4S 4GB 内存优化版）
+# ============================================================================
+# 更新日志（新在前）：
+#   v5.3.4-align-dns-baseline (2026-04-20)
+#     ★ 对齐 Clash Party 基线 DNS（使用方法.md 第 99-132 行）：
+#         • use-hosts: true → false（基线要求）
+#         • default-nameserver 从纯海外（1.1.1.1/8.8.8.8/9.9.9.9…）改为
+#           基线顺序：223.5.5.5 / 119.29.29.29 / 1.1.1.1 / 8.8.8.8
+#         • nameserver: 223.5.5.5 DoH + doh.pub DoH（国内域名走国内解析）
+#         • direct-nameserver: 同 nameserver（走国内 DoH）
+#         • proxy-server-nameserver: 1.1.1.1 + 8.8.8.8 + 223.5.5.5 + doh.pub（4 项）
+#         • fallback: 仅 1.1.1.1 + 8.8.8.8（基线只列两个）
+#         • 删除非基线的 direct-nameserver-follow-policy: false
+#         • 移除"救援模式"注释（原救援模式已由 nameserver-policy 的 jsdelivr/github 直连策略覆盖）
+#   v5.3.3-align-rp-proxy-gfw (2026-04-20)
+#     ★ rule-providers `proxy: DIRECT` → `proxy: 🚫 受限网站`（136 处），对齐 FIX#17-P0
+#   v5.3.2-dns-rescue-no-rules (之前)
+#     ★ 基础版本，含 DNS 冷启动救援 + 内存优化
+# ============================================================================
+# 原 v5.3.1 性能基线说明：
 # ============================================================================
 # 基于 v5.2.4-oc 针对 OOM 问题重构
 #
@@ -38,7 +57,7 @@
 #     c) 最后才动 uselightgbm
 # ============================================================================
 
-VERSION_TAG="v5.3.3-align-rp-proxy-gfw"
+VERSION_TAG="v5.3.4-align-dns-baseline"
 CONFIG_FILE="$1"
 LOG_FILE="/tmp/openclash.log"
 
@@ -88,18 +107,16 @@ dns:
   - +.xboxlive.com
   - stun.l.google.com
   cache-algorithm: arc
-  use-hosts: true
+  # 对齐 Clash Party 基线（使用方法.md 第 99-132 行）
+  use-hosts: false
   use-system-hosts: false
-  # 救援模式：先让 DNS 自己能出去，禁止继续跟随普通路由规则，避免 DNS 递归套娃。
   respect-rules: true
   prefer-h3: false
   default-nameserver:
+  - 223.5.5.5
+  - 119.29.29.29
   - 1.1.1.1
-  - 1.0.0.1
   - 8.8.8.8
-  - 8.8.4.4
-  - 9.9.9.9
-  - 208.67.222.222
   nameserver-policy:
     '+.jsdelivr.net':
     - https://1.1.1.1/dns-query
@@ -117,26 +134,19 @@ dns:
     - https://1.1.1.1/dns-query
     - https://8.8.8.8/dns-query
   nameserver:
-  - https://1.1.1.1/dns-query
-  - https://1.0.0.1/dns-query
-  - https://8.8.8.8/dns-query
-  - https://8.8.4.4/dns-query
-  - https://9.9.9.9/dns-query
+  - https://223.5.5.5/dns-query
+  - https://doh.pub/dns-query
   proxy-server-nameserver:
   - https://1.1.1.1/dns-query
   - https://8.8.8.8/dns-query
-  - https://9.9.9.9/dns-query
+  - https://223.5.5.5/dns-query
+  - https://doh.pub/dns-query
   direct-nameserver:
-  - https://1.1.1.1/dns-query
-  - https://1.0.0.1/dns-query
-  - https://8.8.8.8/dns-query
-  - https://8.8.4.4/dns-query
-  - https://9.9.9.9/dns-query
-  direct-nameserver-follow-policy: false
+  - https://223.5.5.5/dns-query
+  - https://doh.pub/dns-query
   fallback:
   - https://1.1.1.1/dns-query
   - https://8.8.8.8/dns-query
-  - https://9.9.9.9/dns-query
   fallback-filter:
     geoip: true
     geoip-code: CN

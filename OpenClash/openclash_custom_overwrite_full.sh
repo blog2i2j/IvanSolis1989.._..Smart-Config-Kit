@@ -2,7 +2,7 @@
 . /usr/share/openclash/log.sh
 
 # ============================================================================
-# Clash Smart v5.2.3-oc-full.1 — OpenClash 覆写脚本（与 Clash Party 主线同等规则量）
+# Clash Smart v5.2.3-oc-full.2 — OpenClash 覆写脚本（与 Clash Party 主线同等规则量）
 # ============================================================================
 # 定位：
 #   对齐 Clash Party v5.2.3 JS 主线的 OpenClash 全量版本。
@@ -19,6 +19,15 @@
 #   • Ruby 阶段做：节点过滤 / 区域分类 / Smart 组生成 / TLS 指纹注入
 #
 # 更新日志：
+#   v5.2.3-oc-full.2  (2026-04-20)
+#     ★ 对齐 Clash Party 基线 DNS（使用方法.md 第 99-132 行）：
+#         • use-hosts: true → false
+#         • default-nameserver: 223.5.5.5 / 119.29.29.29 / 1.1.1.1 / 8.8.8.8（基线顺序）
+#         • nameserver / direct-nameserver: 223.5.5.5 DoH + doh.pub DoH（国内 DoH）
+#         • proxy-server-nameserver: 1.1.1.1 + 8.8.8.8 + 223.5.5.5 + doh.pub
+#         • fallback: 1.1.1.1 + 8.8.8.8（基线两项）
+#         • 删除非基线字段 direct-nameserver-follow-policy
+#         • 移除"救援模式"注释（功能仍在，靠 nameserver-policy 覆盖）
 #   v5.2.3-oc-full.1  (2026-04-20)
 #     ★ 同步 Clash Party v5.2.3 FIX#21-P1：BBC / Snapchat(Snap) 规则从
 #       blackmatrix7 classical yaml 切换到 MetaCubeX meta-rules-dat 的
@@ -40,7 +49,7 @@
 # ============================================================================
 
 
-VERSION_TAG="v5.2.3-oc-full.1"
+VERSION_TAG="v5.2.3-oc-full.2"
 CONFIG_FILE="$1"
 LOG_FILE="/tmp/openclash.log"
 
@@ -90,18 +99,16 @@ dns:
   - +.xboxlive.com
   - stun.l.google.com
   cache-algorithm: arc
-  use-hosts: true
+  # 对齐 Clash Party 基线（使用方法.md 第 99-132 行）
+  use-hosts: false
   use-system-hosts: false
-  # 救援模式：先让 DNS 自己能出去，禁止继续跟随普通路由规则，避免 DNS 递归套娃。
   respect-rules: true
   prefer-h3: false
   default-nameserver:
+  - 223.5.5.5
+  - 119.29.29.29
   - 1.1.1.1
-  - 1.0.0.1
   - 8.8.8.8
-  - 8.8.4.4
-  - 9.9.9.9
-  - 208.67.222.222
   nameserver-policy:
     '+.jsdelivr.net':
     - https://1.1.1.1/dns-query
@@ -119,26 +126,19 @@ dns:
     - https://1.1.1.1/dns-query
     - https://8.8.8.8/dns-query
   nameserver:
-  - https://1.1.1.1/dns-query
-  - https://1.0.0.1/dns-query
-  - https://8.8.8.8/dns-query
-  - https://8.8.4.4/dns-query
-  - https://9.9.9.9/dns-query
+  - https://223.5.5.5/dns-query
+  - https://doh.pub/dns-query
   proxy-server-nameserver:
   - https://1.1.1.1/dns-query
   - https://8.8.8.8/dns-query
-  - https://9.9.9.9/dns-query
+  - https://223.5.5.5/dns-query
+  - https://doh.pub/dns-query
   direct-nameserver:
-  - https://1.1.1.1/dns-query
-  - https://1.0.0.1/dns-query
-  - https://8.8.8.8/dns-query
-  - https://8.8.4.4/dns-query
-  - https://9.9.9.9/dns-query
-  direct-nameserver-follow-policy: false
+  - https://223.5.5.5/dns-query
+  - https://doh.pub/dns-query
   fallback:
   - https://1.1.1.1/dns-query
   - https://8.8.8.8/dns-query
-  - https://9.9.9.9/dns-query
   fallback-filter:
     geoip: true
     geoip-code: CN
@@ -4086,7 +4086,7 @@ cat > "$RUBY_SCRIPT" << 'RUBY_EOF'
 require 'yaml'
 require 'digest'
 
-VERSION = "v5.2.3-oc-full.1"
+VERSION = "v5.2.3-oc-full.2"
 
 STATUS_LOG = "/tmp/clash_smart_status.log"
 File.open(STATUS_LOG, 'w') { |f| f.puts "[#{VERSION}] start" }
