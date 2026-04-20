@@ -38,6 +38,11 @@ Clash/
 │   ├── Clash Smart内核覆写脚本.js
 │   ├── 其他配置在UI里面填写
 │   └── 使用方法.md
+├── SingBox/
+│   ├── generate-singbox-full.js
+│   ├── singbox-smart.json
+│   ├── singbox-smart-full.json
+│   └── 使用教程.md
 ├── OpenClash/
 │   ├── openclash_custom_overwrite.sh
 │   ├── openclash_custom_overwrite_full.sh
