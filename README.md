@@ -40,6 +40,7 @@ Clash/
 │   └── 使用方法.md
 ├── OpenClash/
 │   ├── openclash_custom_overwrite.sh
+│   ├── openclash_custom_overwrite_full.sh
 │   ├── clash-smart-openclash.conf
 │   └── 使用方法.md
 ├── Shadowrocket/
@@ -164,6 +165,14 @@ flowchart TD
   - 保留核心分流框架（区域层 + 业务层 + DNS 层）；
   - 优先保障“持续在线能力”和“低 OOM 风险”。
 
+### v5.2.2-oc-full（OpenClash 完整规则线）
+
+- 定位：内存充足设备（推荐 ≥ 4GB，x86/高配 ARM 更佳）的高覆盖场景。
+- 特点：
+  - `rule-providers` 与 Clash Party 主线保持同等规则量（387 providers）；
+  - 适合对冷门地区/小众服务命中率敏感的用户；
+  - 提供与 `oc-slim` 并行的可选覆写脚本，按设备能力二选一。
+
 ---
 
 ## 🧪 平台使用路径（简版）
@@ -180,7 +189,7 @@ flowchart TD
 3. 首次拉取相关规则与地理数据库资源。
 
 ### 🛜 OpenClash
-1. 上传 `openclash_custom_overwrite.sh` 并启用自定义覆写；
+1. 上传 OpenClash 覆写脚本（`openclash_custom_overwrite.sh` 轻量版 / `openclash_custom_overwrite_full.sh` 完整版）并启用自定义覆写；
 2. 按 `clash-smart-openclash.conf` 填写插件关键参数；
 3. 应用配置并观察内存占用与规则更新状态。
 
