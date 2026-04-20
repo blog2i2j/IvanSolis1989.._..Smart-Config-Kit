@@ -1,6 +1,6 @@
 # ================================================================
-# Clash Smart v5.2.0 - CMFA (Clash Meta for Android) 配置
-# 基于 clash-smart-v5.2.0.js 转换
+# Clash Smart v5.2.2 - CMFA (Clash Meta for Android) 配置
+# 基于 Clash Party v5.2.2（主线）对齐
 # 架构：proxy-providers 订阅 + 9 url-test 区域组 + 28 业务策略组 + 375+ rule-providers
 # ================================================================
 # ★ 使用说明：
@@ -8,6 +8,7 @@
 #   2. 导入 CMFA 即可使用
 #   3. 首次导入后，CMFA 会自动下载 Loyalsoldier 增强版 GeoIP/GeoSite 数据库
 #   4. 所有 GEOSITE/GEOIP 高级标签已用等效 RULE-SET 替代，无需等 dat 下载
+#   5. 对齐 Clash Party FIX#17-P0：rule-providers 统一 proxy: '🚫 受限网站'
 # ================================================================mixed-port: 7890
 allow-lan: true
 bind-address: '*'
@@ -580,7 +581,7 @@ rule-providers:
     url: 'https://fastly.jsdelivr.net/gh/DustinWin/ruleset_geodata@mihomo-ruleset/ads.mrs'
     path: ./ruleset/anti-ad.mrs
     interval: 85536
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   openai:
     type: http
     behavior: domain
@@ -588,35 +589,35 @@ rule-providers:
     url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/openai.mrs'
     path: ./ruleset/meta-openai.mrs
     interval: 85553
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   claude:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Claude/Claude.yaml'
     path: ./ruleset/bm7-Claude.yaml
     interval: 85553
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   gemini:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Gemini/Gemini.yaml'
     path: ./ruleset/bm7-Gemini.yaml
     interval: 85579
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   copilot:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Copilot/Copilot.yaml'
     path: ./ruleset/bm7-Copilot.yaml
     interval: 85585
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   cryptocurrency:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Cryptocurrency/Cryptocurrency.yaml'
     path: ./ruleset/bm7-Cryptocurrency.yaml
     interval: 85594
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   telegram:
     type: http
     behavior: domain
@@ -624,7 +625,7 @@ rule-providers:
     url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/telegram.mrs'
     path: ./ruleset/meta-telegram.mrs
     interval: 85644
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   telegram-ip:
     type: http
     behavior: ipcidr
@@ -632,35 +633,35 @@ rule-providers:
     url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/telegram.mrs'
     path: ./ruleset/meta-ip-telegram.mrs
     interval: 85614
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   discord:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Discord/Discord.yaml'
     path: ./ruleset/bm7-Discord.yaml
     interval: 85633
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   line:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Line/Line.yaml'
     path: ./ruleset/bm7-Line.yaml
     interval: 85679
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   whatsapp:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Whatsapp/Whatsapp.yaml'
     path: ./ruleset/bm7-Whatsapp.yaml
     interval: 85655
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   kakaotalk:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/KakaoTalk/KakaoTalk.yaml'
     path: ./ruleset/bm7-KakaoTalk.yaml
     interval: 85718
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   twitter:
     type: http
     behavior: domain
@@ -668,7 +669,7 @@ rule-providers:
     url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/twitter.mrs'
     path: ./ruleset/meta-twitter.mrs
     interval: 85680
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   twitter-ip:
     type: http
     behavior: ipcidr
@@ -676,7 +677,7 @@ rule-providers:
     url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/twitter.mrs'
     path: ./ruleset/meta-ip-twitter.mrs
     interval: 85736
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   tiktok:
     type: http
     behavior: domain
@@ -684,49 +685,49 @@ rule-providers:
     url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/tiktok.mrs'
     path: ./ruleset/meta-tiktok.mrs
     interval: 85753
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   reddit:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Reddit/Reddit.yaml'
     path: ./ruleset/bm7-Reddit.yaml
     interval: 85749
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   facebook:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Facebook/Facebook.yaml'
     path: ./ruleset/bm7-Facebook.yaml
     interval: 85796
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   instagram:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Instagram/Instagram.yaml'
     path: ./ruleset/bm7-Instagram.yaml
     interval: 85797
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   snapchat:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Snap/Snap.yaml'
     path: ./ruleset/bm7-Snap.yaml
     interval: 85820
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   pinterest:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Pinterest/Pinterest.yaml'
     path: ./ruleset/bm7-Pinterest.yaml
     interval: 85796
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   linkedin:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/LinkedIn/LinkedIn.yaml'
     path: ./ruleset/bm7-LinkedIn.yaml
     interval: 85851
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   facebook-ip:
     type: http
     behavior: ipcidr
@@ -734,28 +735,28 @@ rule-providers:
     url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/facebook.mrs'
     path: ./ruleset/meta-ip-facebook.mrs
     interval: 85855
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   slack:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Slack/Slack.yaml'
     path: ./ruleset/bm7-Slack.yaml
     interval: 85860
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   zoom:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Providers/Ruleset/Zoom.yaml'
     path: ./ruleset/acl4ssr-Zoom.yaml
     interval: 85857
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   teams:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Teams/Teams.yaml'
     path: ./ruleset/bm7-Teams.yaml
     interval: 85867
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   google:
     type: http
     behavior: domain
@@ -763,7 +764,7 @@ rule-providers:
     url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/google.mrs'
     path: ./ruleset/meta-google.mrs
     interval: 85894
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   google-ip:
     type: http
     behavior: ipcidr
@@ -771,21 +772,21 @@ rule-providers:
     url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/google.mrs'
     path: ./ruleset/meta-ip-google.mrs
     interval: 85910
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   bing:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Bing/Bing.yaml'
     path: ./ruleset/bm7-Bing.yaml
     interval: 85905
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   googlesearch:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/GoogleSearch/GoogleSearch.yaml'
     path: ./ruleset/bm7-GoogleSearch.yaml
     interval: 85942
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   youtube:
     type: http
     behavior: domain
@@ -793,7 +794,7 @@ rule-providers:
     url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/youtube.mrs'
     path: ./ruleset/meta-youtube.mrs
     interval: 85941
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   netflix:
     type: http
     behavior: domain
@@ -801,7 +802,7 @@ rule-providers:
     url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/netflix.mrs'
     path: ./ruleset/meta-netflix.mrs
     interval: 85983
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   netflix-ip:
     type: http
     behavior: ipcidr
@@ -809,7 +810,7 @@ rule-providers:
     url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/netflix.mrs'
     path: ./ruleset/meta-ip-netflix.mrs
     interval: 85974
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   spotify:
     type: http
     behavior: domain
@@ -817,63 +818,63 @@ rule-providers:
     url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/spotify.mrs'
     path: ./ruleset/meta-spotify.mrs
     interval: 86026
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   disney:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Disney/Disney.yaml'
     path: ./ruleset/bm7-Disney.yaml
     interval: 86038
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   hbo:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/HBO/HBO.yaml'
     path: ./ruleset/bm7-HBO.yaml
     interval: 86031
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   primevideo:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/PrimeVideo/PrimeVideo.yaml'
     path: ./ruleset/bm7-PrimeVideo.yaml
     interval: 86028
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   hulu:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Hulu/Hulu.yaml'
     path: ./ruleset/bm7-Hulu.yaml
     interval: 86086
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   paramount:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/ParamountPlus/ParamountPlus.yaml'
     path: ./ruleset/bm7-ParamountPlus.yaml
     interval: 86099
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   amazon:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Amazon/Amazon.yaml'
     path: ./ruleset/bm7-Amazon.yaml
     interval: 86111
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   peacock:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Peacock/Peacock.yaml'
     path: ./ruleset/bm7-Peacock.yaml
     interval: 86116
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   twitch:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Twitch/Twitch.yaml'
     path: ./ruleset/bm7-Twitch.yaml
     interval: 86147
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   bahamut:
     type: http
     behavior: domain
@@ -881,14 +882,14 @@ rule-providers:
     url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/bahamut.mrs'
     path: ./ruleset/meta-bahamut.mrs
     interval: 86130
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   kktv:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/KKTV/KKTV.yaml'
     path: ./ruleset/bm7-KKTV.yaml
     interval: 86188
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   abema:
     type: http
     behavior: domain
@@ -896,70 +897,70 @@ rule-providers:
     url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/abema.mrs'
     path: ./ruleset/meta-abema.mrs
     interval: 86189
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   dazn:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/DAZN/DAZN.yaml'
     path: ./ruleset/bm7-DAZN.yaml
     interval: 86206
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   bbc:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/BBC/BBC.yaml'
     path: ./ruleset/bm7-BBC.yaml
     interval: 86222
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   steam:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Steam/Steam.yaml'
     path: ./ruleset/bm7-Steam.yaml
     interval: 86226
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   epic:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Epic/Epic.yaml'
     path: ./ruleset/bm7-Epic.yaml
     interval: 86212
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   playstation:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/PlayStation/PlayStation.yaml'
     path: ./ruleset/bm7-PlayStation.yaml
     interval: 86236
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   nintendo:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Nintendo/Nintendo.yaml'
     path: ./ruleset/bm7-Nintendo.yaml
     interval: 86250
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   xbox:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Xbox/Xbox.yaml'
     path: ./ruleset/bm7-Xbox.yaml
     interval: 86258
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   ea:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/EA/EA.yaml'
     path: ./ruleset/bm7-EA.yaml
     interval: 86314
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   blizzard:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Blizzard/Blizzard.yaml'
     path: ./ruleset/bm7-Blizzard.yaml
     interval: 86326
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   microsoft:
     type: http
     behavior: domain
@@ -967,7 +968,7 @@ rule-providers:
     url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/microsoft.mrs'
     path: ./ruleset/meta-microsoft.mrs
     interval: 86308
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   onedrive:
     type: http
     behavior: domain
@@ -975,7 +976,7 @@ rule-providers:
     url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/onedrive.mrs'
     path: ./ruleset/meta-onedrive.mrs
     interval: 86314
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   apple:
     type: http
     behavior: domain
@@ -983,7 +984,7 @@ rule-providers:
     url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/apple.mrs'
     path: ./ruleset/meta-apple.mrs
     interval: 86345
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   icloud:
     type: http
     behavior: domain
@@ -991,14 +992,14 @@ rule-providers:
     url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/icloud.mrs'
     path: ./ruleset/meta-icloud.mrs
     interval: 86374
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   applemusic:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/AppleMusic/AppleMusic.yaml'
     path: ./ruleset/bm7-AppleMusic.yaml
     interval: 86403
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   github:
     type: http
     behavior: domain
@@ -1006,28 +1007,28 @@ rule-providers:
     url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/github.mrs'
     path: ./ruleset/meta-github.mrs
     interval: 86383
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   docker:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Docker/Docker.yaml'
     path: ./ruleset/bm7-Docker.yaml
     interval: 86416
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   gitlab:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/GitLab/GitLab.yaml'
     path: ./ruleset/bm7-GitLab.yaml
     interval: 86401
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   paypal:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/PayPal/PayPal.yaml'
     path: ./ruleset/bm7-PayPal.yaml
     interval: 86425
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   cloudflare-ip:
     type: http
     behavior: ipcidr
@@ -1035,7 +1036,7 @@ rule-providers:
     url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/cloudflare.mrs'
     path: ./ruleset/meta-ip-cloudflare.mrs
     interval: 86475
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   cloudfront-ip:
     type: http
     behavior: ipcidr
@@ -1043,7 +1044,7 @@ rule-providers:
     url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/cloudfront.mrs'
     path: ./ruleset/meta-ip-cloudfront.mrs
     interval: 86499
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   fastly-ip:
     type: http
     behavior: ipcidr
@@ -1051,21 +1052,21 @@ rule-providers:
     url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/fastly.mrs'
     path: ./ruleset/meta-ip-fastly.mrs
     interval: 86462
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   systemota:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/SystemOTA/SystemOTA.yaml'
     path: ./ruleset/bm7-SystemOTA.yaml
     interval: 86498
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   viu:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/ViuTV/ViuTV.yaml'
     path: ./ruleset/bm7-ViuTV.yaml
     interval: 86526
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   bilibili:
     type: http
     behavior: domain
@@ -1073,7 +1074,7 @@ rule-providers:
     url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/bilibili.mrs'
     path: ./ruleset/meta-bilibili.mrs
     interval: 86510
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   biliintl:
     type: http
     behavior: domain
@@ -1081,7 +1082,7 @@ rule-providers:
     url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/biliintl.mrs'
     path: ./ruleset/meta-biliintl.mrs
     interval: 86521
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   cn:
     type: http
     behavior: domain
@@ -1089,7 +1090,7 @@ rule-providers:
     url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/cn.mrs'
     path: ./ruleset/meta-cn.mrs
     interval: 86543
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   cn-ip:
     type: http
     behavior: ipcidr
@@ -1097,7 +1098,7 @@ rule-providers:
     url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/cn.mrs'
     path: ./ruleset/meta-ip-cn.mrs
     interval: 86595
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   proxy:
     type: http
     behavior: domain
@@ -1105,1512 +1106,1512 @@ rule-providers:
     url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/geolocation-!cn.mrs'
     path: './ruleset/meta-geolocation-!cn.mrs'
     interval: 86615
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   advertising:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Advertising/Advertising.yaml'
     path: ./ruleset/bm7-Advertising.yaml
     interval: 86607
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   advertisingmitv:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/AdvertisingMiTV/AdvertisingMiTV.yaml'
     path: ./ruleset/bm7-AdvertisingMiTV.yaml
     interval: 86638
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   adobeactivation:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/AdobeActivation/AdobeActivation.yaml'
     path: ./ruleset/bm7-AdobeActivation.yaml
     interval: 86646
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   blockhttpdns:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/BlockHttpDNS/BlockHttpDNS.yaml'
     path: ./ruleset/bm7-BlockHttpDNS.yaml
     interval: 86635
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   domob:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Domob/Domob.yaml'
     path: ./ruleset/bm7-Domob.yaml
     interval: 86686
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   hijacking:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Hijacking/Hijacking.yaml'
     path: ./ruleset/bm7-Hijacking.yaml
     interval: 86680
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   jiguangtuisong:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/JiGuangTuiSong/JiGuangTuiSong.yaml'
     path: ./ruleset/bm7-JiGuangTuiSong.yaml
     interval: 86688
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   marketing:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Marketing/Marketing.yaml'
     path: ./ruleset/bm7-Marketing.yaml
     interval: 86722
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   miuiprivacy:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/MIUIPrivacy/MIUIPrivacy.yaml'
     path: ./ruleset/bm7-MIUIPrivacy.yaml
     interval: 86738
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   privacy:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Privacy/Privacy.yaml'
     path: ./ruleset/bm7-Privacy.yaml
     interval: 86748
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   youmengchuangxiang:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/YouMengChuangXiang/YouMengChuangXiang.yaml'
     path: ./ruleset/bm7-YouMengChuangXiang.yaml
     interval: 86747
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   civitai:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Civitai/Civitai.yaml'
     path: ./ruleset/bm7-Civitai.yaml
     interval: 86755
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   binance:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Binance/Binance.yaml'
     path: ./ruleset/bm7-Binance.yaml
     interval: 86779
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   stripe:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Stripe/Stripe.yaml'
     path: ./ruleset/bm7-Stripe.yaml
     interval: 86834
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   visa:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/VISA/VISA.yaml'
     path: ./ruleset/bm7-VISA.yaml
     interval: 86820
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   tigerfintech:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/TigerFintech/TigerFintech.yaml'
     path: ./ruleset/bm7-TigerFintech.yaml
     interval: 86857
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   mail:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Mail/Mail.yaml'
     path: ./ruleset/bm7-Mail.yaml
     interval: 86847
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   mailru:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Mailru/Mailru.yaml'
     path: ./ruleset/bm7-Mailru.yaml
     interval: 86853
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   protonmail:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Protonmail/Protonmail.yaml'
     path: ./ruleset/bm7-Protonmail.yaml
     interval: 86869
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   spark:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Spark/Spark.yaml'
     path: ./ruleset/bm7-Spark.yaml
     interval: 86923
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   telegramnl:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/TelegramNL/TelegramNL.yaml'
     path: ./ruleset/bm7-TelegramNL.yaml
     interval: 86928
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   telegramsg:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/TelegramSG/TelegramSG.yaml'
     path: ./ruleset/bm7-TelegramSG.yaml
     interval: 86928
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   telegramus:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/TelegramUS/TelegramUS.yaml'
     path: ./ruleset/bm7-TelegramUS.yaml
     interval: 86931
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   zalo:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Zalo/Zalo.yaml'
     path: ./ruleset/bm7-Zalo.yaml
     interval: 86930
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   googlevoice:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/GoogleVoice/GoogleVoice.yaml'
     path: ./ruleset/bm7-GoogleVoice.yaml
     interval: 86987
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   italkbb:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/iTalkBB/iTalkBB.yaml'
     path: ./ruleset/bm7-iTalkBB.yaml
     interval: 86963
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   tumblr:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Tumblr/Tumblr.yaml'
     path: ./ruleset/bm7-Tumblr.yaml
     interval: 86989
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   clubhouse:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Clubhouse/Clubhouse.yaml'
     path: ./ruleset/bm7-Clubhouse.yaml
     interval: 87028
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   clubhouseip:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/ClubhouseIP/ClubhouseIP.yaml'
     path: ./ruleset/bm7-ClubhouseIP.yaml
     interval: 87014
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   pixiv:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Pixiv/Pixiv.yaml'
     path: ./ruleset/bm7-Pixiv.yaml
     interval: 87044
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   truthsocial:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/TruthSocial/TruthSocial.yaml'
     path: ./ruleset/bm7-TruthSocial.yaml
     interval: 87044
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   vk:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/VK/VK.yaml'
     path: ./ruleset/bm7-VK.yaml
     interval: 87085
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   blued:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Blued/Blued.yaml'
     path: ./ruleset/bm7-Blued.yaml
     interval: 87109
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   disqus:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Disqus/Disqus.yaml'
     path: ./ruleset/bm7-Disqus.yaml
     interval: 87078
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   imgur:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Imgur/Imgur.yaml'
     path: ./ruleset/bm7-Imgur.yaml
     interval: 87110
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   pixnet:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Pixnet/Pixnet.yaml'
     path: ./ruleset/bm7-Pixnet.yaml
     interval: 87142
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   atlassian:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Atlassian/Atlassian.yaml'
     path: ./ruleset/bm7-Atlassian.yaml
     interval: 87158
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   notion:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Notion/Notion.yaml'
     path: ./ruleset/bm7-Notion.yaml
     interval: 87191
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   teamviewer:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/TeamViewer/TeamViewer.yaml'
     path: ./ruleset/bm7-TeamViewer.yaml
     interval: 87155
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   zoho:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Zoho/Zoho.yaml'
     path: ./ruleset/bm7-Zoho.yaml
     interval: 87188
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   salesforce:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Salesforce/Salesforce.yaml'
     path: ./ruleset/bm7-Salesforce.yaml
     interval: 87226
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   zendesk:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Zendesk/Zendesk.yaml'
     path: ./ruleset/bm7-Zendesk.yaml
     interval: 87216
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   intercom:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Intercom/Intercom.yaml'
     path: ./ruleset/bm7-Intercom.yaml
     interval: 87237
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   remotedesktop:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/RemoteDesktop/RemoteDesktop.yaml'
     path: ./ruleset/bm7-RemoteDesktop.yaml
     interval: 87232
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   iqiyi:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/iQIYI/iQIYI.yaml'
     path: ./ruleset/bm7-iQIYI.yaml
     interval: 87256
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   youku:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Youku/Youku.yaml'
     path: ./ruleset/bm7-Youku.yaml
     interval: 87302
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   tencentvideo:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/TencentVideo/TencentVideo.yaml'
     path: ./ruleset/bm7-TencentVideo.yaml
     interval: 87286
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   douyin:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/DouYin/DouYin.yaml'
     path: ./ruleset/bm7-DouYin.yaml
     interval: 87298
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   bytedance:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/ByteDance/ByteDance.yaml'
     path: ./ruleset/bm7-ByteDance.yaml
     interval: 87315
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   kuaishou:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/KuaiShou/KuaiShou.yaml'
     path: ./ruleset/bm7-KuaiShou.yaml
     interval: 87343
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   weibo:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Weibo/Weibo.yaml'
     path: ./ruleset/bm7-Weibo.yaml
     interval: 87348
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   xiaohongshu:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/XiaoHongShu/XiaoHongShu.yaml'
     path: ./ruleset/bm7-XiaoHongShu.yaml
     interval: 87361
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   neteasemusic:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/NetEaseMusic/NetEaseMusic.yaml'
     path: ./ruleset/bm7-NetEaseMusic.yaml
     interval: 87377
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   kugoukuwo:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/KugouKuwo/KugouKuwo.yaml'
     path: ./ruleset/bm7-KugouKuwo.yaml
     interval: 87429
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   sohu:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Sohu/Sohu.yaml'
     path: ./ruleset/bm7-Sohu.yaml
     interval: 87438
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acfun:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/AcFun/AcFun.yaml'
     path: ./ruleset/bm7-AcFun.yaml
     interval: 87445
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   douyu:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Douyu/Douyu.yaml'
     path: ./ruleset/bm7-Douyu.yaml
     interval: 87450
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   huya:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/HuYa/HuYa.yaml'
     path: ./ruleset/bm7-HuYa.yaml
     interval: 87458
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   himalaya:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Himalaya/Himalaya.yaml'
     path: ./ruleset/bm7-Himalaya.yaml
     interval: 87455
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   cctv:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/CCTV/CCTV.yaml'
     path: ./ruleset/bm7-CCTV.yaml
     interval: 87472
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   hunantv:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/HunanTV/HunanTV.yaml'
     path: ./ruleset/bm7-HunanTV.yaml
     interval: 87497
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   pptv:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/PPTV/PPTV.yaml'
     path: ./ruleset/bm7-PPTV.yaml
     interval: 87552
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   funshion:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Funshion/Funshion.yaml'
     path: ./ruleset/bm7-Funshion.yaml
     interval: 87542
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   letv:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/LeTV/LeTV.yaml'
     path: ./ruleset/bm7-LeTV.yaml
     interval: 87538
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   taihemusic:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/TaiheMusic/TaiheMusic.yaml'
     path: ./ruleset/bm7-TaiheMusic.yaml
     interval: 87573
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   kukemusic:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/KuKeMusic/KuKeMusic.yaml'
     path: ./ruleset/bm7-KuKeMusic.yaml
     interval: 87605
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   hibymusic:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/HibyMusic/HibyMusic.yaml'
     path: ./ruleset/bm7-HibyMusic.yaml
     interval: 87616
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   miwu:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/MiWu/MiWu.yaml'
     path: ./ruleset/bm7-MiWu.yaml
     interval: 87640
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   migu:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Migu/Migu.yaml'
     path: ./ruleset/bm7-Migu.yaml
     interval: 87602
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   iptvmainland:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/IPTVMainland/IPTVMainland.yaml'
     path: ./ruleset/bm7-IPTVMainland.yaml
     interval: 87641
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   iptvother:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/IPTVOther/IPTVOther.yaml'
     path: ./ruleset/bm7-IPTVOther.yaml
     interval: 87647
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   cibn:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/CIBN/CIBN.yaml'
     path: ./ruleset/bm7-CIBN.yaml
     interval: 87691
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   bestv:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/BesTV/BesTV.yaml'
     path: ./ruleset/bm7-BesTV.yaml
     interval: 87711
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   huashutv:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/HuaShuTV/HuaShuTV.yaml'
     path: ./ruleset/bm7-HuaShuTV.yaml
     interval: 87715
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   smg:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/SMG/SMG.yaml'
     path: ./ruleset/bm7-SMG.yaml
     interval: 87736
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   hwtv:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/HWTV/HWTV.yaml'
     path: ./ruleset/bm7-HWTV.yaml
     interval: 87705
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   nivodtv:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/NivodTV/NivodTV.yaml'
     path: ./ruleset/bm7-NivodTV.yaml
     interval: 87758
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   olevod:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Olevod/Olevod.yaml'
     path: ./ruleset/bm7-Olevod.yaml
     interval: 87770
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   dandanzan:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/DanDanZan/DanDanZan.yaml'
     path: ./ruleset/bm7-DanDanZan.yaml
     interval: 87754
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   dandanplay:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Dandanplay/Dandanplay.yaml'
     path: ./ruleset/bm7-Dandanplay.yaml
     interval: 87787
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   tiantiankankan:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/TianTianKanKan/TianTianKanKan.yaml'
     path: ./ruleset/bm7-TianTianKanKan.yaml
     interval: 87800
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   yizhibo:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/YiZhiBo/YiZhiBo.yaml'
     path: ./ruleset/bm7-YiZhiBo.yaml
     interval: 87850
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   ku6:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Ku6/Ku6.yaml'
     path: ./ruleset/bm7-Ku6.yaml
     interval: 87813
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   '56':
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/56/56.yaml'
     path: ./ruleset/bm7-56.yaml
     interval: 87854
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   cetv:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/CETV/CETV.yaml'
     path: ./ruleset/bm7-CETV.yaml
     interval: 87896
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   yyets:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/YYeTs/YYeTs.yaml'
     path: ./ruleset/bm7-YYeTs.yaml
     interval: 87855
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   asianmedia:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/AsianMedia/AsianMedia.yaml'
     path: ./ruleset/bm7-AsianMedia.yaml
     interval: 87885
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   iqiyiintl:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/iQIYIIntl/iQIYIIntl.yaml'
     path: ./ruleset/bm7-iQIYIIntl.yaml
     interval: 87905
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   joox:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/JOOX/JOOX.yaml'
     path: ./ruleset/bm7-JOOX.yaml
     interval: 87930
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   mewatch:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/MeWatch/MeWatch.yaml'
     path: ./ruleset/bm7-MeWatch.yaml
     interval: 87963
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   viki:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Viki/Viki.yaml'
     path: ./ruleset/bm7-Viki.yaml
     interval: 87957
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   wetv:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/WeTV/WeTV.yaml'
     path: ./ruleset/bm7-WeTV.yaml
     interval: 87961
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   zee:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Zee/Zee.yaml'
     path: ./ruleset/bm7-Zee.yaml
     interval: 87967
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   cbs:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/CBS/CBS.yaml'
     path: ./ruleset/bm7-CBS.yaml
     interval: 87983
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   nbc:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/NBC/NBC.yaml'
     path: ./ruleset/bm7-NBC.yaml
     interval: 87999
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   pbs:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/PBS/PBS.yaml'
     path: ./ruleset/bm7-PBS.yaml
     interval: 88027
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   attwatchtv:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/ATTWatchTV/ATTWatchTV.yaml'
     path: ./ruleset/bm7-ATTWatchTV.yaml
     interval: 88048
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   fox:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Fox/Fox.yaml'
     path: ./ruleset/bm7-Fox.yaml
     interval: 88053
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   fubotv:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/FuboTV/FuboTV.yaml'
     path: ./ruleset/bm7-FuboTV.yaml
     interval: 88078
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   sling:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Sling/Sling.yaml'
     path: ./ruleset/bm7-Sling.yaml
     interval: 88071
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   soundcloud:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/SoundCloud/SoundCloud.yaml'
     path: ./ruleset/bm7-SoundCloud.yaml
     interval: 88102
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   pandora:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Pandora/Pandora.yaml'
     path: ./ruleset/bm7-Pandora.yaml
     interval: 88095
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   pandoratv:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/PandoraTV/PandoraTV.yaml'
     path: ./ruleset/bm7-PandoraTV.yaml
     interval: 88159
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   tidal:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/TIDAL/TIDAL.yaml'
     path: ./ruleset/bm7-TIDAL.yaml
     interval: 88174
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   vimeo:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Vimeo/Vimeo.yaml'
     path: ./ruleset/bm7-Vimeo.yaml
     interval: 88199
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   dailymotion:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Dailymotion/Dailymotion.yaml'
     path: ./ruleset/bm7-Dailymotion.yaml
     interval: 88186
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   deezer:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Deezer/Deezer.yaml'
     path: ./ruleset/bm7-Deezer.yaml
     interval: 88229
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   discoveryplus:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/DiscoveryPlus/DiscoveryPlus.yaml'
     path: ./ruleset/bm7-DiscoveryPlus.yaml
     interval: 88190
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   overcast:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Overcast/Overcast.yaml'
     path: ./ruleset/bm7-Overcast.yaml
     interval: 88201
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   americasvoice:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Americasvoice/Americasvoice.yaml'
     path: ./ruleset/bm7-Americasvoice.yaml
     interval: 88271
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   cake:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Cake/Cake.yaml'
     path: ./ruleset/bm7-Cake.yaml
     interval: 88271
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   dood:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Dood/Dood.yaml'
     path: ./ruleset/bm7-Dood.yaml
     interval: 88248
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   ehgallery:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/EHGallery/EHGallery.yaml'
     path: ./ruleset/bm7-EHGallery.yaml
     interval: 88265
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   lastfm:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/LastFM/LastFM.yaml'
     path: ./ruleset/bm7-LastFM.yaml
     interval: 88317
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   emby:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Emby/Emby.yaml'
     path: ./ruleset/bm7-Emby.yaml
     interval: 88314
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   mytvsuper:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/myTVSUPER/myTVSUPER.yaml'
     path: ./ruleset/bm7-myTVSUPER.yaml
     interval: 88343
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   tvb:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/TVB/TVB.yaml'
     path: ./ruleset/bm7-TVB.yaml
     interval: 88326
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   encoretvb:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/EncoreTVB/EncoreTVB.yaml'
     path: ./ruleset/bm7-EncoreTVB.yaml
     interval: 88365
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   nowe:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/NowE/NowE.yaml'
     path: ./ruleset/bm7-NowE.yaml
     interval: 88361
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   rthk:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/RTHK/RTHK.yaml'
     path: ./ruleset/bm7-RTHK.yaml
     interval: 88395
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   cabletv:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/CableTV/CableTV.yaml'
     path: ./ruleset/bm7-CableTV.yaml
     interval: 88391
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   moov:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/MOOV/MOOV.yaml'
     path: ./ruleset/bm7-MOOV.yaml
     interval: 88413
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   litv:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/LiTV/LiTV.yaml'
     path: ./ruleset/bm7-LiTV.yaml
     interval: 88444
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   friday:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/friDay/friDay.yaml'
     path: ./ruleset/bm7-friDay.yaml
     interval: 88426
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   hamivideo:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/HamiVideo/HamiVideo.yaml'
     path: ./ruleset/bm7-HamiVideo.yaml
     interval: 88458
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   linetv:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/LineTV/LineTV.yaml'
     path: ./ruleset/bm7-LineTV.yaml
     interval: 88457
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   vidoltv:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/VidolTV/VidolTV.yaml'
     path: ./ruleset/bm7-VidolTV.yaml
     interval: 88492
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   taiwangood:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/TaiWanGood/TaiWanGood.yaml'
     path: ./ruleset/bm7-TaiWanGood.yaml
     interval: 88496
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   cht:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/CHT/CHT.yaml'
     path: ./ruleset/bm7-CHT.yaml
     interval: 88538
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   dmm:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/DMM/DMM.yaml'
     path: ./ruleset/bm7-DMM.yaml
     interval: 88563
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   tver:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/TVer/TVer.yaml'
     path: ./ruleset/bm7-TVer.yaml
     interval: 88550
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   niconico:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Niconico/Niconico.yaml'
     path: ./ruleset/bm7-Niconico.yaml
     interval: 88559
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   rakuten:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Rakuten/Rakuten.yaml'
     path: ./ruleset/bm7-Rakuten.yaml
     interval: 88561
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   japonx:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Japonx/Japonx.yaml'
     path: ./ruleset/bm7-Japonx.yaml
     interval: 88584
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   nikkei:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Nikkei/Nikkei.yaml'
     path: ./ruleset/bm7-Nikkei.yaml
     interval: 88616
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   itv:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/ITV/ITV.yaml'
     path: ./ruleset/bm7-ITV.yaml
     interval: 88622
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   all4:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/All4/All4.yaml'
     path: ./ruleset/bm7-All4.yaml
     interval: 88660
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   my5:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/My5/My5.yaml'
     path: ./ruleset/bm7-My5.yaml
     interval: 88672
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   skygo:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/SkyGO/SkyGO.yaml'
     path: ./ruleset/bm7-SkyGO.yaml
     interval: 88653
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   britboxuk:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/BritboxUK/BritboxUK.yaml'
     path: ./ruleset/bm7-BritboxUK.yaml
     interval: 88671
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   londonreal:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/LondonReal/LondonReal.yaml'
     path: ./ruleset/bm7-LondonReal.yaml
     interval: 88685
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   qobuz:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Qobuz/Qobuz.yaml'
     path: ./ruleset/bm7-Qobuz.yaml
     interval: 88733
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   steamcn:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/SteamCN/SteamCN.yaml'
     path: ./ruleset/bm7-SteamCN.yaml
     interval: 88739
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   wanmeishijie:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/WanMeiShiJie/WanMeiShiJie.yaml'
     path: ./ruleset/bm7-WanMeiShiJie.yaml
     interval: 88754
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   wankahuanju:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/WanKaHuanJu/WanKaHuanJu.yaml'
     path: ./ruleset/bm7-WanKaHuanJu.yaml
     interval: 88745
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   majsoul:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Majsoul/Majsoul.yaml'
     path: ./ruleset/bm7-Majsoul.yaml
     interval: 88764
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   rockstar:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Rockstar/Rockstar.yaml'
     path: ./ruleset/bm7-Rockstar.yaml
     interval: 88786
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   riot:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Riot/Riot.yaml'
     path: ./ruleset/bm7-Riot.yaml
     interval: 88839
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   gog:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Gog/Gog.yaml'
     path: ./ruleset/bm7-Gog.yaml
     interval: 88801
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   supercell:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Supercell/Supercell.yaml'
     path: ./ruleset/bm7-Supercell.yaml
     interval: 88829
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   garena:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Garena/Garena.yaml'
     path: ./ruleset/bm7-Garena.yaml
     interval: 88882
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   hoyoverse:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/HoYoverse/HoYoverse.yaml'
     path: ./ruleset/bm7-HoYoverse.yaml
     interval: 88851
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   ubi:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/UBI/UBI.yaml'
     path: ./ruleset/bm7-UBI.yaml
     interval: 88884
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   wildrift:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/WildRift/WildRift.yaml'
     path: ./ruleset/bm7-WildRift.yaml
     interval: 88901
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   sony:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Sony/Sony.yaml'
     path: ./ruleset/bm7-Sony.yaml
     interval: 88928
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   yandex:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Yandex/Yandex.yaml'
     path: ./ruleset/bm7-Yandex.yaml
     interval: 88953
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   googledrive:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/GoogleDrive/GoogleDrive.yaml'
     path: ./ruleset/bm7-GoogleDrive.yaml
     interval: 88961
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   googleearth:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/GoogleEarth/GoogleEarth.yaml'
     path: ./ruleset/bm7-GoogleEarth.yaml
     interval: 88959
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   naver:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Naver/Naver.yaml'
     path: ./ruleset/bm7-Naver.yaml
     interval: 88963
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   scholar:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Scholar/Scholar.yaml'
     path: ./ruleset/bm7-Scholar.yaml
     interval: 88982
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   developer:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Developer/Developer.yaml'
     path: ./ruleset/bm7-Developer.yaml
     interval: 89020
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   python:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Python/Python.yaml'
     path: ./ruleset/bm7-Python.yaml
     interval: 89020
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   gitbook:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/GitBook/GitBook.yaml'
     path: ./ruleset/bm7-GitBook.yaml
     interval: 89037
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   jfrog:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Jfrog/Jfrog.yaml'
     path: ./ruleset/bm7-Jfrog.yaml
     interval: 89027
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   sublimetext:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/SublimeText/SublimeText.yaml'
     path: ./ruleset/bm7-SublimeText.yaml
     interval: 89048
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   wordpress:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Wordpress/Wordpress.yaml'
     path: ./ruleset/bm7-Wordpress.yaml
     interval: 89078
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   wix:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/WIX/WIX.yaml'
     path: ./ruleset/bm7-WIX.yaml
     interval: 89090
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   cisco:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Cisco/Cisco.yaml'
     path: ./ruleset/bm7-Cisco.yaml
     interval: 89086
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   ibm:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/IBM/IBM.yaml'
     path: ./ruleset/bm7-IBM.yaml
     interval: 89104
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   oracle:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Oracle/Oracle.yaml'
     path: ./ruleset/bm7-Oracle.yaml
     interval: 89132
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   unity:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Unity/Unity.yaml'
     path: ./ruleset/bm7-Unity.yaml
     interval: 89171
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   microsoftedge:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/MicrosoftEdge/MicrosoftEdge.yaml'
     path: ./ruleset/bm7-MicrosoftEdge.yaml
     interval: 89155
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   appstore:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/AppStore/AppStore.yaml'
     path: ./ruleset/bm7-AppStore.yaml
     interval: 89199
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   appletv:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/AppleTV/AppleTV.yaml'
     path: ./ruleset/bm7-AppleTV.yaml
     interval: 89185
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   applenews:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/AppleNews/AppleNews.yaml'
     path: ./ruleset/bm7-AppleNews.yaml
     interval: 89198
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   appledev:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/AppleDev/AppleDev.yaml'
     path: ./ruleset/bm7-AppleDev.yaml
     interval: 89229
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   appleproxy:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/AppleProxy/AppleProxy.yaml'
     path: ./ruleset/bm7-AppleProxy.yaml
     interval: 89272
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   siri:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Siri/Siri.yaml'
     path: ./ruleset/bm7-Siri.yaml
     interval: 89294
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   testflight:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/TestFlight/TestFlight.yaml'
     path: ./ruleset/bm7-TestFlight.yaml
     interval: 89288
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   applefirmware:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/AppleFirmware/AppleFirmware.yaml'
     path: ./ruleset/bm7-AppleFirmware.yaml
     interval: 89289
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   findmy:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/FindMy/FindMy.yaml'
     path: ./ruleset/bm7-FindMy.yaml
     interval: 89319
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   download:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Download/Download.yaml'
     path: ./ruleset/bm7-Download.yaml
     interval: 89308
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   ubuntu:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Ubuntu/Ubuntu.yaml'
     path: ./ruleset/bm7-Ubuntu.yaml
     interval: 89314
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   mozilla:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Mozilla/Mozilla.yaml'
     path: ./ruleset/bm7-Mozilla.yaml
     interval: 89358
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   apkpure:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Apkpure/Apkpure.yaml'
     path: ./ruleset/bm7-Apkpure.yaml
     interval: 89370
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   android:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Android/Android.yaml'
     path: ./ruleset/bm7-Android.yaml
     interval: 89376
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   googlefcm:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/GoogleFCM/GoogleFCM.yaml'
     path: ./ruleset/bm7-GoogleFCM.yaml
     interval: 89423
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   intel:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Intel/Intel.yaml'
     path: ./ruleset/bm7-Intel.yaml
     interval: 89437
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   nvidia:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Nvidia/Nvidia.yaml'
     path: ./ruleset/bm7-Nvidia.yaml
     interval: 89455
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   dell:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Dell/Dell.yaml'
     path: ./ruleset/bm7-Dell.yaml
     interval: 89451
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   hp:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/HP/HP.yaml'
     path: ./ruleset/bm7-HP.yaml
     interval: 89478
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   canon:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Canon/Canon.yaml'
     path: ./ruleset/bm7-Canon.yaml
     interval: 89493
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   lg:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/LG/LG.yaml'
     path: ./ruleset/bm7-LG.yaml
     interval: 89482
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   cloudflare:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Cloudflare/Cloudflare.yaml'
     path: ./ruleset/bm7-Cloudflare.yaml
     interval: 89506
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   akamai:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Akamai/Akamai.yaml'
     path: ./ruleset/bm7-Akamai.yaml
     interval: 89509
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   digicert:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/DigiCert/DigiCert.yaml'
     path: ./ruleset/bm7-DigiCert.yaml
     interval: 89526
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   globalsign:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/GlobalSign/GlobalSign.yaml'
     path: ./ruleset/bm7-GlobalSign.yaml
     interval: 89524
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   sectigo:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Sectigo/Sectigo.yaml'
     path: ./ruleset/bm7-Sectigo.yaml
     interval: 89550
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   brightcove:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/BrightCove/BrightCove.yaml'
     path: ./ruleset/bm7-BrightCove.yaml
     interval: 89609
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   jwplayer:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Jwplayer/Jwplayer.yaml'
     path: ./ruleset/bm7-Jwplayer.yaml
     interval: 89615
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   privatetracker:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/PrivateTracker/PrivateTracker.yaml'
     path: ./ruleset/bm7-PrivateTracker.yaml
     interval: 89614
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   cnn:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/CNN/CNN.yaml'
     path: ./ruleset/bm7-CNN.yaml
     interval: 89613
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   nytimes:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/NYTimes/NYTimes.yaml'
     path: ./ruleset/bm7-NYTimes.yaml
     interval: 89648
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   bloomberg:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Bloomberg/Bloomberg.yaml'
     path: ./ruleset/bm7-Bloomberg.yaml
     interval: 89680
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   ebay:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/eBay/eBay.yaml'
     path: ./ruleset/bm7-eBay.yaml
     interval: 89682
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   nike:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Nike/Nike.yaml'
     path: ./ruleset/bm7-Nike.yaml
     interval: 89685
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   adobe:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Adobe/Adobe.yaml'
     path: ./ruleset/bm7-Adobe.yaml
     interval: 89724
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   samsung:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Samsung/Samsung.yaml'
     path: ./ruleset/bm7-Samsung.yaml
     interval: 89739
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   tesla:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Tesla/Tesla.yaml'
     path: ./ruleset/bm7-Tesla.yaml
     interval: 89745
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   dropbox:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Dropbox/Dropbox.yaml'
     path: ./ruleset/bm7-Dropbox.yaml
     interval: 89723
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   mega:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/MEGA/MEGA.yaml'
     path: ./ruleset/bm7-MEGA.yaml
     interval: 89782
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   wikipedia:
     type: http
     behavior: classical
     url: 'https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Wikipedia/Wikipedia.yaml'
     path: ./ruleset/bm7-Wikipedia.yaml
     interval: 89783
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   duolingo:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Duolingo/Duolingo.yaml'
     path: ./ruleset/bm7-Duolingo.yaml
     interval: 89780
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   ckrvxr-antipcdn:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Ckrvxr/MihomoRules@main/Source/Addition/AntiPCDN.yaml'
     path: ./ruleset/ckrvxr-AntiPCDN.yaml
     interval: 89830
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   ckrvxr-antifraud:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Ckrvxr/MihomoRules@main/Source/Addition/AntiAntiFraud.yaml'
     path: ./ruleset/ckrvxr-AntiAntiFraud.yaml
     interval: 89839
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   sukka-phishing:
     type: http
     behavior: domain
@@ -2618,7 +2619,7 @@ rule-providers:
     url: 'https://ruleset.skk.moe/Clash/domainset/reject_phishing.txt'
     path: ./ruleset/sukka-reject-phishing.txt
     interval: 89828
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   hagezi-tif:
     type: http
     behavior: domain
@@ -2626,7 +2627,7 @@ rule-providers:
     url: 'https://fastly.jsdelivr.net/gh/MiHomoer/MiHomo-Hagezi@release/HageziUltimate.mrs'
     path: ./ruleset/hagezi-tif.mrs
     interval: 89867
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   szkane-ai:
     type: http
     behavior: classical
@@ -2634,7 +2635,7 @@ rule-providers:
     url: 'https://fastly.jsdelivr.net/gh/szkane/ClashRuleSet@main/Clash/Ruleset/AiDomain.list'
     path: ./ruleset/szkane-ai.list
     interval: 89888
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   szkane-ciciai:
     type: http
     behavior: classical
@@ -2642,7 +2643,7 @@ rule-providers:
     url: 'https://fastly.jsdelivr.net/gh/szkane/ClashRuleSet@main/Clash/Ruleset/CiciAi.list'
     path: ./ruleset/szkane-ciciai.list
     interval: 89873
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   szkane-web3:
     type: http
     behavior: classical
@@ -2650,7 +2651,7 @@ rule-providers:
     url: 'https://fastly.jsdelivr.net/gh/szkane/ClashRuleSet@main/Clash/Web3.list'
     path: ./ruleset/szkane-web3.list
     interval: 89879
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   szkane-developer:
     type: http
     behavior: classical
@@ -2658,7 +2659,7 @@ rule-providers:
     url: 'https://fastly.jsdelivr.net/gh/szkane/ClashRuleSet@main/Clash/Ruleset/Developer.list'
     path: ./ruleset/szkane-developer.list
     interval: 89889
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   szkane-khan:
     type: http
     behavior: classical
@@ -2666,7 +2667,7 @@ rule-providers:
     url: 'https://fastly.jsdelivr.net/gh/szkane/ClashRuleSet@main/Clash/Ruleset/Khan.list'
     path: ./ruleset/szkane-khan.list
     interval: 89922
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   szkane-edutools:
     type: http
     behavior: classical
@@ -2674,7 +2675,7 @@ rule-providers:
     url: 'https://fastly.jsdelivr.net/gh/szkane/ClashRuleSet@main/Clash/Ruleset/Edutools.list'
     path: ./ruleset/szkane-edutools.list
     interval: 89948
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   szkane-uk:
     type: http
     behavior: classical
@@ -2682,7 +2683,7 @@ rule-providers:
     url: 'https://fastly.jsdelivr.net/gh/szkane/ClashRuleSet@main/Clash/Ruleset/UK.list'
     path: ./ruleset/szkane-uk.list
     interval: 89954
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   szkane-bilihmt:
     type: http
     behavior: classical
@@ -2690,7 +2691,7 @@ rule-providers:
     url: 'https://fastly.jsdelivr.net/gh/szkane/ClashRuleSet@main/Clash/Ruleset/BilibiliHMT.list'
     path: ./ruleset/szkane-bilihmt.list
     interval: 89946
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   szkane-netflixip:
     type: http
     behavior: classical
@@ -2698,7 +2699,7 @@ rule-providers:
     url: 'https://fastly.jsdelivr.net/gh/szkane/ClashRuleSet@main/Clash/Ruleset/NetflixIP.list'
     path: ./ruleset/szkane-netflixip.list
     interval: 89975
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   szkane-proxygfw:
     type: http
     behavior: classical
@@ -2706,7 +2707,7 @@ rule-providers:
     url: 'https://fastly.jsdelivr.net/gh/szkane/ClashRuleSet@main/Clash/ProxyGFWlist.list'
     path: ./ruleset/szkane-proxygfw.list
     interval: 89983
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   loyalsoldier-gfw:
     type: http
     behavior: domain
@@ -2714,7 +2715,7 @@ rule-providers:
     url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/gfw.mrs'
     path: ./ruleset/meta-gfw.mrs
     interval: 90033
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   loyalsoldier-greatfire:
     type: http
     behavior: domain
@@ -2722,623 +2723,623 @@ rule-providers:
     url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/greatfire.mrs'
     path: ./ruleset/meta-greatfire.mrs
     interval: 90008
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-appleai:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/AppleAI/AppleAI.yaml'
     path: ./ruleset/acc-appleai.yaml
     interval: 90027
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-grok:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/Grok/Grok.yaml'
     path: ./ruleset/acc-grok.yaml
     interval: 90064
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-gemini:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/Gemini/Gemini.yaml'
     path: ./ruleset/acc-gemini.yaml
     interval: 90091
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-copilot:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/Copilot/Copilot.yaml'
     path: ./ruleset/acc-copilot.yaml
     interval: 90119
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-applenews:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/AppleNews/AppleNews.yaml'
     path: ./ruleset/acc-applenews.yaml
     interval: 90123
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-apple:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/Apple/Apple.yaml'
     path: ./ruleset/acc-apple.yaml
     interval: 90097
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-microsoftapps:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/MicrosoftAPPs/MicrosoftAPPs.yaml'
     path: ./ruleset/acc-microsoftapps.yaml
     interval: 90160
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-signal:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/Signal/Signal.yaml'
     path: ./ruleset/acc-signal.yaml
     interval: 90174
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-rustdesk:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/RustDesk/RustDesk.yaml'
     path: ./ruleset/acc-rustdesk.yaml
     interval: 90145
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-parsec:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/Parsec/Parsec.yaml'
     path: ./ruleset/acc-parsec.yaml
     interval: 90181
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-alipan:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/Alipan/Alipan.yaml'
     path: ./ruleset/acc-alipan.yaml
     interval: 90184
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-baidunetdisk:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/BaiduNetDisk/BaiduNetDisk.yaml'
     path: ./ruleset/acc-baidunetdisk.yaml
     interval: 90231
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-weiyun:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/WeiYun/WeiYun.yaml'
     path: ./ruleset/acc-weiyun.yaml
     interval: 90232
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-kwai:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/Kwai/Kwai.yaml'
     path: ./ruleset/acc-kwai.yaml
     interval: 90227
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-hijackingplus:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/HijackingPlus/HijackingPlus.yaml'
     path: ./ruleset/acc-hijackingplus.yaml
     interval: 90261
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-blockhttpdnsplus:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/BlockHttpDNSPlus/BlockHttpDNSPlus.yaml'
     path: ./ruleset/acc-blockhttpdnsplus.yaml
     interval: 90248
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-prerepaireasyprivacy:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/PreRepairEasyPrivacy/PreRepairEasyPrivacy.yaml'
     path: ./ruleset/acc-prerepaireasyprivacy.yaml
     interval: 90259
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-unsupportvpn:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/UnsupportVPN/UnsupportVPN.yaml'
     path: ./ruleset/acc-unsupportvpn.yaml
     interval: 90328
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-macappupgrade:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/MacAppUpgrade/MacAppUpgrade.yaml'
     path: ./ruleset/acc-macappupgrade.yaml
     interval: 90294
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-fastly:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/Fastly/Fastly.yaml'
     path: ./ruleset/acc-fastly.yaml
     interval: 90336
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-geositecn:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/GeositeCN/GeositeCN.yaml'
     path: ./ruleset/acc-geositecn.yaml
     interval: 90319
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-chinamax:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/ChinaMax/ChinaMax.yaml'
     path: ./ruleset/acc-chinamax.yaml
     interval: 90361
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-china:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/China/China.yaml'
     path: ./ruleset/acc-china.yaml
     interval: 90366
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-waybackmachine:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/WaybackMachine/WaybackMachine.yaml'
     path: ./ruleset/acc-waybackmachine.yaml
     interval: 90408
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-pornhub:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/Pornhub/Pornhub.yaml'
     path: ./ruleset/acc-pornhub.yaml
     interval: 90408
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-aqara-cn:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/Aqara/AqaraCN.yaml'
     path: ./ruleset/acc-aqara-cn.yaml
     interval: 90407
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-aqara-global:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/Aqara/AqaraGlobal.yaml'
     path: ./ruleset/acc-aqara-global.yaml
     interval: 90452
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-emuleserver:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/eMuleServer/eMuleServer.yaml'
     path: ./ruleset/acc-emuleserver.yaml
     interval: 90479
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-bank-us:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/Bank/BankUS.yaml'
     path: ./ruleset/acc-BankUS.yaml
     interval: 90465
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-bank-uk:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/Bank/BankUK.yaml'
     path: ./ruleset/acc-BankUK.yaml
     interval: 90470
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-bank-hk:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/Bank/BankHK.yaml'
     path: ./ruleset/acc-BankHK.yaml
     interval: 90501
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-bank-sg:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/Bank/BankSG.yaml'
     path: ./ruleset/acc-BankSG.yaml
     interval: 90535
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-bank-jp:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/Bank/BankJP.yaml'
     path: ./ruleset/acc-BankJP.yaml
     interval: 90533
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-bank-au:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/Bank/BankAU.yaml'
     path: ./ruleset/acc-BankAU.yaml
     interval: 90558
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-bank-ca:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/Bank/BankCA.yaml'
     path: ./ruleset/acc-BankCA.yaml
     interval: 90538
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-bank-de:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/Bank/BankDE.yaml'
     path: ./ruleset/acc-BankDE.yaml
     interval: 90567
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-bank-nl:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/Bank/BankNL.yaml'
     path: ./ruleset/acc-BankNL.yaml
     interval: 90613
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-bank-fr:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/Bank/BankFR.yaml'
     path: ./ruleset/acc-BankFR.yaml
     interval: 90629
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-vf-paypal:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/VirtualFinance/Paypal.yaml'
     path: ./ruleset/acc-Paypal.yaml
     interval: 90611
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-vf-wise:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/VirtualFinance/Wise.yaml'
     path: ./ruleset/acc-Wise.yaml
     interval: 90639
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-vf-monzo:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/VirtualFinance/Monzo.yaml'
     path: ./ruleset/acc-Monzo.yaml
     interval: 90624
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-vf-revolut:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/VirtualFinance/Revolut.yaml'
     path: ./ruleset/acc-Revolut.yaml
     interval: 90648
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-fl-bilibili:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/FakeLocation/FakeLocationBiliBili.yaml'
     path: ./ruleset/acc-FakeLocationBiliBili.yaml
     interval: 90654
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-fl-douyin:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/FakeLocation/FakeLocationDouYin.yaml'
     path: ./ruleset/acc-FakeLocationDouYin.yaml
     interval: 90689
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-fl-kuaishou:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/FakeLocation/FakeLocationKuaiShou.yaml'
     path: ./ruleset/acc-FakeLocationKuaiShou.yaml
     interval: 90706
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-fl-xiaohongshu:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/FakeLocation/FakeLocationXiaoHongShu.yaml'
     path: ./ruleset/acc-FakeLocationXiaoHongShu.yaml
     interval: 90735
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-fl-xigua:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/FakeLocation/FakeLocationXiGua.yaml'
     path: ./ruleset/acc-FakeLocationXiGua.yaml
     interval: 90755
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-fl-weibo:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/FakeLocation/FakeLocationWeiBo.yaml'
     path: ./ruleset/acc-FakeLocationWeiBo.yaml
     interval: 90743
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-fl-zhihu:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/FakeLocation/FakeLocationZhiHu.yaml'
     path: ./ruleset/acc-FakeLocationZhiHu.yaml
     interval: 90793
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-fl-tieba:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/FakeLocation/FakeLocationTieBa.yaml'
     path: ./ruleset/acc-FakeLocationTieBa.yaml
     interval: 90806
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-fl-douban:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/FakeLocation/FakeLocationDouBan.yaml'
     path: ./ruleset/acc-FakeLocationDouBan.yaml
     interval: 90822
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-fl-xianyu:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/FakeLocation/FakeLocationXianYu.yaml'
     path: ./ruleset/acc-FakeLocationXianYu.yaml
     interval: 90818
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-homeip-us:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/HomeIP/HomeIPUS.yaml'
     path: ./ruleset/acc-HomeIPUS.yaml
     interval: 90850
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-homeip-jp:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/HomeIP/HomeIPJP.yaml'
     path: ./ruleset/acc-HomeIPJP.yaml
     interval: 90838
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-geo-d-asia-east:
     type: http
     behavior: domain
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/GeoRouting_For_Domain/GeoRouting_Asia_East_ccTLD_Domain.yaml'
     path: ./ruleset/acc-GeoD-Asia_East.yaml
     interval: 90867
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-geo-ip-asia-east:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/GeoRouting_For_IP/GeoRouting_Asia_East_GeoIP.yaml'
     path: ./ruleset/acc-GeoIP-Asia_East.yaml
     interval: 90862
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-geo-d-asia-eastsouth:
     type: http
     behavior: domain
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/GeoRouting_For_Domain/GeoRouting_Asia_EastSouth_ccTLD_Domain.yaml'
     path: ./ruleset/acc-GeoD-Asia_EastSouth.yaml
     interval: 90894
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-geo-ip-asia-eastsouth:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/GeoRouting_For_IP/GeoRouting_Asia_EastSouth_GeoIP.yaml'
     path: ./ruleset/acc-GeoIP-Asia_EastSouth.yaml
     interval: 90893
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-geo-d-asia-south:
     type: http
     behavior: domain
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/GeoRouting_For_Domain/GeoRouting_Asia_South_ccTLD_Domain.yaml'
     path: ./ruleset/acc-GeoD-Asia_South.yaml
     interval: 90935
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-geo-ip-asia-south:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/GeoRouting_For_IP/GeoRouting_Asia_South_GeoIP.yaml'
     path: ./ruleset/acc-GeoIP-Asia_South.yaml
     interval: 90903
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-geo-d-asia-central:
     type: http
     behavior: domain
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/GeoRouting_For_Domain/GeoRouting_Asia_Central_ccTLD_Domain.yaml'
     path: ./ruleset/acc-GeoD-Asia_Central.yaml
     interval: 90924
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-geo-ip-asia-central:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/GeoRouting_For_IP/GeoRouting_Asia_Central_GeoIP.yaml'
     path: ./ruleset/acc-GeoIP-Asia_Central.yaml
     interval: 90979
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-geo-d-asia-west:
     type: http
     behavior: domain
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/GeoRouting_For_Domain/GeoRouting_Asia_West_ccTLD_Domain.yaml'
     path: ./ruleset/acc-GeoD-Asia_West.yaml
     interval: 90953
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-geo-ip-asia-west:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/GeoRouting_For_IP/GeoRouting_Asia_West_GeoIP.yaml'
     path: ./ruleset/acc-GeoIP-Asia_West.yaml
     interval: 90973
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-geo-d-asia-china:
     type: http
     behavior: domain
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/GeoRouting_For_Domain/GeoRouting_Asia_China_ccTLD_Domain.yaml'
     path: ./ruleset/acc-GeoD-Asia_China.yaml
     interval: 91026
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-geo-ip-asia-china:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/GeoRouting_For_IP/GeoRouting_Asia_China_GeoIP.yaml'
     path: ./ruleset/acc-GeoIP-Asia_China.yaml
     interval: 91027
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-geo-d-america-north:
     type: http
     behavior: domain
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/GeoRouting_For_Domain/GeoRouting_America_North_ccTLD_Domain.yaml'
     path: ./ruleset/acc-GeoD-America_North.yaml
     interval: 91062
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-geo-ip-america-north:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/GeoRouting_For_IP/GeoRouting_America_North_GeoIP.yaml'
     path: ./ruleset/acc-GeoIP-America_North.yaml
     interval: 91051
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-geo-d-america-south:
     type: http
     behavior: domain
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/GeoRouting_For_Domain/GeoRouting_America_South_ccTLD_Domain.yaml'
     path: ./ruleset/acc-GeoD-America_South.yaml
     interval: 91046
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-geo-ip-america-south:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/GeoRouting_For_IP/GeoRouting_America_South_GeoIP.yaml'
     path: ./ruleset/acc-GeoIP-America_South.yaml
     interval: 91089
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-geo-d-europe-west:
     type: http
     behavior: domain
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/GeoRouting_For_Domain/GeoRouting_Europe_West_ccTLD_Domain.yaml'
     path: ./ruleset/acc-GeoD-Europe_West.yaml
     interval: 91071
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-geo-ip-europe-west:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/GeoRouting_For_IP/GeoRouting_Europe_West_GeoIP.yaml'
     path: ./ruleset/acc-GeoIP-Europe_West.yaml
     interval: 91107
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-geo-d-europe-east:
     type: http
     behavior: domain
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/GeoRouting_For_Domain/GeoRouting_Europe_East_ccTLD_Domain.yaml'
     path: ./ruleset/acc-GeoD-Europe_East.yaml
     interval: 91126
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-geo-ip-europe-east:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/GeoRouting_For_IP/GeoRouting_Europe_East_GeoIP.yaml'
     path: ./ruleset/acc-GeoIP-Europe_East.yaml
     interval: 91161
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-geo-d-oceania:
     type: http
     behavior: domain
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/GeoRouting_For_Domain/GeoRouting_Oceania_ccTLD_Domain.yaml'
     path: ./ruleset/acc-GeoD-Oceania.yaml
     interval: 91172
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-geo-ip-oceania:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/GeoRouting_For_IP/GeoRouting_Oceania_GeoIP.yaml'
     path: ./ruleset/acc-GeoIP-Oceania.yaml
     interval: 91146
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-geo-d-antarctica:
     type: http
     behavior: domain
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/GeoRouting_For_Domain/GeoRouting_Antarctica_ccTLD_Domain.yaml'
     path: ./ruleset/acc-GeoD-Antarctica.yaml
     interval: 91191
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-geo-ip-antarctica:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/GeoRouting_For_IP/GeoRouting_Antarctica_GeoIP.yaml'
     path: ./ruleset/acc-GeoIP-Antarctica.yaml
     interval: 91211
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-geo-d-africa-north:
     type: http
     behavior: domain
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/GeoRouting_For_Domain/GeoRouting_Africa_North_ccTLD_Domain.yaml'
     path: ./ruleset/acc-GeoD-Africa_North.yaml
     interval: 91195
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-geo-ip-africa-north:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/GeoRouting_For_IP/GeoRouting_Africa_North_GeoIP.yaml'
     path: ./ruleset/acc-GeoIP-Africa_North.yaml
     interval: 91206
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-geo-d-africa-south:
     type: http
     behavior: domain
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/GeoRouting_For_Domain/GeoRouting_Africa_South_ccTLD_Domain.yaml'
     path: ./ruleset/acc-GeoD-Africa_South.yaml
     interval: 91273
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-geo-ip-africa-south:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/GeoRouting_For_IP/GeoRouting_Africa_South_GeoIP.yaml'
     path: ./ruleset/acc-GeoIP-Africa_South.yaml
     interval: 91251
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-geo-d-africa-west:
     type: http
     behavior: domain
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/GeoRouting_For_Domain/GeoRouting_Africa_West_ccTLD_Domain.yaml'
     path: ./ruleset/acc-GeoD-Africa_West.yaml
     interval: 91299
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-geo-ip-africa-west:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/GeoRouting_For_IP/GeoRouting_Africa_West_GeoIP.yaml'
     path: ./ruleset/acc-GeoIP-Africa_West.yaml
     interval: 91278
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-geo-d-africa-east:
     type: http
     behavior: domain
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/GeoRouting_For_Domain/GeoRouting_Africa_East_ccTLD_Domain.yaml'
     path: ./ruleset/acc-GeoD-Africa_East.yaml
     interval: 91293
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-geo-ip-africa-east:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/GeoRouting_For_IP/GeoRouting_Africa_East_GeoIP.yaml'
     path: ./ruleset/acc-GeoIP-Africa_East.yaml
     interval: 91328
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-geo-d-africa-central:
     type: http
     behavior: domain
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/GeoRouting_For_Domain/GeoRouting_Africa_Central_ccTLD_Domain.yaml'
     path: ./ruleset/acc-GeoD-Africa_Central.yaml
     interval: 91360
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
   acc-geo-ip-africa-central:
     type: http
     behavior: classical
     url: 'https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/GeoRouting_For_IP/GeoRouting_Africa_Central_GeoIP.yaml'
     path: ./ruleset/acc-GeoIP-Africa_Central.yaml
     interval: 91347
-    proxy: '☁️ 云与CDN'
+    proxy: '🚫 受限网站'
 rules:
 - 'RULE-SET,anti-ad,🛑 广告拦截'
 - 'RULE-SET,sukka-phishing,🛑 广告拦截'
