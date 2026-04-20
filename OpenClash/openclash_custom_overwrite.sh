@@ -2,7 +2,7 @@
 . /usr/share/openclash/log.sh
 
 # ============================================================================
-# Clash Smart v5.3.1-oc-slim — OpenClash 覆写脚本（R4S 4GB 内存优化版，DNS 冷启动修复）
+# Clash Smart v5.3.3-oc-slim — OpenClash 覆写脚本（R4S 4GB 内存优化版，DNS 冷启动修复 + RP 代理对齐 Clash Party）
 # ============================================================================
 # 基于 v5.2.4-oc 针对 OOM 问题重构
 #
@@ -38,7 +38,7 @@
 #     c) 最后才动 uselightgbm
 # ============================================================================
 
-VERSION_TAG="v5.3.2-dns-rescue-no-rules"
+VERSION_TAG="v5.3.3-align-rp-proxy-gfw"
 CONFIG_FILE="$1"
 LOG_FILE="/tmp/openclash.log"
 
@@ -358,7 +358,7 @@ rule-providers:
     url: https://fastly.jsdelivr.net/gh/DustinWin/ruleset_geodata@mihomo-ruleset/ads.mrs
     path: ./ruleset/anti-ad.mrs
     interval: 85527
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   sukka-phishing:
     type: http
     behavior: domain
@@ -366,7 +366,7 @@ rule-providers:
     url: https://ruleset.skk.moe/Clash/domainset/reject_phishing.txt
     path: ./ruleset/sukka-reject-phishing.txt
     interval: 89805
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   hagezi-tif:
     type: http
     behavior: domain
@@ -374,35 +374,35 @@ rule-providers:
     url: https://fastly.jsdelivr.net/gh/MiHomoer/MiHomo-Hagezi@release/HageziUltimate.mrs
     path: ./ruleset/hagezi-tif.mrs
     interval: 89837
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   advertising:
     type: http
     behavior: classical
     url: https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Advertising/Advertising.yaml
     path: ./ruleset/bm7-Advertising.yaml
     interval: 86613
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   acc-hijackingplus:
     type: http
     behavior: classical
     url: https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/HijackingPlus/HijackingPlus.yaml
     path: ./ruleset/acc-hijackingplus.yaml
     interval: 90219
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   acc-blockhttpdnsplus:
     type: http
     behavior: classical
     url: https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/BlockHttpDNSPlus/BlockHttpDNSPlus.yaml
     path: ./ruleset/acc-blockhttpdnsplus.yaml
     interval: 90221
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   acc-prerepaireasyprivacy:
     type: http
     behavior: classical
     url: https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/PreRepairEasyPrivacy/PreRepairEasyPrivacy.yaml
     path: ./ruleset/acc-prerepaireasyprivacy.yaml
     interval: 90279
-    proxy: DIRECT
+    proxy: 🚫 受限网站
 
   # ---------- AI 服务 (9) ----------
   openai:
@@ -412,28 +412,28 @@ rule-providers:
     url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/openai.mrs
     path: ./ruleset/meta-openai.mrs
     interval: 85534
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   claude:
     type: http
     behavior: classical
     url: https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Claude/Claude.yaml
     path: ./ruleset/bm7-Claude.yaml
     interval: 85548
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   gemini:
     type: http
     behavior: classical
     url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Gemini/Gemini.yaml
     path: ./ruleset/bm7-Gemini.yaml
     interval: 85582
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   copilot:
     type: http
     behavior: classical
     url: https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Copilot/Copilot.yaml
     path: ./ruleset/bm7-Copilot.yaml
     interval: 85608
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   szkane-ai:
     type: http
     behavior: classical
@@ -441,7 +441,7 @@ rule-providers:
     url: https://fastly.jsdelivr.net/gh/szkane/ClashRuleSet@main/Clash/Ruleset/AiDomain.list
     path: ./ruleset/szkane-ai.list
     interval: 89853
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   szkane-ciciai:
     type: http
     behavior: classical
@@ -449,28 +449,28 @@ rule-providers:
     url: https://fastly.jsdelivr.net/gh/szkane/ClashRuleSet@main/Clash/Ruleset/CiciAi.list
     path: ./ruleset/szkane-ciciai.list
     interval: 89847
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   acc-appleai:
     type: http
     behavior: classical
     url: https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/AppleAI/AppleAI.yaml
     path: ./ruleset/acc-appleai.yaml
     interval: 89997
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   acc-grok:
     type: http
     behavior: classical
     url: https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/Grok/Grok.yaml
     path: ./ruleset/acc-grok.yaml
     interval: 90000
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   civitai:
     type: http
     behavior: classical
     url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Civitai/Civitai.yaml
     path: ./ruleset/bm7-Civitai.yaml
     interval: 86768
-    proxy: DIRECT
+    proxy: 🚫 受限网站
 
   # ---------- 加密货币 (3) ★ 用户核心业务 ★ ----------
   cryptocurrency:
@@ -479,14 +479,14 @@ rule-providers:
     url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Cryptocurrency/Cryptocurrency.yaml
     path: ./ruleset/bm7-Cryptocurrency.yaml
     interval: 85615
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   binance:
     type: http
     behavior: classical
     url: https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Binance/Binance.yaml
     path: ./ruleset/bm7-Binance.yaml
     interval: 86777
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   szkane-web3:
     type: http
     behavior: classical
@@ -494,7 +494,7 @@ rule-providers:
     url: https://fastly.jsdelivr.net/gh/szkane/ClashRuleSet@main/Clash/Web3.list
     path: ./ruleset/szkane-web3.list
     interval: 89867
-    proxy: DIRECT
+    proxy: 🚫 受限网站
 
   # ---------- 金融支付 (8, 从 18 精简) ----------
   paypal:
@@ -503,56 +503,56 @@ rule-providers:
     url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/PayPal/PayPal.yaml
     path: ./ruleset/bm7-PayPal.yaml
     interval: 86424
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   stripe:
     type: http
     behavior: classical
     url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Stripe/Stripe.yaml
     path: ./ruleset/bm7-Stripe.yaml
     interval: 86776
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   visa:
     type: http
     behavior: classical
     url: https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/VISA/VISA.yaml
     path: ./ruleset/bm7-VISA.yaml
     interval: 86839
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   tigerfintech:
     type: http
     behavior: classical
     url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/TigerFintech/TigerFintech.yaml
     path: ./ruleset/bm7-TigerFintech.yaml
     interval: 86817
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   acc-bank-us:
     type: http
     behavior: classical
     url: https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/Bank/BankUS.yaml
     path: ./ruleset/acc-BankUS.yaml
     interval: 90425
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   acc-bank-hk:
     type: http
     behavior: classical
     url: https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/Bank/BankHK.yaml
     path: ./ruleset/acc-BankHK.yaml
     interval: 90460
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   acc-bank-sg:
     type: http
     behavior: classical
     url: https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/Bank/BankSG.yaml
     path: ./ruleset/acc-BankSG.yaml
     interval: 90442
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   acc-vf-paypal:
     type: http
     behavior: classical
     url: https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/VirtualFinance/Paypal.yaml
     path: ./ruleset/acc-Paypal.yaml
     interval: 90560
-    proxy: DIRECT
+    proxy: 🚫 受限网站
 
   # ---------- 邮件服务 (3) ----------
   mail:
@@ -561,21 +561,21 @@ rule-providers:
     url: https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Mail/Mail.yaml
     path: ./ruleset/bm7-Mail.yaml
     interval: 86823
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   protonmail:
     type: http
     behavior: classical
     url: https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Protonmail/Protonmail.yaml
     path: ./ruleset/bm7-Protonmail.yaml
     interval: 86900
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   spark:
     type: http
     behavior: classical
     url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Spark/Spark.yaml
     path: ./ruleset/bm7-Spark.yaml
     interval: 86922
-    proxy: DIRECT
+    proxy: 🚫 受限网站
 
   # ---------- 即时通讯 (6) ----------
   telegram:
@@ -585,7 +585,7 @@ rule-providers:
     url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/telegram.mrs
     path: ./ruleset/meta-telegram.mrs
     interval: 85645
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   telegram-ip:
     type: http
     behavior: ipcidr
@@ -593,35 +593,35 @@ rule-providers:
     url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/telegram.mrs
     path: ./ruleset/meta-ip-telegram.mrs
     interval: 85653
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   discord:
     type: http
     behavior: classical
     url: https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Discord/Discord.yaml
     path: ./ruleset/bm7-Discord.yaml
     interval: 85629
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   whatsapp:
     type: http
     behavior: classical
     url: https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Whatsapp/Whatsapp.yaml
     path: ./ruleset/bm7-Whatsapp.yaml
     interval: 85703
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   line:
     type: http
     behavior: classical
     url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Line/Line.yaml
     path: ./ruleset/bm7-Line.yaml
     interval: 85637
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   acc-signal:
     type: http
     behavior: classical
     url: https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/Signal/Signal.yaml
     path: ./ruleset/acc-signal.yaml
     interval: 90105
-    proxy: DIRECT
+    proxy: 🚫 受限网站
 
   # ---------- 社交媒体 (10) ----------
   twitter:
@@ -631,7 +631,7 @@ rule-providers:
     url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/twitter.mrs
     path: ./ruleset/meta-twitter.mrs
     interval: 85717
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   twitter-ip:
     type: http
     behavior: ipcidr
@@ -639,7 +639,7 @@ rule-providers:
     url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/twitter.mrs
     path: ./ruleset/meta-ip-twitter.mrs
     interval: 85702
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   tiktok:
     type: http
     behavior: domain
@@ -647,21 +647,21 @@ rule-providers:
     url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/tiktok.mrs
     path: ./ruleset/meta-tiktok.mrs
     interval: 85719
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   reddit:
     type: http
     behavior: classical
     url: https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Reddit/Reddit.yaml
     path: ./ruleset/bm7-Reddit.yaml
     interval: 85764
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   facebook:
     type: http
     behavior: classical
     url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Facebook/Facebook.yaml
     path: ./ruleset/bm7-Facebook.yaml
     interval: 85781
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   facebook-ip:
     type: http
     behavior: ipcidr
@@ -669,35 +669,35 @@ rule-providers:
     url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/facebook.mrs
     path: ./ruleset/meta-ip-facebook.mrs
     interval: 85821
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   instagram:
     type: http
     behavior: classical
     url: https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Instagram/Instagram.yaml
     path: ./ruleset/bm7-Instagram.yaml
     interval: 85758
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   pinterest:
     type: http
     behavior: classical
     url: https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Pinterest/Pinterest.yaml
     path: ./ruleset/bm7-Pinterest.yaml
     interval: 85841
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   linkedin:
     type: http
     behavior: classical
     url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/LinkedIn/LinkedIn.yaml
     path: ./ruleset/bm7-LinkedIn.yaml
     interval: 85810
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   pixiv:
     type: http
     behavior: classical
     url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Pixiv/Pixiv.yaml
     path: ./ruleset/bm7-Pixiv.yaml
     interval: 87046
-    proxy: DIRECT
+    proxy: 🚫 受限网站
 
   # ---------- 会议协作 (7) ----------
   zoom:
@@ -706,49 +706,49 @@ rule-providers:
     url: https://fastly.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Providers/Ruleset/Zoom.yaml
     path: ./ruleset/acl4ssr-Zoom.yaml
     interval: 85865
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   slack:
     type: http
     behavior: classical
     url: https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Slack/Slack.yaml
     path: ./ruleset/bm7-Slack.yaml
     interval: 85862
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   teams:
     type: http
     behavior: classical
     url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Teams/Teams.yaml
     path: ./ruleset/bm7-Teams.yaml
     interval: 85909
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   atlassian:
     type: http
     behavior: classical
     url: https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Atlassian/Atlassian.yaml
     path: ./ruleset/bm7-Atlassian.yaml
     interval: 87170
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   notion:
     type: http
     behavior: classical
     url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Notion/Notion.yaml
     path: ./ruleset/bm7-Notion.yaml
     interval: 87139
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   remotedesktop:
     type: http
     behavior: classical
     url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/RemoteDesktop/RemoteDesktop.yaml
     path: ./ruleset/bm7-RemoteDesktop.yaml
     interval: 87272
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   acc-rustdesk:
     type: http
     behavior: classical
     url: https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/RustDesk/RustDesk.yaml
     path: ./ruleset/acc-rustdesk.yaml
     interval: 90149
-    proxy: DIRECT
+    proxy: 🚫 受限网站
 
   # ---------- 搜索 + Google 家族 (3, 合并 5 项) ----------
   google:
@@ -758,7 +758,7 @@ rule-providers:
     url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/google.mrs
     path: ./ruleset/meta-google.mrs
     interval: 85910
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   google-ip:
     type: http
     behavior: ipcidr
@@ -766,14 +766,14 @@ rule-providers:
     url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/google.mrs
     path: ./ruleset/meta-ip-google.mrs
     interval: 85890
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   bing:
     type: http
     behavior: classical
     url: https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Bing/Bing.yaml
     path: ./ruleset/bm7-Bing.yaml
     interval: 85928
-    proxy: DIRECT
+    proxy: 🚫 受限网站
 
   # ---------- 开发者服务 (4) ----------
   github:
@@ -783,21 +783,21 @@ rule-providers:
     url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/github.mrs
     path: ./ruleset/meta-github.mrs
     interval: 86388
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   docker:
     type: http
     behavior: classical
     url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Docker/Docker.yaml
     path: ./ruleset/bm7-Docker.yaml
     interval: 86390
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   developer:
     type: http
     behavior: classical
     url: https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Developer/Developer.yaml
     path: ./ruleset/bm7-Developer.yaml
     interval: 89027
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   szkane-developer:
     type: http
     behavior: classical
@@ -805,7 +805,7 @@ rule-providers:
     url: https://fastly.jsdelivr.net/gh/szkane/ClashRuleSet@main/Clash/Ruleset/Developer.list
     path: ./ruleset/szkane-developer.list
     interval: 89876
-    proxy: DIRECT
+    proxy: 🚫 受限网站
 
   # ---------- 微软 (3) ----------
   microsoft:
@@ -815,7 +815,7 @@ rule-providers:
     url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/microsoft.mrs
     path: ./ruleset/meta-microsoft.mrs
     interval: 86330
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   onedrive:
     type: http
     behavior: domain
@@ -823,14 +823,14 @@ rule-providers:
     url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/onedrive.mrs
     path: ./ruleset/meta-onedrive.mrs
     interval: 86323
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   acc-microsoftapps:
     type: http
     behavior: classical
     url: https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/MicrosoftAPPs/MicrosoftAPPs.yaml
     path: ./ruleset/acc-microsoftapps.yaml
     interval: 90083
-    proxy: DIRECT
+    proxy: 🚫 受限网站
 
   # ---------- 苹果 (5, 从 14 合并) ----------
   apple:
@@ -840,7 +840,7 @@ rule-providers:
     url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/apple.mrs
     path: ./ruleset/meta-apple.mrs
     interval: 86384
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   icloud:
     type: http
     behavior: domain
@@ -848,28 +848,28 @@ rule-providers:
     url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/icloud.mrs
     path: ./ruleset/meta-icloud.mrs
     interval: 86390
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   applemusic:
     type: http
     behavior: classical
     url: https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/AppleMusic/AppleMusic.yaml
     path: ./ruleset/bm7-AppleMusic.yaml
     interval: 86380
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   appstore:
     type: http
     behavior: classical
     url: https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/AppStore/AppStore.yaml
     path: ./ruleset/bm7-AppStore.yaml
     interval: 89218
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   acc-apple:
     type: http
     behavior: classical
     url: https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/Apple/Apple.yaml
     path: ./ruleset/acc-apple.yaml
     interval: 90086
-    proxy: DIRECT
+    proxy: 🚫 受限网站
 
   # ---------- 下载更新 (3, 从 12 精简) ----------
   systemota:
@@ -878,21 +878,21 @@ rule-providers:
     url: https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/SystemOTA/SystemOTA.yaml
     path: ./ruleset/bm7-SystemOTA.yaml
     interval: 86505
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   download:
     type: http
     behavior: classical
     url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Download/Download.yaml
     path: ./ruleset/bm7-Download.yaml
     interval: 89336
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   acc-macappupgrade:
     type: http
     behavior: classical
     url: https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/MacAppUpgrade/MacAppUpgrade.yaml
     path: ./ruleset/acc-macappupgrade.yaml
     interval: 90283
-    proxy: DIRECT
+    proxy: 🚫 受限网站
 
   # ---------- 云与 CDN (6) ----------
   cloudflare-ip:
@@ -902,7 +902,7 @@ rule-providers:
     url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/cloudflare.mrs
     path: ./ruleset/meta-ip-cloudflare.mrs
     interval: 86448
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   cloudfront-ip:
     type: http
     behavior: ipcidr
@@ -910,7 +910,7 @@ rule-providers:
     url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/cloudfront.mrs
     path: ./ruleset/meta-ip-cloudfront.mrs
     interval: 86460
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   fastly-ip:
     type: http
     behavior: ipcidr
@@ -918,28 +918,28 @@ rule-providers:
     url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/fastly.mrs
     path: ./ruleset/meta-ip-fastly.mrs
     interval: 86488
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   cloudflare:
     type: http
     behavior: classical
     url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Cloudflare/Cloudflare.yaml
     path: ./ruleset/bm7-Cloudflare.yaml
     interval: 89493
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   akamai:
     type: http
     behavior: classical
     url: https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Akamai/Akamai.yaml
     path: ./ruleset/bm7-Akamai.yaml
     interval: 89500
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   acc-fastly:
     type: http
     behavior: classical
     url: https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/Fastly/Fastly.yaml
     path: ./ruleset/acc-fastly.yaml
     interval: 90278
-    proxy: DIRECT
+    proxy: 🚫 受限网站
 
   # ---------- BT/PT Tracker (1) ----------
   privatetracker:
@@ -948,7 +948,7 @@ rule-providers:
     url: https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/PrivateTracker/PrivateTracker.yaml
     path: ./ruleset/bm7-PrivateTracker.yaml
     interval: 89599
-    proxy: DIRECT
+    proxy: 🚫 受限网站
 
   # ---------- 国内网站+流媒体 (12, 从 ~50 精简) ----------
   bilibili:
@@ -958,56 +958,56 @@ rule-providers:
     url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/bilibili.mrs
     path: ./ruleset/meta-bilibili.mrs
     interval: 86523
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   iqiyi:
     type: http
     behavior: classical
     url: https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/iQIYI/iQIYI.yaml
     path: ./ruleset/bm7-iQIYI.yaml
     interval: 87249
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   tencentvideo:
     type: http
     behavior: classical
     url: https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/TencentVideo/TencentVideo.yaml
     path: ./ruleset/bm7-TencentVideo.yaml
     interval: 87293
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   douyin:
     type: http
     behavior: classical
     url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/DouYin/DouYin.yaml
     path: ./ruleset/bm7-DouYin.yaml
     interval: 87311
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   bytedance:
     type: http
     behavior: classical
     url: https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/ByteDance/ByteDance.yaml
     path: ./ruleset/bm7-ByteDance.yaml
     interval: 87331
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   xiaohongshu:
     type: http
     behavior: classical
     url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/XiaoHongShu/XiaoHongShu.yaml
     path: ./ruleset/bm7-XiaoHongShu.yaml
     interval: 87359
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   weibo:
     type: http
     behavior: classical
     url: https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Weibo/Weibo.yaml
     path: ./ruleset/bm7-Weibo.yaml
     interval: 87360
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   neteasemusic:
     type: http
     behavior: classical
     url: https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/NetEaseMusic/NetEaseMusic.yaml
     path: ./ruleset/bm7-NetEaseMusic.yaml
     interval: 87397
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   cn:
     type: http
     behavior: domain
@@ -1015,7 +1015,7 @@ rule-providers:
     url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/cn.mrs
     path: ./ruleset/meta-cn.mrs
     interval: 86580
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   cn-ip:
     type: http
     behavior: ipcidr
@@ -1023,21 +1023,21 @@ rule-providers:
     url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/cn.mrs
     path: ./ruleset/meta-ip-cn.mrs
     interval: 86582
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   acc-china:
     type: http
     behavior: classical
     url: https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/China/China.yaml
     path: ./ruleset/acc-china.yaml
     interval: 90319
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   acc-chinamax:
     type: http
     behavior: classical
     url: https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/ChinaMax/ChinaMax.yaml
     path: ./ruleset/acc-chinamax.yaml
     interval: 90356
-    proxy: DIRECT
+    proxy: 🚫 受限网站
 
   # ---------- 东南亚流媒体 (4) ----------
   viu:
@@ -1046,14 +1046,14 @@ rule-providers:
     url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/ViuTV/ViuTV.yaml
     path: ./ruleset/bm7-ViuTV.yaml
     interval: 86499
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   wetv:
     type: http
     behavior: classical
     url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/WeTV/WeTV.yaml
     path: ./ruleset/bm7-WeTV.yaml
     interval: 87970
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   biliintl:
     type: http
     behavior: domain
@@ -1061,14 +1061,14 @@ rule-providers:
     url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/biliintl.mrs
     path: ./ruleset/meta-biliintl.mrs
     interval: 86528
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   joox:
     type: http
     behavior: classical
     url: https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/JOOX/JOOX.yaml
     path: ./ruleset/bm7-JOOX.yaml
     interval: 87938
-    proxy: DIRECT
+    proxy: 🚫 受限网站
 
   # ---------- 美国流媒体 (11, 从 33 精简) ----------
   youtube:
@@ -1078,7 +1078,7 @@ rule-providers:
     url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/youtube.mrs
     path: ./ruleset/meta-youtube.mrs
     interval: 85944
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   netflix:
     type: http
     behavior: domain
@@ -1086,7 +1086,7 @@ rule-providers:
     url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/netflix.mrs
     path: ./ruleset/meta-netflix.mrs
     interval: 86007
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   netflix-ip:
     type: http
     behavior: ipcidr
@@ -1094,7 +1094,7 @@ rule-providers:
     url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/netflix.mrs
     path: ./ruleset/meta-ip-netflix.mrs
     interval: 85988
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   spotify:
     type: http
     behavior: domain
@@ -1102,49 +1102,49 @@ rule-providers:
     url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/spotify.mrs
     path: ./ruleset/meta-spotify.mrs
     interval: 85987
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   disney:
     type: http
     behavior: classical
     url: https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Disney/Disney.yaml
     path: ./ruleset/bm7-Disney.yaml
     interval: 86026
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   hbo:
     type: http
     behavior: classical
     url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/HBO/HBO.yaml
     path: ./ruleset/bm7-HBO.yaml
     interval: 86018
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   primevideo:
     type: http
     behavior: classical
     url: https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/PrimeVideo/PrimeVideo.yaml
     path: ./ruleset/bm7-PrimeVideo.yaml
     interval: 86082
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   hulu:
     type: http
     behavior: classical
     url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Hulu/Hulu.yaml
     path: ./ruleset/bm7-Hulu.yaml
     interval: 86042
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   amazon:
     type: http
     behavior: classical
     url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Amazon/Amazon.yaml
     path: ./ruleset/bm7-Amazon.yaml
     interval: 86104
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   twitch:
     type: http
     behavior: classical
     url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Twitch/Twitch.yaml
     path: ./ruleset/bm7-Twitch.yaml
     interval: 86120
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   szkane-netflixip:
     type: http
     behavior: classical
@@ -1152,7 +1152,7 @@ rule-providers:
     url: https://fastly.jsdelivr.net/gh/szkane/ClashRuleSet@main/Clash/Ruleset/NetflixIP.list
     path: ./ruleset/szkane-netflixip.list
     interval: 89943
-    proxy: DIRECT
+    proxy: 🚫 受限网站
 
   # ---------- 香港流媒体 (2, 从 10 精简) ----------
   mytvsuper:
@@ -1161,14 +1161,14 @@ rule-providers:
     url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/myTVSUPER/myTVSUPER.yaml
     path: ./ruleset/bm7-myTVSUPER.yaml
     interval: 88305
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   tvb:
     type: http
     behavior: classical
     url: https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/TVB/TVB.yaml
     path: ./ruleset/bm7-TVB.yaml
     interval: 88347
-    proxy: DIRECT
+    proxy: 🚫 受限网站
 
   # ---------- 台湾流媒体 (4, 从 10 精简) ----------
   bahamut:
@@ -1178,21 +1178,21 @@ rule-providers:
     url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/bahamut.mrs
     path: ./ruleset/meta-bahamut.mrs
     interval: 86163
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   kktv:
     type: http
     behavior: classical
     url: https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/KKTV/KKTV.yaml
     path: ./ruleset/bm7-KKTV.yaml
     interval: 86133
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   litv:
     type: http
     behavior: classical
     url: https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/LiTV/LiTV.yaml
     path: ./ruleset/bm7-LiTV.yaml
     interval: 88415
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   szkane-bilihmt:
     type: http
     behavior: classical
@@ -1200,7 +1200,7 @@ rule-providers:
     url: https://fastly.jsdelivr.net/gh/szkane/ClashRuleSet@main/Clash/Ruleset/BilibiliHMT.list
     path: ./ruleset/szkane-bilihmt.list
     interval: 89966
-    proxy: DIRECT
+    proxy: 🚫 受限网站
 
   # ---------- 日韩流媒体 (3) ----------
   abema:
@@ -1210,21 +1210,21 @@ rule-providers:
     url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/abema.mrs
     path: ./ruleset/meta-abema.mrs
     interval: 86154
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   dazn:
     type: http
     behavior: classical
     url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/DAZN/DAZN.yaml
     path: ./ruleset/bm7-DAZN.yaml
     interval: 86194
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   niconico:
     type: http
     behavior: classical
     url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Niconico/Niconico.yaml
     path: ./ruleset/bm7-Niconico.yaml
     interval: 88547
-    proxy: DIRECT
+    proxy: 🚫 受限网站
 
   # ---------- 欧洲流媒体 (2) ----------
   bbc:
@@ -1233,7 +1233,7 @@ rule-providers:
     url: https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/BBC/BBC.yaml
     path: ./ruleset/bm7-BBC.yaml
     interval: 86203
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   szkane-uk:
     type: http
     behavior: classical
@@ -1241,7 +1241,7 @@ rule-providers:
     url: https://fastly.jsdelivr.net/gh/szkane/ClashRuleSet@main/Clash/Ruleset/UK.list
     path: ./ruleset/szkane-uk.list
     interval: 89935
-    proxy: DIRECT
+    proxy: 🚫 受限网站
 
   # ---------- 游戏 (7, 从 19 精简) ----------
   steam:
@@ -1250,49 +1250,49 @@ rule-providers:
     url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Steam/Steam.yaml
     path: ./ruleset/bm7-Steam.yaml
     interval: 86210
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   epic:
     type: http
     behavior: classical
     url: https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Epic/Epic.yaml
     path: ./ruleset/bm7-Epic.yaml
     interval: 86215
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   playstation:
     type: http
     behavior: classical
     url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/PlayStation/PlayStation.yaml
     path: ./ruleset/bm7-PlayStation.yaml
     interval: 86225
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   nintendo:
     type: http
     behavior: classical
     url: https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Nintendo/Nintendo.yaml
     path: ./ruleset/bm7-Nintendo.yaml
     interval: 86275
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   xbox:
     type: http
     behavior: classical
     url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Xbox/Xbox.yaml
     path: ./ruleset/bm7-Xbox.yaml
     interval: 86278
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   blizzard:
     type: http
     behavior: classical
     url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Blizzard/Blizzard.yaml
     path: ./ruleset/bm7-Blizzard.yaml
     interval: 86284
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   hoyoverse:
     type: http
     behavior: classical
     url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/HoYoverse/HoYoverse.yaml
     path: ./ruleset/bm7-HoYoverse.yaml
     interval: 88854
-    proxy: DIRECT
+    proxy: 🚫 受限网站
 
   # ---------- GFW / 代理 (3) ----------
   loyalsoldier-gfw:
@@ -1302,7 +1302,7 @@ rule-providers:
     url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/gfw.mrs
     path: ./ruleset/meta-gfw.mrs
     interval: 89984
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   szkane-proxygfw:
     type: http
     behavior: classical
@@ -1310,7 +1310,7 @@ rule-providers:
     url: https://fastly.jsdelivr.net/gh/szkane/ClashRuleSet@main/Clash/ProxyGFWlist.list
     path: ./ruleset/szkane-proxygfw.list
     interval: 89991
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   proxy:
     type: http
     behavior: domain
@@ -1318,7 +1318,7 @@ rule-providers:
     url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/geolocation-!cn.mrs
     path: ./ruleset/meta-geolocation-!cn.mrs
     interval: 86594
-    proxy: DIRECT
+    proxy: 🚫 受限网站
 
   # ---------- 国外网站 (4) ----------
   wikipedia:
@@ -1327,28 +1327,28 @@ rule-providers:
     url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Wikipedia/Wikipedia.yaml
     path: ./ruleset/bm7-Wikipedia.yaml
     interval: 89747
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   acc-waybackmachine:
     type: http
     behavior: classical
     url: https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/WaybackMachine/WaybackMachine.yaml
     path: ./ruleset/acc-waybackmachine.yaml
     interval: 90342
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   naver:
     type: http
     behavior: classical
     url: https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Naver/Naver.yaml
     path: ./ruleset/bm7-Naver.yaml
     interval: 88985
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   ehgallery:
     type: http
     behavior: classical
     url: https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/EHGallery/EHGallery.yaml
     path: ./ruleset/bm7-EHGallery.yaml
     interval: 88301
-    proxy: DIRECT
+    proxy: 🚫 受限网站
 
   # ---------- GeoRouting (6, 从 26 精简 - 只保留用户环境相关) ----------
   acc-geo-d-asia-east:
@@ -1357,42 +1357,42 @@ rule-providers:
     url: https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/GeoRouting_For_Domain/GeoRouting_Asia_East_ccTLD_Domain.yaml
     path: ./ruleset/acc-GeoD-Asia_East.yaml
     interval: 90839
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   acc-geo-ip-asia-east:
     type: http
     behavior: classical
     url: https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/GeoRouting_For_IP/GeoRouting_Asia_East_GeoIP.yaml
     path: ./ruleset/acc-GeoIP-Asia_East.yaml
     interval: 90828
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   acc-geo-d-asia-eastsouth:
     type: http
     behavior: domain
     url: https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/GeoRouting_For_Domain/GeoRouting_Asia_EastSouth_ccTLD_Domain.yaml
     path: ./ruleset/acc-GeoD-Asia_EastSouth.yaml
     interval: 90838
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   acc-geo-ip-asia-eastsouth:
     type: http
     behavior: classical
     url: https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/GeoRouting_For_IP/GeoRouting_Asia_EastSouth_GeoIP.yaml
     path: ./ruleset/acc-GeoIP-Asia_EastSouth.yaml
     interval: 90884
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   acc-geo-d-asia-china:
     type: http
     behavior: domain
     url: https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/GeoRouting_For_Domain/GeoRouting_Asia_China_ccTLD_Domain.yaml
     path: ./ruleset/acc-GeoD-Asia_China.yaml
     interval: 90977
-    proxy: DIRECT
+    proxy: 🚫 受限网站
   acc-geo-ip-asia-china:
     type: http
     behavior: classical
     url: https://fastly.jsdelivr.net/gh/Accademia/Additional_Rule_For_Clash@main/GeoRouting_For_IP/GeoRouting_Asia_China_GeoIP.yaml
     path: ./ruleset/acc-GeoIP-Asia_China.yaml
     interval: 91011
-    proxy: DIRECT
+    proxy: 🚫 受限网站
 OVERRIDE_EOF
 
 # ============================================================================
