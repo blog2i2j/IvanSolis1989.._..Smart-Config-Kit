@@ -196,10 +196,10 @@ tcpdump -n -i any port 443       # 应看到持续流量 → DoH 正常
 
 ```mermaid
 flowchart LR
-    A[入口总控 2组] --> B[核心业务 10组]
-    B --> C[区域选路 8组]
-    C --> D[基础能力 5组]
-    D --> E[兜底直连 3组]
+    A(入口总控 2组) --> B(核心业务 10组)
+    B --> C(区域选路 8组)
+    C --> D(基础能力 5组)
+    D --> E(兜底直连 3组)
 
     style A fill:#EAF4FF,stroke:#4A90E2,stroke-width:1px
     style B fill:#EEF9F1,stroke:#27AE60,stroke-width:1px
