@@ -79,7 +79,15 @@ OpenClash 底层调用 **Mihomo 二进制**，所以协议支持和桌面端 Mih
 
 ## 🔁 从 Passwall / Passwall2 / SSR+ 迁移过来？
 
-这些插件本身没有问题，但**不能跑本仓库的 28 业务组 × 9 区域组架构**——它们的路由模型只有"主代理节点 / 直连 / 黑名单"三出站，没有 `proxy-groups` / `rule-providers` / `url-test` / Smart + LightGBM 的概念。
+这些插件本身没有问题；**Passwall 系底层走 xray/sing-box，`geosite` / `geoip` / remote `rule_set` 的规则匹配能力是齐的**。真正的差距在：
+- ❌ **没有 mihomo 的 proxy-groups 嵌套选择器**——Clash 把"业务组 → 区域组 → 具体节点" 的两层 `select` + `url-test` 串联表达成 YAML 里 10 行配置，Passwall 需要手工展平为 ~28 条 shunt rule
+- ❌ **没有 Smart + LightGBM 自动择优**（只有 mihomo Alpha 内核有）
+- ❌ **没有 JS 覆写 / 订阅预处理**（机场换节点不能自动归类到区域组）
+- ❌ **没有 rule-providers 的 Clash 原生结构**（Passwall2 的 rule_set 是 sing-box 风格，不同格式）
+
+想要完整 OpenClash 体验，往下看迁移步骤。**想保留 Passwall/Passwall2 + 拿到约 70% 的分流能力**，用本仓库 `Passwall2/` 目录的 shunt rule 参考配置。
+
+SSR+ 架构更老，没有 geosite 层能力，建议直接换 OpenClash，不做单独产物。
 
 ### 迁移步骤（~10 分钟）
 
