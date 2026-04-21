@@ -190,7 +190,7 @@ tcpdump -n -i any port 443       # 应看到持续流量 → DoH 正常
 
 ---
 
-## 🧩 Clash Party（v5.2.4）分流规则：28 代理组美化速览
+## 🧩 Clash Party（v5.2.5）分流规则：28 代理组美化速览
 
 为了让结构更清晰，下面用“**分层卡片 + 关系图**”展示 28 个代理组，而不是单一大表。
 
@@ -358,13 +358,17 @@ flowchart LR
 
 | 你现在用什么 | 建议做法 | 原因 |
 |---|---|---|
-| **Passwall** | 👉 **迁移到 OpenClash**（本仓库 `OpenClash/` 目录） | Passwall 路由架构只有 "主代理/直连/黑名单" 三出站，**表达不了**本仓库的 28+9 结构 |
-| **Passwall2** | 👉 **迁移到 OpenClash** | 同上；Passwall2 的多核调度是 per-node 单出站，没有 proxy-groups / rule-providers 概念 |
-| **SSR Plus+** | 👉 **迁移到 OpenClash** | SSR+ 架构受限 + 已停止维护，建议直接换 OpenClash |
+| **Passwall** | 👉 **迁移到 OpenClash**（本仓库 `OpenClash/` 目录）；**或** 保留 Passwall 使用仓库 `Passwall2/` 目录里的 shunt rule 简化版（见下） | Passwall 底层走 xray/sing-box，**支持 geosite / geoip / rule_set 的规则匹配能力**，但**没有 Clash 的 proxy-groups 嵌套层级**——"业务组→区域组→具体节点" 的两级自动串联做不到，同时 Smart + LightGBM / 机场换节点自动分类 / JS 覆写都缺席，复现本仓库 28+9 结构需手工展平成 ~28 条 shunt rule |
+| **Passwall2** | 👉 **迁移到 OpenClash**；**或** 保留 Passwall2 用本仓库 `Passwall2/` 目录的配置（功能约 OpenClash slim 的 70%） | 同上。Passwall2 新版**原生支持 sing-box 的 `rule_set` URL 热更新**，规则能力最接近 OpenClash，但多层 proxy-groups 嵌套仍然缺失 |
+| **SSR Plus+** | 👉 **迁移到 OpenClash** | SSR+ 架构老旧 + 已停止维护，没有 geosite/rule_set 层能力；直接换 OpenClash |
 | **ShellClash**（`juewuy/ShellCrash`） | ✅ 复用本仓库产物。推荐**直接导入 `Clash Meta For Android/clash-smart-cmfa.yaml`**；进阶用户可从 `OpenClash/openclash_custom_overwrite.sh` 里提取 heredoc YAML 块作为 Clash 配置 | ShellClash 内核就是 **mihomo**，完全兼容本仓库的 Clash YAML 格式 |
 | **HomeProxy**（sing-box 官方 LuCI） | ✅ 复用本仓库产物。**直接导入 `SingBox/singbox-smart-full.json`** | HomeProxy 内核就是 **sing-box**，原生兼容，开箱即用 |
 
-> 💡 **底线**：本仓库目前**只给 Passwall / Passwall2 / SSR+ 用户一个建议——切到 OpenClash**。原因不是懒，而是这三者的路由模型表达不了 28+9 架构，哪怕做了单独的产物，功能也只能给到 10% 左右（约等于 v2rayN Xray 模式）。把精力集中在 OpenClash 上对所有软路由用户反而是最佳选择。
+> 💡 **关于 Passwall / Passwall2 的精确对比**（纠正常见误解）：
+> - Passwall 系**有** geosite / geoip / rule_set 的**规则匹配**能力（通过底层 xray/sing-box 核）
+> - 但**没有** mihomo 的 **proxy-groups 嵌套选择器**（两级 `select`/`url-test` 串联 + Smart + LightGBM）
+> - 想要 **28 业务组 → 9 区域组 → 自动 url-test 选最低延迟节点 → 机场换节点自动归位** 这套体验，只有 mihomo 架构（OpenClash / CMFA / ShellClash）能原生给
+> - 详细差异对照见 `Passwall2/README.md` §3「能和不能」
 
 ### 🍎 Shadowrocket
 1. 托管 `shadowrocket-smart.conf` 至可访问 URL；

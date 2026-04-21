@@ -33,7 +33,9 @@
 >
 > **关于 HomeProxy（OpenWrt 官方 sing-box LuCI 插件）：** 内核就是 sing-box，直接导入 `SingBox/singbox-smart-full.json`，**不需要**独立产物；`SingBox/README.md §2b` 提供 HomeProxy 专用导入说明。
 >
-> **关于 Passwall / Passwall2 / SSR Plus+：** 这三个 OpenWrt 插件的路由模型只有 proxy/direct/block 三出站，**无法**表达本仓库的 28 业务组 × 9 区域组。**不提供产物**，建议用户迁移到 OpenClash（本仓库 `OpenClash/` 目录）；`OpenClash/README.md` 顶部有迁移步骤。
+> **关于 Passwall / Passwall2：** 底层走 xray/sing-box，**支持 geosite / geoip / rule_set** 规则匹配能力，但**没有** mihomo 的 proxy-groups 嵌套选择器（两级 `select`/`url-test` 串联 + Smart + LightGBM）。**本仓库 `Passwall2/` 目录**提供简化版 shunt rule 参考（28 条业务规则展平版，功能约 OpenClash slim 的 70%）；想要完整体验应迁移到 OpenClash。`OpenClash/README.md` 顶部有迁移步骤。
+>
+> **关于 SSR Plus+：** 架构老旧 + 已停止维护，没有 geosite/rule_set 层能力。**不提供产物**，建议直接换 OpenClash。
 >
 > **关于 Surge / Loon / Quantumult X：** 这三款 iOS/macOS 付费客户端各自使用私有 `.conf` 语法，与 Shadowrocket 部分兼容但不完全一致，因此每个都是独立产物。其中：
 > - Surge 与 Shadowrocket 语法最接近（~90% 兼容），从 Shadowrocket 迁移改动最小
