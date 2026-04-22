@@ -5,6 +5,45 @@
 
 ---
 
+## v5.2.5-SR.3 (2026-04-22) — 移除 72 条 Clash YAML 规则集 + anti-AD/Sukka 兼容修复
+
+深度审查发现仓库 iOS 三兄弟（Loon / Shadowrocket / Quantumult X）共享同一批"Clash Party v5.2.4 基线遗毒"：
+- 72 条 Accademia Clash classical `.yaml` RULE-SET（SR 的"auto-detect yaml"只有非官方文档声称，保守视作 Loon 已验证失效同款）
+- `anti-ad.net/surge.txt` 裸域名（Loon v5.2.4-Loon.3 已确认部分国内 ISP 会劫持返回 HTML）
+- Sukka `List/domainset/*.conf`（Surge 专属二级路径，Loon 不认，SR 官方同样没保证）
+
+本次按 Loon v5.2.4-Loon.2 / .3 已验证的修复模板同步应用：
+
+### 改动
+
+- ★ FIX#SR-01-P1：**删除 72 条 Clash classical `.yaml` RULE-SET**（71 Accademia + 1 ACL4SSR Zoom.yaml），SR 可能沉默加载为 0 条
+- ★ FIX#SR-02-P0：`anti-ad.net/surge.txt` → `fastly.jsdelivr.net/gh/privacy-protection-tools/anti-AD@master/anti-ad-surge.txt`
+- ★ FIX#SR-03-P0：Sukka `List/domainset/reject_phishing.conf` → `List/non_ip/reject_phishing.conf`
+- ★ FIX#SR-04-P1：72 条 yaml 删除后的关键域名补 DOMAIN-SUFFIX 兜底：
+  - 🏦 金融支付：Monzo / N26 / Chime + 24 国际银行（Chase / BofA / HSBC / Barclays / DBS / MUFG / RBC / ANZ 等）
+  - 🧑‍💼 会议协作：Zoom × 5 / RustDesk / Parsec × 3
+  - 🌐 国外网站：Wayback Machine / Pornhub × 3
+
+### 元信息
+
+- 版本：`v5.2.2-SR.2` → **`v5.2.5-SR.3`**（主版本对齐 Clash Party JS `VERSION = 'v5.2.5'`）
+- Build：2026-04-20 → 2026-04-22
+- 架构一句话：`250+ RULE-SET` → `~290 RULE-SET`
+- 清理 15 行孤立的 `# Accademia xxx` 注释头（原 yaml 段已删）
+
+### 已接受的回归损失（与 Loon 一致）
+
+Accademia `FakeLocation × 10`（国内 APP IP 伪装）、`GeoRouting × 17 区域`、`eMuleServer`、`HomeIP`、各国银行细粒度 YAML —— 没有 `.list` 等价源；关键域名已补 DOMAIN-SUFFIX 兜底。完整覆盖请换 CMFA / OpenClash / SingBox。
+
+### 自检
+
+- 代理组 37 个 ✓
+- `.yaml,` RULE-SET 残留：0 条 ✓
+- `anti-ad.net` 残留：0 次 ✓
+- `skk.moe/List/domainset/`：0 次；`List/non_ip/`：1 次 ✓
+
+---
+
 ## v5.2.2-SR.2 (2026-04-20)
 
 与 Clash Party 业务组严格对齐：
@@ -34,5 +73,5 @@ DNS 段重构，映射用户 Clash DNS 配置：
 - 删除 Smart fingerprint 注入（SR 不暴露 TLS 指纹控制）
 - GEOSITE 全部替换为 RULE-SET（SR 不原生支持 GEOSITE）
 - Meta `.mrs` 二进制格式全部替换为 blackmatrix7 Shadowrocket `.list`
-- Accademia 部分 YAML classical 保留（SR 按内容识别，可解析）
+- Accademia 部分 YAML classical 保留（SR 按内容识别，可解析）— v5.2.5-SR.3 起全部删除，改用 `.list` 等价源 + DOMAIN-SUFFIX 兜底
 - rule-provider 的周期刷新改由 SR 的「自动更新配置」统一管理
