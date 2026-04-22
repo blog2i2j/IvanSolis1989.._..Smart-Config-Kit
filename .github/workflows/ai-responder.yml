@@ -39,7 +39,14 @@ name: AI Issue Auto-Responder (DeepSeek)
 
 on:
   issues:
-    types: [opened, labeled]
+    # 只监听 labeled，不监听 opened——否则用模板建 issue 会触发两次：
+    #   ① issues.opened 事件（此时 issue 已带着模板自动打的标签）
+    #   ② issues.labeled 事件（模板标签被应用时）
+    # 两次都会过 if: 白名单 → 两次 AI 回复 → 双倍费用 + 用户体验差。
+    # labeled 单监听 + 检查 github.event.label.name 就能覆盖所有场景：
+    #   - 用模板创建 issue（模板自动打标签）→ labeled 触发一次 ✅
+    #   - 裸 issue 后手工打标签 → labeled 触发一次 ✅
+    types: [labeled]
   issue_comment:
     types: [created]
 
@@ -48,19 +55,26 @@ permissions:
   contents: read       # 可读仓库文件（喂给 AI 做上下文），不能改
   pull-requests: read  # 不能创建 PR
 
+# 并发组：同一 issue 的多次触发排队执行（不并行），避免用户连续改标签导致多条 AI 回复
+concurrency:
+  group: ai-responder-issue-${{ github.event.issue.number }}
+  cancel-in-progress: false
+
 jobs:
   respond:
-    # 低风险触发门槛：命中 6 个白名单标签之一，或评论里显式 /ai-help
-    # 对应 4 个 issue 模板：question（使用问题）/ bug / enhancement / documentation
+    # 低风险触发门槛：**本次刚打上的** label 命中白名单，或评论里显式 /ai-help
+    # 关键修复：用 github.event.label.name（本次打的那个），而不是 github.event.issue.labels.*.name
+    # （所有 label 集合）——否则 issue 已有 question 再打 wontfix 会再触发一次 AI 回复。
+    # 对应 4 个 issue 模板：question / bug / enhancement / documentation
     # 额外兼容维护者手打的 faq / help wanted
     if: |
       (github.event_name == 'issues' && (
-        contains(github.event.issue.labels.*.name, 'question') ||
-        contains(github.event.issue.labels.*.name, 'faq') ||
-        contains(github.event.issue.labels.*.name, 'help wanted') ||
-        contains(github.event.issue.labels.*.name, 'bug') ||
-        contains(github.event.issue.labels.*.name, 'enhancement') ||
-        contains(github.event.issue.labels.*.name, 'documentation')
+        github.event.label.name == 'question' ||
+        github.event.label.name == 'faq' ||
+        github.event.label.name == 'help wanted' ||
+        github.event.label.name == 'bug' ||
+        github.event.label.name == 'enhancement' ||
+        github.event.label.name == 'documentation'
       )) ||
       (github.event_name == 'issue_comment' && contains(github.event.comment.body, '/ai-help'))
 
