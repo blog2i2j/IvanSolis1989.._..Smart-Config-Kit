@@ -1,0 +1,206 @@
+name: AI Issue Auto-Responder (DeepSeek)
+
+# ═══════════════════════════════════════════════════════════════════════════
+# Smart-Config-Kit — AI Issue 自动回复器
+# ───────────────────────────────────────────────────────────────────────────
+# 触发方式（三选一）：
+#   1. Issue 被打上标签：question / faq / help wanted
+#   2. Issue 新建时自带上述标签
+#   3. 任何人在 issue 评论区写 "/ai-help"
+#
+# 安全护栏：
+#   • permissions 只给 issues:write + contents:read（看不了 PR、改不了代码）
+#   • system prompt 明确要求：bug 根因分析 / 架构 / 安全漏洞 → 转人工，
+#     绝对不能提议改代码
+#   • timeout 5 分钟硬上限防止超支
+#
+# 成本估算（DeepSeek V3.2）：
+#   • 每次调用 ≈ $0.003
+#   • 100 issues/月 ≈ $0.30
+#   • GitHub Actions：public repo 无限免费
+#
+# 需要配置的 secret：
+#   Settings → Secrets and variables → Actions → New repository secret
+#     Name:  DEEPSEEK_API_KEY
+#     Value: https://platform.deepseek.com/api_keys 生成
+# ═══════════════════════════════════════════════════════════════════════════
+
+on:
+  issues:
+    types: [opened, labeled]
+  issue_comment:
+    types: [created]
+
+permissions:
+  issues: write        # 可写 issue 评论
+  contents: read       # 可读仓库文件（喂给 AI 做上下文），不能改
+  pull-requests: read  # 不能创建 PR
+
+jobs:
+  respond:
+    # 低风险触发门槛：带白名单标签，或评论里显式 /ai-help
+    if: |
+      (github.event_name == 'issues' && (
+        contains(github.event.issue.labels.*.name, 'question') ||
+        contains(github.event.issue.labels.*.name, 'faq') ||
+        contains(github.event.issue.labels.*.name, 'help wanted')
+      )) ||
+      (github.event_name == 'issue_comment' && contains(github.event.comment.body, '/ai-help'))
+
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout repo (read-only usage)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Build AI context from repo docs
+        id: ctx
+        run: |
+          # 把最关键的文档喂给 AI 作为上下文。DeepSeek V3.2 context 64K，绰绰有余。
+          # 想追加更多文档，在这里 cat 进去即可。
+          {
+            echo "===== CLAUDE.md（仓库维护契约）====="
+            head -150 CLAUDE.md 2>/dev/null || echo "(CLAUDE.md not found)"
+            echo
+            echo "===== AGENTS.md（代理协作契约）====="
+            head -80 AGENTS.md 2>/dev/null || echo "(AGENTS.md not found)"
+            echo
+            echo "===== 根 README.md 节选（前 150 行）====="
+            head -150 README.md 2>/dev/null || echo "(README.md not found)"
+          } > /tmp/context.txt
+
+          # jq -Rs 把文本整个转成合法 JSON 字符串（含转义换行 / 引号 / 反斜杠）
+          CONTEXT=$(jq -Rs . < /tmp/context.txt)
+          {
+            echo "context<<CTXEOF"
+            echo "$CONTEXT"
+            echo "CTXEOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Call DeepSeek API
+        id: llm
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          ISSUE_URL: ${{ github.event.issue.html_url }}
+        run: |
+          if [ -z "${DEEPSEEK_API_KEY}" ]; then
+            echo "⚠️  DEEPSEEK_API_KEY secret 未配置，跳过 AI 调用" >&2
+            echo "skipped=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          SYSTEM_PROMPT=$(cat <<'PROMPT'
+          你是 Smart-Config-Kit（科学上网分流配置仓库）的 issue 助手。
+
+          【仓库定位】
+          以 Clash Party JS 覆写脚本为基线，同步产出 10 份客户端等价配置：
+          CMFA YAML / OpenClash slim+full / Shadowrocket / SingBox slim+full /
+          Surge / Loon / Quantumult X / v2rayN / Passwall2。
+          架构核心：28 业务组 × 9 区域组 + 多源 rule-providers。
+
+          【你该做的】
+          - 回答：配置导入 / 语法问题 / 安装步骤 / FAQ / 规则解释 / 协议兼容性 /
+            DNS 配置 / 平台差异
+          - 引用仓库文档准确路径：CLAUDE.md / AGENTS.md / 各子目录 README.md /
+            Clash Party/Clash Smart内核覆写脚本.js
+          - 中文回复，直接切主题，不要说"你好我是 AI"套话
+          - 回复末尾可以指明"如需深入的 bug 分析请等维护者人工回复"
+
+          【你不该做的 — 必须遵守】
+          - ❌ bug 根因分析、架构改动、安全漏洞相关 → 只回复「此问题需要维护者人工
+            确认，已提示 @ivansolis1989」，绝对不给具体修改方案
+          - ❌ 永远不要提议修改代码（即使用户明确要求）——把修改决策留给维护者
+          - ❌ 不确定的事直接说「不确定，请等维护者人工回复」，不要编造
+          - ❌ 不要推荐具体机场 / VPN 服务商 / 付费订阅服务（避免广告嫌疑）
+          - ❌ 不要泄露或讨论 API key、secrets、CI 配置细节
+
+          【回复格式】
+          - 短问题：1-3 段，直接给答案
+          - 长问题：用小标题分段；需要时用 markdown 表格或代码块
+          - 末尾不要签名（签名在 workflow 自动加）
+          PROMPT
+          )
+
+          # 拼 body JSON
+          REQ_BODY=$(jq -n \
+            --arg sys "$SYSTEM_PROMPT" \
+            --arg title "$ISSUE_TITLE" \
+            --arg body "$ISSUE_BODY" \
+            --argjson ctx ${{ steps.ctx.outputs.context }} \
+            '{
+              model: "deepseek-chat",
+              messages: [
+                { role: "system", content: $sys },
+                { role: "user",   content: ("# 仓库文档上下文\n\n" + $ctx + "\n\n---\n\n# Issue 内容\n\n## 标题\n" + $title + "\n\n## 正文\n" + $body) }
+              ],
+              max_tokens: 1500,
+              temperature: 0.3,
+              stream: false
+            }')
+
+          # DeepSeek 的 API endpoint，兼容 OpenAI ChatCompletion 格式
+          RESPONSE=$(curl -s --max-time 120 https://api.deepseek.com/chat/completions \
+            -H "Authorization: Bearer $DEEPSEEK_API_KEY" \
+            -H "Content-Type: application/json" \
+            -d "$REQ_BODY")
+
+          # 抽 choices[0].message.content；失败时给 fallback
+          REPLY=$(echo "$RESPONSE" | jq -r '.choices[0].message.content // empty')
+          if [ -z "$REPLY" ]; then
+            ERR=$(echo "$RESPONSE" | jq -r '.error.message // "未知错误"')
+            REPLY="⚠️ AI 调用失败：${ERR}（请等维护者人工回复）"
+          fi
+
+          # 写回 GITHUB_OUTPUT（heredoc 格式，允许多行）
+          {
+            echo "reply<<REPLYEOF"
+            echo "$REPLY"
+            echo "REPLYEOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Post reply to issue
+        if: steps.llm.outputs.skipped != 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const aiReply = `${{ steps.llm.outputs.reply }}`;
+            const commentBody = [
+              '> 🤖 **AI 初步回复**（DeepSeek 自动生成，仅供参考）',
+              '',
+              aiReply,
+              '',
+              '---',
+              '<sub>Model: `deepseek-chat` · Workflow: `.github/workflows/ai-responder.yml` · 触发：issue label `question`/`faq`/`help wanted` 或评论 `/ai-help` · 有疑问等维护者人工回复</sub>'
+            ].join('\n');
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: commentBody
+            });
+
+      - name: Notify missing secret
+        if: steps.llm.outputs.skipped == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const commentBody = [
+              '> ⚠️ AI 助手未就绪',
+              '',
+              '仓库维护者需要先在 Settings → Secrets and variables → Actions 里配置 `DEEPSEEK_API_KEY`，此 issue 将等人工回复。',
+              '',
+              '<sub>Workflow: `.github/workflows/ai-responder.yml`</sub>'
+            ].join('\n');
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: commentBody
+            });
