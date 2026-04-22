@@ -399,39 +399,41 @@ tcpdump -n -i any port 443       # 应看到持续流量 → DoH 正常
 
 ## 💬 Issue 支持：AI 机器人先答，人工兜底
 
-> 本仓库接了 **DeepSeek-Reasoner（带思维链的推理模型）**作 issue 自动助手——导入失败、节点不通、规则不命中、DNS 不解析、某 App 不知道怎么用……不用等维护者上线，**打上标签后平均 1 分钟内**就有一版参考答案。之后维护者再人工跟进。
+> 本仓库接了 **DeepSeek-Reasoner（带思维链的推理模型）**作 issue 初筛助手——**4 种 issue 类型全部会先得到 AI 初步分析**，维护者再人工跟进。常见问题 1 分钟内就有参考答案，不用干等。
 
-### 怎么触发 AI 回复
+### 触发方式
 
-**方式 1 · 新建 Issue（推荐新手）**
-
-[点这里新建 Issue](https://github.com/ivansolis1989/Smart-Config-Kit/issues/new/choose) → 选 **❓ 使用问题 / 求助** 模板 → 填表提交。
-
-模板会**自动打 `question` 标签触发 AI**，你不用动手打标签。填表字段（客户端、版本号、配置版本、问题、日志）都是给 AI 做定位用的，**信息越具体，答案越准**。
-
-**方式 2 · 在已有 Issue 评论里召唤**
-
-任何 issue 评论区输入 `/ai-help`，AI 会在该 issue 追加一条参考回复。适合老 issue 想追问时用。
-
-### AI 能答什么 vs 不答什么
-
-| ✅ 会认真答 | ❌ 直接转人工 |
+| 方式 | 操作 |
 |---|---|
-| 配置导入步骤 / 语法细节 / 最低版本 | 配置/脚本本身的 bug 根因分析 |
-| DNS / Sniffer / fake-ip 行为解释 | 架构改动（加减代理组、改 DNS 策略） |
-| 规则命中逻辑 / 某业务走哪个组 | 安全漏洞相关 |
-| 平台差异（CMFA vs OpenClash vs sing-box …） | 推荐具体机场 / 付费订阅 |
-| FAQ（Netflix 不解锁 / 订阅换了失效 / 节点正则对不上） | 不确定的事（会直接回"请等维护者人工回复"） |
+| 🆕 **新建 Issue** | [新建 Issue](https://github.com/ivansolis1989/Smart-Config-Kit/issues/new/choose) → 选任一模板（❓ 使用问题 / 🐛 Bug / ✨ 建议 / 📝 文档）→ 填表提交。模板会**自动打对应标签触发 AI**。 |
+| 💬 **已有 Issue 追问** | 任何 issue 评论区输入 `/ai-help`，AI 会在该 issue 追加一条针对评论上下文的回复。 |
 
-AI 有一条硬规则：**永远不提议改代码**——代码/配置的修改决策 100% 留给维护者。
+### AI 在 4 种 issue 里各做什么
+
+| 模板 | 自动标签 | AI 做的事 |
+|---|---|---|
+| ❓ 使用问题 | `question` | 正面回答：导入 / 语法 / DNS / 规则命中 / 协议兼容性 / 平台差异 / FAQ |
+| 🐛 Bug 报告 | `bug` | 先判断"**到底是不是 bug**"——对照 CLAUDE.md + README + CHANGELOG + 同组其他产物，给 4 类结论之一：明显不是 bug / 可能是 bug+指方向 / 信息不足 / 明显是 bug |
+| ✨ 功能建议 | `enhancement` | 按 README "🎯 差异化价值" 的 **4 类加法原则**评估可行性（新兴服务 / 拆总类 / 广告多源 / 地区长尾 ASN）；和 geosite 某类 > 95% 重叠的会先指出"可能被拒绝" |
+| 📝 文档反馈 | `documentation` | 核对文档当前内容：确实过时/错字/404 说明哪里错；描述其实正确但读起来有歧义则解释真实含义 |
+
+### AI 的硬规则（故意的）
+
+- 🚫 **永远不提议具体代码修改 / diff / patch**——就算已判断出 bug 根因，也只说"可能在哪一层"，不说"把 X 改成 Y"
+- 🚫 **不承诺采纳 / 不关闭 issue / 不合并 PR**——AI 没有任何仓库写入权限
+- 🚫 **不推荐具体机场 / VPN 服务商**——避免广告嫌疑
+- 🚫 **不编造**——不确定的事直接说"请等维护者人工确认"
+- 🚫 **安全漏洞**只提醒走 [GitHub Security Advisory](https://github.com/ivansolis1989/Smart-Config-Kit/security/advisories/new) 私报，不公开讨论利用细节
+
+> 每条 AI 回复**倒数第二段都会强调**："我只做初步分析，没有代码修改 / PR 合并 / 关闭 issue 的权限，最终处理请等维护者人工确认。"
 
 ### 体验完全中文
 
-- Issue 模板（5 个）全中文；首页选择界面也是中文 → [.github/ISSUE_TEMPLATE/](.github/ISSUE_TEMPLATE/)
-- AI 回复中文，直接切主题，不说"你好我是 AI"这种套话
-- 每条 AI 回复末尾都会标注 `Model: deepseek-reasoner`，透明可追溯
+- 4 个 issue 模板全中文 + 首页选择界面中文 → [.github/ISSUE_TEMPLATE/](.github/ISSUE_TEMPLATE/)
+- AI 中文回复，直接切主题，开头明确分析类型（例：「🤖 AI 初步分析（疑似 bug → 需维护者确认）」）
+- 每条 AI 回复末尾标注 `Model: deepseek-reasoner`，透明可追溯
 
-> 🔧 技术细节（200 行带完整中文注释的 workflow）：[.github/workflows/ai-responder.yml](.github/workflows/ai-responder.yml) · 成本 ≈ $0.01/次，100 issues/月 ≈ $1。
+> 🔧 技术细节（带完整中文注释的 workflow）：[.github/workflows/ai-responder.yml](.github/workflows/ai-responder.yml) · 成本 ≈ $0.01/次，100 issues/月 ≈ $1。
 
 ---
 

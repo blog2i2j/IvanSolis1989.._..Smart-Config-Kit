@@ -1,9 +1,18 @@
 name: 📝 文档 / 教程问题
-description: README、CHANGELOG、子目录使用教程有错字、信息过时、步骤讲不清、链接 404……
+description: README、CHANGELOG、子目录使用教程有错字、信息过时、步骤讲不清、链接 404……AI 会先核对文档当前内容，给初步判断。
 title: "[文档] "
 labels: ["documentation"]
 
 body:
+  - type: markdown
+    attributes:
+      value: |
+        > 🤖 **AI 会先核对你指出的文档位置**，判断：
+        > - 确实过时 / 错字 / 链接 404 → 说明哪里错、应该是什么样
+        > - 描述其实正确但读起来有歧义 → 解释文档真实含义
+        >
+        > ⚠️ **AI 不直接改文档**——文档修改由维护者在 PR 中人工处理。
+
   - type: input
     id: location
     attributes:
