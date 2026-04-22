@@ -3,10 +3,16 @@ name: AI Issue Auto-Responder (DeepSeek)
 # ═══════════════════════════════════════════════════════════════════════════
 # Smart-Config-Kit — AI Issue 自动回复器
 # ───────────────────────────────────────────────────────────────────────────
-# 触发方式（三选一）：
-#   1. Issue 被打上标签：question / faq / help wanted
-#   2. Issue 新建时自带上述标签
-#   3. 任何人在 issue 评论区写 "/ai-help"
+# 触发方式（二选一）：
+#   1. Issue 被打上（或创建时自带）任一标签：
+#        question / faq / help wanted / bug / enhancement / documentation
+#      —— 对应 .github/ISSUE_TEMPLATE 里 4 个模板各自的 labels 字段
+#   2. 任何人在 issue 评论区写 "/ai-help"
+#
+# AI 的角色边界：
+#   • 对所有类型 issue 都先给"初步分析"（包括 bug：先帮用户判断是不是 bug）
+#   • 但 AI 没有代码修改 / 合并 PR / 打 label / 关闭 issue 的权限
+#   • 所以所有回复末尾都会强调"等维护者人工处理"
 #
 # 安全护栏：
 #   • permissions 只给 issues:write + contents:read（看不了 PR、改不了代码）
@@ -14,9 +20,15 @@ name: AI Issue Auto-Responder (DeepSeek)
 #     绝对不能提议改代码
 #   • timeout 5 分钟硬上限防止超支
 #
-# 成本估算（DeepSeek V3.2）：
-#   • 每次调用 ≈ $0.003
-#   • 100 issues/月 ≈ $0.30
+# 分层调用策略（v2）：
+#   首轮（issues opened/labeled） → deepseek-chat      快速 / 便宜 / 覆盖 80% 常见问题
+#   追问（issue_comment /ai-help）→ deepseek-reasoner  思维链 / 深度分析 / 适合复杂排障
+#   理由：首次提问大多是"导入 / 语法 / FAQ"类，chat 足够；用户看完首轮还在
+#        追问，说明问题复杂需要深度推理，这时才升级 reasoner 值回票价。
+#
+# 成本估算：
+#   • 首轮 chat   ≈ $0.003/次；追问 reasoner ≈ $0.01/次
+#   • 典型场景：100 issues/月 + 20% 追问率 → ≈ $0.30 + $0.20 ≈ $0.5/月
 #   • GitHub Actions：public repo 无限免费
 #
 # 需要配置的 secret：
@@ -38,17 +50,22 @@ permissions:
 
 jobs:
   respond:
-    # 低风险触发门槛：带白名单标签，或评论里显式 /ai-help
+    # 低风险触发门槛：命中 6 个白名单标签之一，或评论里显式 /ai-help
+    # 对应 4 个 issue 模板：question（使用问题）/ bug / enhancement / documentation
+    # 额外兼容维护者手打的 faq / help wanted
     if: |
       (github.event_name == 'issues' && (
         contains(github.event.issue.labels.*.name, 'question') ||
         contains(github.event.issue.labels.*.name, 'faq') ||
-        contains(github.event.issue.labels.*.name, 'help wanted')
+        contains(github.event.issue.labels.*.name, 'help wanted') ||
+        contains(github.event.issue.labels.*.name, 'bug') ||
+        contains(github.event.issue.labels.*.name, 'enhancement') ||
+        contains(github.event.issue.labels.*.name, 'documentation')
       )) ||
       (github.event_name == 'issue_comment' && contains(github.event.comment.body, '/ai-help'))
 
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 8   # reasoner 思考 + curl 240s 上限，留足余量避免误杀
 
     steps:
       - name: Checkout repo (read-only usage)
@@ -94,57 +111,135 @@ jobs:
             exit 0
           fi
 
+          # ── 分层模型选择 ───────────────────────────────────────────
+          # issues 事件 = 首次触发 → 用便宜快的 chat
+          # issue_comment 事件 = 用户 /ai-help 追问 → 升级到 reasoner
+          if [ "$GITHUB_EVENT_NAME" = "issue_comment" ]; then
+            MODEL="deepseek-reasoner"
+            CURL_TIMEOUT=240        # reasoner 思考 30–90s，给足余量
+            TIER_MARK="FOLLOWUP"    # 在 user 消息里打标签给 AI
+            TIER_LABEL="追问 · 深度分析"
+          else
+            MODEL="deepseek-chat"
+            CURL_TIMEOUT=60         # chat 典型 2–5s，60s 足够
+            TIER_MARK="FIRST"
+            TIER_LABEL="首轮 · 快速回复"
+          fi
+          echo "🎯 Tier: ${TIER_LABEL} / Model: ${MODEL}"
+          echo "model=${MODEL}"           >> "$GITHUB_OUTPUT"
+          echo "tier_label=${TIER_LABEL}" >> "$GITHUB_OUTPUT"
+
           SYSTEM_PROMPT=$(cat <<'PROMPT'
-          你是 Smart-Config-Kit（科学上网分流配置仓库）的 issue 助手。
+          你是 Smart-Config-Kit（科学上网分流配置仓库）的 issue 初筛助手。
 
           【仓库定位】
           以 Clash Party JS 覆写脚本为基线，同步产出 10 份客户端等价配置：
           CMFA YAML / OpenClash slim+full / Shadowrocket / SingBox slim+full /
           Surge / Loon / Quantumult X / v2rayN / Passwall2。
-          架构核心：28 业务组 × 9 区域组 + 多源 rule-providers。
+          架构核心：28 业务组 × 9 区域组 + 多源 rule-providers + LightGBM 智能选路。
 
-          【你该做的】
-          - 回答：配置导入 / 语法问题 / 安装步骤 / FAQ / 规则解释 / 协议兼容性 /
-            DNS 配置 / 平台差异
-          - 引用仓库文档准确路径：CLAUDE.md / AGENTS.md / 各子目录 README.md /
-            Clash Party/Clash Smart内核覆写脚本.js
-          - 中文回复，直接切主题，不要说"你好我是 AI"套话
-          - 回复末尾可以指明"如需深入的 bug 分析请等维护者人工回复"
+          【你的角色】
+          维护者人工处理前的**初步分析**层。4 种 issue 类型都会路由到你：
 
-          【你不该做的 — 必须遵守】
-          - ❌ bug 根因分析、架构改动、安全漏洞相关 → 只回复「此问题需要维护者人工
-            确认，已提示 @ivansolis1989」，绝对不给具体修改方案
-          - ❌ 永远不要提议修改代码（即使用户明确要求）——把修改决策留给维护者
-          - ❌ 不确定的事直接说「不确定，请等维护者人工回复」，不要编造
-          - ❌ 不要推荐具体机场 / VPN 服务商 / 付费订阅服务（避免广告嫌疑）
-          - ❌ 不要泄露或讨论 API key、secrets、CI 配置细节
+          1. ❓ question（使用问题）
+             → 正面回答：配置导入 / 语法 / 安装步骤 / FAQ / 规则解释 / 协议兼容性 /
+               DNS / 平台差异。有把握就直接给答案。
 
-          【回复格式】
-          - 短问题：1-3 段，直接给答案
-          - 长问题：用小标题分段；需要时用 markdown 表格或代码块
-          - 末尾不要签名（签名在 workflow 自动加）
+          2. 🐛 bug（用户报告的疑似 bug）
+             → 先判断"到底是不是 bug"：对照 CLAUDE.md 的设计约束、README 使用说明、
+               对应子目录 CHANGELOG.md、其他客户端同组产物的行为，四类结论：
+               A. 明显不是 bug（用户理解偏差 / 配置没按 README 走 / 依赖版本不够）
+                  → 礼貌指出实际行为是设计如此，引用文档路径
+               B. 可能是 bug，有已知线索 → 说出可能的根因方向（例如 rule-provider
+                  URL 变更、某字段在新版内核 deprecated、跨产物不一致）供维护者验证
+               C. 可能是 bug 但信息不足 → 列出还需要用户补充的信息
+               D. 明显是 bug → 确认现象，等维护者修
+               **不要**给具体代码修改 diff，只说"可能在哪一层 / 哪个文件附近"。
+
+          3. ✨ enhancement（功能/规则建议）
+             → 对照 README "🎯 差异化价值" 的 4 类加法原则做初步可行性评估：
+                ① 新兴服务（geosite 未收录） / ② 拆 geosite 总类 /
+                ③ 广告多源互补 / ④ 地区长尾 ASN
+               如果建议和 geosite 某分类 > 95% 重叠 → 指出"可能被拒绝"并解释原因。
+               如果落在 4 类之一 → 给出肯定评估，但强调最终采纳权在维护者。
+
+          4. 📝 documentation（文档反馈）
+             → 定位对应文件（根 README.md / CLAUDE.md / AGENTS.md / 各子目录 README.md
+               或 CHANGELOG.md），判断描述与现状是否一致：
+                - 确实过时 / 错字 / 链接 404 → 说明哪里错、应该是什么
+                - 描述其实正确但用户读懂有歧义 → 解释正确含义
+
+          5. 💬 /ai-help 评论召唤 → 针对评论上下文答，不要重复整个 issue 分析
+
+          【引用文档】
+          精确路径，别泛指："CLAUDE.md" / "AGENTS.md" /
+          "Clash Party/Clash Smart内核覆写脚本.js" / "OpenClash/CHANGELOG.md" /
+          "SingBox/README.md §2a" 之类。
+
+          【硬规则 — 必须遵守】
+          - ❌ **永远不要给具体代码修改 / diff / patch**——就算你已判断出根因，
+             也只说"可能在哪一层"，不提"把 X 改成 Y"。代码决策 100% 留给维护者。
+          - ❌ 不承诺 "下个版本会加 / 会被采纳 / 会修"——你没有任何决策权。
+          - ❌ 安全漏洞 → 只提醒 "请用 GitHub Security Advisory 私下报告，不要公开"；
+             不讨论利用细节。
+          - ❌ 不确定的事直接说"不确定，等维护者确认"，不要编造文档路径或字段名。
+          - ❌ 不推荐具体机场 / VPN 服务商 / 付费订阅。
+          - ❌ 不泄露或讨论 API key / secrets / CI 配置细节。
+          - ❌ 不说"你好我是 AI"这种套话；中文回复，直奔主题。
+
+          【调用分层 — 用户消息会带标签】
+          用户消息顶部会出现 `[TIER: FIRST]` 或 `[TIER: FOLLOWUP]`：
+          - `FIRST`  → 首次触发（issue 刚打标签），你用 deepseek-chat 速度优先
+             → 第一行用「🤖 AI 初步分析（<类型>）」
+          - `FOLLOWUP` → 用户看过首轮后 `/ai-help` 追问，你用 deepseek-reasoner 深度推理
+             → 第一行用「🤖 AI 深度分析（<类型> · 追问）」，并**正面回应评论里的追问焦点**，
+               别重复首轮讲过的内容
+
+          【回复结构】
+          - **第一行**按上面分层规则写类型标签（使用问题 / 疑似 bug → 需维护者确认 /
+            功能建议 → 4 类加法原则评估 / 文档反馈）
+          - 中间：分析内容（短问题 1-3 段；复杂问题用小标题 / 表格 / 代码块）
+          - **倒数第二段**必须包含这句硬提示（原文复制，不要改措辞）：
+             > ⚠️ **我只做初步分析，没有代码修改 / PR 合并 / 关闭 issue 的权限**。
+             > 以上分析仅供参考，**最终修复 / 采纳 / 关闭请等维护者人工处理**。
+          - 末尾**不要**再自己签名——workflow 会自动补 Model / Workflow 元信息。
           PROMPT
           )
 
           # 拼 body JSON
+          # 追问（issue_comment）时，把评论正文带进去让 AI 知道用户问了什么
+          COMMENT_BODY="${{ github.event.comment.body }}"
+
+          # 注意：deepseek-reasoner 会先输出思维链（reasoning_content 字段），再输出最终答案（content 字段）。
+          #   - 我们只取 content（下方 jq '.choices[0].message.content'），不暴露推理过程给用户。
+          #   - reasoner 忽略 temperature 参数（官方说明），chat 使用 0.3 保持稳定。
+          #   - max_tokens 控制"最终答案"上限，不含推理 token。
           REQ_BODY=$(jq -n \
+            --arg model "$MODEL" \
             --arg sys "$SYSTEM_PROMPT" \
+            --arg tier "$TIER_MARK" \
             --arg title "$ISSUE_TITLE" \
             --arg body "$ISSUE_BODY" \
+            --arg comment "$COMMENT_BODY" \
             --argjson ctx ${{ steps.ctx.outputs.context }} \
             '{
-              model: "deepseek-chat",
+              model: $model,
               messages: [
                 { role: "system", content: $sys },
-                { role: "user",   content: ("# 仓库文档上下文\n\n" + $ctx + "\n\n---\n\n# Issue 内容\n\n## 标题\n" + $title + "\n\n## 正文\n" + $body) }
+                { role: "user",   content: (
+                    "[TIER: " + $tier + "]\n\n"
+                  + "# 仓库文档上下文\n\n" + $ctx
+                  + "\n\n---\n\n# Issue 内容\n\n## 标题\n" + $title + "\n\n## 正文\n" + $body
+                  + ( if $comment != "" then "\n\n---\n\n# 用户追问评论\n\n" + $comment else "" end )
+                ) }
               ],
               max_tokens: 1500,
-              temperature: 0.3,
               stream: false
             }')
 
           # DeepSeek 的 API endpoint，兼容 OpenAI ChatCompletion 格式
-          RESPONSE=$(curl -s --max-time 120 https://api.deepseek.com/chat/completions \
+          # CURL_TIMEOUT 根据模型动态：chat 60s / reasoner 240s
+          RESPONSE=$(curl -s --max-time "$CURL_TIMEOUT" https://api.deepseek.com/chat/completions \
             -H "Authorization: Bearer $DEEPSEEK_API_KEY" \
             -H "Content-Type: application/json" \
             -d "$REQ_BODY")
@@ -169,13 +264,15 @@ jobs:
         with:
           script: |
             const aiReply = `${{ steps.llm.outputs.reply }}`;
+            const model = `${{ steps.llm.outputs.model }}` || 'deepseek-chat';
+            const tier  = `${{ steps.llm.outputs.tier_label }}` || '首轮 · 快速回复';
             const commentBody = [
-              '> 🤖 **AI 初步回复**（DeepSeek 自动生成，仅供参考）',
+              `> 🤖 **AI 自动回复**（${tier}，仅供参考）`,
               '',
               aiReply,
               '',
               '---',
-              '<sub>Model: `deepseek-chat` · Workflow: `.github/workflows/ai-responder.yml` · 触发：issue label `question`/`faq`/`help wanted` 或评论 `/ai-help` · 有疑问等维护者人工回复</sub>'
+              `<sub>Model: \`${model}\` · Tier: ${tier}（首轮 chat / 追问 reasoner 分层）· Workflow: \`.github/workflows/ai-responder.yml\` · 想要更深度分析请在评论里 \`/ai-help\` · AI 无代码修改权限，最终处理请等维护者 @ivansolis1989</sub>`
             ].join('\n');
 
             await github.rest.issues.createComment({
