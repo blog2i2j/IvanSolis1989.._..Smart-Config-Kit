@@ -522,24 +522,16 @@ tcpdump -n -i any port 443       # 应看到持续流量 → DoH 正常
 - 想要 **WireGuard**：除 QX 都行
 - 想要 **LightGBM 自动择优**：**只能走 Clash Party / OpenClash** + Mihomo Smart Alpha 内核 + JS 覆写
 - 协议 + 价格性价比：**iOS 上 Shadowrocket (¥20)** / **Android 上 CMFA (免费)** / **桌面上 Mihomo Party (免费)** / **软路由上 OpenClash (免费)**
+### 软路由用户：已装其它代理插件的对号入座
 
-### 🛜 其它 OpenWrt / 软路由代理插件用户看这里
+**对照上面矩阵的列**，按你插件底层内核选：
 
-路由器上除了 OpenClash，还有几个流行的代理插件。本仓库的 28 业务组 × 9 区域组 + 387 rule-providers 架构**依赖 mihomo / sing-box 的 `proxy-groups` + `rule-providers` 能力**，所以不同插件能享用的程度差异很大：
+- **ShellClash**（`juewuy/ShellCrash`，mihomo 核）→ 用 **CMFA 列** 的 `clash-smart-cmfa.yaml`
+- **HomeProxy**（sing-box 官方 LuCI 插件，sing-box 核）→ 用 **sing-box 列** 的 `singbox-smart-full.json`
+- **Passwall / Passwall2**（xray / sing-box 核，**没有 proxy-groups 嵌套**）→ 首选**迁移到 OpenClash** 拿完整能力；或保留插件用本仓库 `Passwall2/` 目录的 **shunt rule 降级版**（28 条手工展平，功能约 OpenClash slim 的 70%）
+- **SSR Plus+**（已停更 + 无 geosite / rule_set 层）→ 直接换 **OpenClash**
 
-| 你现在用什么 | 建议做法 | 原因 |
-|---|---|---|
-| **Passwall** | 👉 **迁移到 OpenClash**（本仓库 `OpenClash/` 目录）；**或** 保留 Passwall 使用仓库 `Passwall2/` 目录里的 shunt rule 简化版（见下） | Passwall 底层走 xray/sing-box，**支持 geosite / geoip / rule_set 的规则匹配能力**，但**没有 Clash 的 proxy-groups 嵌套层级**——"业务组→区域组→具体节点" 的两级自动串联做不到，同时 Smart + LightGBM / 机场换节点自动分类 / JS 覆写都缺席，复现本仓库 28+9 结构需手工展平成 ~28 条 shunt rule |
-| **Passwall2** | 👉 **迁移到 OpenClash**；**或** 保留 Passwall2 用本仓库 `Passwall2/` 目录的配置（功能约 OpenClash slim 的 70%） | 同上。Passwall2 新版**原生支持 sing-box 的 `rule_set` URL 热更新**，规则能力最接近 OpenClash，但多层 proxy-groups 嵌套仍然缺失 |
-| **SSR Plus+** | 👉 **迁移到 OpenClash** | SSR+ 架构老旧 + 已停止维护，没有 geosite/rule_set 层能力；直接换 OpenClash |
-| **ShellClash**（`juewuy/ShellCrash`） | ✅ 复用本仓库产物。推荐**直接导入 `Clash Meta For Android/clash-smart-cmfa.yaml`**；进阶用户可从 `OpenClash/openclash_custom_overwrite.sh` 里提取 heredoc YAML 块作为 Clash 配置 | ShellClash 内核就是 **mihomo**，完全兼容本仓库的 Clash YAML 格式 |
-| **HomeProxy**（sing-box 官方 LuCI） | ✅ 复用本仓库产物。**直接导入 `SingBox/singbox-smart-full.json`** | HomeProxy 内核就是 **sing-box**，原生兼容，开箱即用 |
-
-> 💡 **关于 Passwall / Passwall2 的精确对比**（纠正常见误解）：
-> - Passwall 系**有** geosite / geoip / rule_set 的**规则匹配**能力（通过底层 xray/sing-box 核）
-> - 但**没有** mihomo 的 **proxy-groups 嵌套选择器**（两级 `select`/`url-test` 串联 + Smart + LightGBM）
-> - 想要 **28 业务组 → 9 区域组 → 自动 url-test 选最低延迟节点 → 机场换节点自动归位** 这套体验，只有 mihomo 架构（OpenClash / CMFA / ShellClash）能原生给
-> - 详细差异对照见 `Passwall2/README.md` §3「能和不能」
+> 💡 Passwall 系**能**做 `geosite` / `geoip` / `rule_set` 的规则匹配，**不能**做 mihomo 的「业务组 → 区域组 → 节点」两级 `select` + `url-test` 嵌套。想要完整的 28+9 架构 + LightGBM + 机场换节点自动归位，只有 mihomo 系（OpenClash / CMFA / ShellClash）能原生给。详细差异见 `Passwall2/README.md`。
 
 ---
 
