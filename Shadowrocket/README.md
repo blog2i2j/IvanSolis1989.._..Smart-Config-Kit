@@ -1,9 +1,9 @@
 # Shadowrocket（小火箭）使用教程
 
 > 配置文件：`shadowrocket-smart.conf`
-> 版本：**v5.2.2-SR.2**（Build 2026-04-20，从 Clash Party v5.2.2 迁移重构）
+> 版本：**v5.2.5-SR.3**（Build 2026-04-22，删除 72 条 Clash yaml 规则集 + anti-AD/Sukka 兼容修复，详见 `Shadowrocket/CHANGELOG.md`）
 > 目标：**Shadowrocket iOS（App Store 正版）** / macOS 通用
-> 架构：9 区域组（`url-test` + `policy-regex-filter` 按节点名自动分类）+ 28 业务策略组 + 250+ rule-set
+> 架构：9 区域组（`url-test` + `policy-regex-filter` 按节点名自动分类）+ 28 业务策略组 + ~290 rule-set
 
 ---
 
