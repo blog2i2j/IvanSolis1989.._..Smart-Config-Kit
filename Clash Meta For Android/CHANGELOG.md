@@ -5,6 +5,18 @@
 
 ---
 
+## v5.2.8-cmfa.3 (2026-04-23)
+
+- ★ **FIX#28-P0**（节点分类同构 bug 补齐）：🌏 亚太节点 filter 补 HK/TW/JP/KR 子串
+  - 现象：CMFA 侧用户订阅的香港/台湾/日韩节点进不了 🌏 亚太节点组。
+  - 根因：L486 亚太 filter 只匹配 `新加坡|Singapore|SGP|马来西亚|...|🇸🇬|🇲🇾|...`，未包含 HK/TW/JP/KR 任何标识 → mihomo 按 Go RE2 子串匹配时，港台日韩节点全部落空。与 Clash Party JS 主线语义不一致（`apacNodes = c.HK.concat(c.TW, c.CN, c.JP, c.KR, c.SG, c.APAC_OTHER)`）。
+  - 修复：
+    - L486 🌏 亚太节点 filter 头部补 `香港|HongKong|Hong\s*Kong|HKG|🇭🇰|台湾|台灣|Taiwan|Taipei|TPE|TWN|🇹🇼|日本|东京|大阪|Japan|Tokyo|Osaka|NRT|KIX|JPN|🇯🇵|韩国|首尔|Korea|Seoul|ICN|KOR|🇰🇷`（与香港/台湾/日韩节点 filter 关键词一致，避免裸 `HK`/`TW`/`JP`/`KR` 误命中 HKD / TWD 等非节点字符串）
+    - L495 🏡 亚太家宽 filter 同步扩展（两侧 lookahead/lookbehind 的子区域关键词都加）
+  - 💡 美洲节点（L540）已包含 `美国|United\s*States|USA|LAX|...|🇺🇸`，不需要改；欧洲/非洲亦已正确覆盖所属国家。
+  - 同构 bug 审计（CLAUDE.md §1.5 强制）：OpenClash Ruby Normal / Full 命中同构 bug，本 PR 一并修复（见 `OpenClash/CHANGELOG.md` v5.2.8-oc-normal.3 / v5.2.8-oc-full.3）。Clash Party JS / Normal JS / Shadowrocket / Surge / Loon / QX 核对均已有正确覆盖；SingBox / v2rayN 无运行时分类（N/A）。
+  - 跟随基线：Clash Party v5.2.8 → CMFA bump 到 `v5.2.8-cmfa.3`。
+
 ## v5.2.7-cmfa.1 (2026-04-23)
 
 - ★ **FIX#27-P1**：消除 mihomo 加载 3 个 classical rule-provider 的 parse warning（与 Clash Party v5.2.7 同步）

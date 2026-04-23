@@ -9,6 +9,17 @@
 
 ## Normal（`OpenClash(mihomo).sh`，非 Smart 内核 / url-test 版）
 
+### v5.2.8-oc-normal.3 (2026-04-23)
+
+- ★ **FIX#28-P0**（节点分类多归属）：🌏 亚太节点组缺 HK/TW/JP/KR、🌎 美洲节点组缺 US
+  - 现象（用户报告）：OpenClash 亚太组里看不到香港/台湾/日韩节点；美洲组里看不到美国节点。
+  - 根因：Ruby 分类循环用 `GROUP_MAP.each { ... break }`，每个节点的 region code 只会命中 `GROUP_MAP` 里第一个包含它的条目 → HK 永远停在 `"HK" => ["HK"]`、US 永远停在 `"US" => ["US"]`，永远走不到 `"APAC"` / `"AM"` 条目。而 Clash Party JS 主线语义是 `apacNodes = c.HK.concat(c.TW, c.CN, c.JP, c.KR, c.SG, c.APAC_OTHER)` / `americasNodes = c.US.concat(c.AM)`，子区域与所属大洲**同时归属**。
+  - 修复（L4275 ~ L4332）：
+    - `GROUP_MAP["APAC"]` 扩充为 `["HK", "TW", "JP", "KR", "SG", "IN", "TH", "VN", "MY", "ID", "PH", "AU", "NZ", "TR", "AE"]`
+    - `GROUP_MAP["AM"]` 扩充为 `["US", "CA", "MX", "BR", "AR"]`
+    - 分类循环去掉 `break` —— 同一节点可同时进入子区域组（香港/台湾/日韩/美国）与所属大洲组（亚太/美洲）
+  - 同构 bug 审计（CLAUDE.md §1.5 强制）：Ruby 双脚本 + CMFA YAML 均命中同构 bug，本 PR 一并修复（OpenClash Normal / OpenClash Full / CMFA）。Clash Party JS / Clash Party Normal JS / Shadowrocket / Surge / Loon / QX 经核对均已有正确覆盖，无需改动；SingBox / v2rayN 无运行时节点分类（N/A）。
+
 ### v5.2.7-oc-normal.1 (2026-04-23)
 
 - ★ **FIX#27-P1**（与 Clash Party v5.2.7 同步）：消除 mihomo 加载 3 个 classical rule-provider 的 parse warning
@@ -75,6 +86,13 @@
 ---
 
 ## Full（`OpenClash(mihomo-smart).sh`）
+
+### v5.2.8-oc-full.3 (2026-04-23)
+
+- ★ **FIX#28-P0**（节点分类多归属，与 Normal 同步）：
+  - 现象 / 根因 / 修复同 `v5.2.8-oc-normal.3`（L4273 ~ L4325 对应位置）。
+  - `GROUP_MAP["APAC"]` 扩展到 HK+TW+JP+KR+SG+其它亚太国家，`GROUP_MAP["AM"]` 扩展到 US+CA+MX+BR+AR，循环移除 `break`。
+  - 同构 bug 审计：见 Normal v5.2.8-oc-normal.3 条目。
 
 ### v5.2.7-oc-full.1 (2026-04-23)
 

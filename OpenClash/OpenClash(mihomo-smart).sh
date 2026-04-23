@@ -2,7 +2,7 @@
 . /usr/share/openclash/log.sh
 
 # ============================================================================
-# Clash Smart v5.2.8-oc-full.2 — OpenClash 覆写脚本（与 Clash Party 主线同等规则量）
+# Clash Smart v5.2.8-oc-full.3 — OpenClash 覆写脚本（与 Clash Party 主线同等规则量）
 # ============================================================================
 # 定位：对齐 Clash Party v5.2.8 JS 主线的 OpenClash 全量版本。
 #       与同目录 OpenClash(mihomo).sh（Normal）互补：
@@ -22,7 +22,7 @@
 
 
 
-VERSION_TAG="v5.2.8-oc-full.2"
+VERSION_TAG="v5.2.8-oc-full.3"
 CONFIG_FILE="$1"
 LOG_FILE="/tmp/openclash.log"
 
@@ -4193,7 +4193,7 @@ cat > "$RUBY_SCRIPT" << 'RUBY_EOF'
 require 'yaml'
 require 'digest'
 
-VERSION = "v5.2.8-oc-full.2"
+VERSION = "v5.2.8-oc-full.3"
 
 STATUS_LOG = "/tmp/clash_smart_status.log"
 File.open(STATUS_LOG, 'w') { |f| f.puts "[#{VERSION}] start" }
@@ -4270,15 +4270,22 @@ REGIONS = {
   "AE"  => /阿联酋|AE\b|UAE|Dubai|🇦🇪/i,
 }
 
+# v5.2.8-oc-full.3 FIX#28-P0: GROUP_MAP 展平同源 bug
+#   原实现每个 code 只落入 GROUP_MAP 的首个命中条目（下方 each/break），导致：
+#     • HK/TW/JP/KR 只进香港/台湾/日韩子组，永远进不了 🌏 亚太节点
+#     • US 只进美国子组，永远进不了 🌎 美洲节点
+#   Clash Party JS 主线语义：区域大组 = 子区域并集（apacNodes = HK+TW+CN+JP+KR+SG+APAC_OTHER；
+#   americasNodes = US+AM）。修复：APAC 扩充至涵盖 HK/TW/JP/KR + 原 APAC_OTHER 集；AM 扩充至
+#   包含 US；分类循环移除 break，同一节点可同时进入子区域组与所属大洲组。
 GROUP_MAP = {
   "HK"     => ["HK"],
   "TW"     => ["TW"],
   "JP_KR"  => ["JP", "KR"],
   "US"     => ["US"],
   "EU"     => ["UK", "DE", "FR", "NL", "CH", "RU"],
-  "AM"     => ["CA", "MX", "BR", "AR"],
+  "AM"     => ["US", "CA", "MX", "BR", "AR"],
   "AF"     => ["ZA", "EG", "NG"],
-  "APAC"   => ["SG", "IN", "TH", "VN", "MY", "ID", "PH", "AU", "NZ"],
+  "APAC"   => ["HK", "TW", "JP", "KR", "SG", "IN", "TH", "VN", "MY", "ID", "PH", "AU", "NZ", "TR", "AE"],
 }
 GROUP_NAMES = {
   "HK"    => "🇭🇰 香港节点",
@@ -4316,11 +4323,11 @@ filtered_proxies.each do |p|
 
   code = classify.call(name)
   next if code.nil?
+  # v5.2.8-oc-full.3 FIX#28-P0: 去掉 break，单节点可并入多个区域组（子区域 + 所属大洲）
   GROUP_MAP.each do |gkey, codes|
     if codes.include?(code)
       buckets[gkey] << name
       home_buckets[gkey] << name if is_home
-      break
     end
   end
 end
