@@ -36,33 +36,18 @@
 >
 > </details>
 
-> 一套以 **Clash Party（Mihomo Smart 内核）JS 覆写脚本** 为基线、同步产出多核心 / 多客户端等价配置的科学上网分流体系，**同一套策略模型**覆盖多端，降低“设备 A 可用、设备 B 抽风”的割裂感。  
+> 一套以 **Clash Party（Mihomo Smart 内核）JS 覆写脚本** 为基线、同步产出多核心 / 多客户端等价配置的科学上网分流体系，**同一套策略模型覆盖多端**，让同一套分流策略在任何设备、任何代理工具上给出**一致、可解释、可迭代**的结果，降低“设备 A 可用、设备 B 抽风”的割裂感。  
 > 覆盖核心：**Mihomo (Clash.Meta / Smart)** · **sing-box** · **Xray** · **Shadowrocket / Surge / Loon / Quantumult X 各自私有引擎**  
 > 覆盖客户端：**Clash Party / Clash Verge Rev / Mihomo Party / CMFA / FlClash / mihomo-party-android / ClashMi / OpenClash / PassWall2 / Shadowrocket / Surge / Loon / Quantumult X / sing-box / Hiddify / v2rayN**  
-> 覆盖设备：**Windows / macOS / Linux / Android / iOS / OpenWrt 软路由**  
-> 目标：让同一套分流策略在任何设备、任何代理工具上给出**一致、可解释、可迭代**的结果。
-
----
-
-## ✨ 项目亮点（先看这个）
-
-- 🧩 **精细分流**：按业务语义拆分策略组，避免“大一统代理”带来的误伤与浪费。
-- ⚡ **内核可切换**：OpenClash 提供 Smart / Normal 双版本（同规则量），按内核能力选择 `smart` 或经典 `url-test` 选路。
-- 🤖 **AI 原生仓库**：**本仓库全部脚本与配置由 AI 编写，并由 AI 持续维护与迭代，除 mihomo 内核由本人实际使用，其他内核未经实测，请测试后使用并积极反馈**。
-- 💬 **Issue 自动回答**：[开 issue](https://github.com/ivansolis1989/Smart-Config-Kit/issues/new/choose) 会触发 AI 自动回答（`/ai-help` 或者追问会升级深度推理分析），维护者人工兜底，**AI 回复机器人无代码修改权限**。
-
----
-
-## 🤖 AI 开发与维护声明
-
-### 本仓库的工程原则
-
-1. **全量 AI 编写**：仓库内脚本/配置以 AI 生成与重构为主。
-2. **全量 AI 维护**：版本演进、结构整理、说明文档优化由 AI 持续执行。
-3. **可读性优先**：配置不只“能跑”，还要“好懂、好改、好排障”。
-4. **平台一致性**：尽量让同类业务在不同客户端表现一致。
-
-> ✅ 如果你希望“可追踪”的升级体验，这种 AI 驱动仓库会更适合长期使用。
+> 覆盖设备：**Windows / macOS / Linux / Android / iOS / OpenWrt 软路由**
+>
+> ✨ **项目亮点**
+> - 🧩 **精细分流**：按业务语义拆分策略组，避免“大一统代理”带来的误伤与浪费。
+> - ⚡ **内核可切换**：OpenClash 提供 Smart / Normal 双版本（同规则量），按内核能力选择 `smart` 或经典 `url-test` 选路。
+> - 🤖 **AI 原生仓库**：**全部脚本与配置由 AI 编写并持续维护迭代**——版本演进 / 结构整理 / 文档优化全由 AI 执行，坚持**可读性优先**（能跑 + 好懂 + 好改 + 好排障）与**平台一致性**（同类业务在不同客户端表现一致）；除 mihomo 内核由本人实际使用，其他内核未经实测，请测试后使用并积极反馈。
+> - 💬 **Issue 自动回答**：[开 issue](https://github.com/ivansolis1989/Smart-Config-Kit/issues/new/choose) 会触发 AI 自动回答（`/ai-help` 或追问会升级深度推理分析），维护者人工兜底，**AI 回复机器人无代码修改权限**。
+>
+> ✅ 想要“可追踪”的升级体验，这种 AI 驱动仓库会更适合长期使用。
 
 ---
 
