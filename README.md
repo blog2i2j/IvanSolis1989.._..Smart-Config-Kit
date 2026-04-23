@@ -49,7 +49,7 @@
 - 🧠 **统一架构**：同一套策略模型覆盖多端，降低“设备 A 可用、设备 B 抽风”的割裂感。
 - 🧩 **精细分流**：按业务语义拆分策略组，避免“大一统代理”带来的误伤与浪费。
 - ⚡ **内核可切换**：OpenClash 提供 Smart / Normal 双版本（同规则量），按内核能力选择 `smart` 或经典 `url-test` 选路。
-- 🤖 **AI 原生仓库**：**本仓库全部脚本与配置由 AI 编写，并由 AI 持续维护与迭代**。
+- 🤖 **AI 原生仓库**：**本仓库全部脚本与配置由 AI 编写，并由 AI 持续维护与迭代，除 mihomo 内核由本人实际使用，其他内核未经实测，请测试后使用并积极反馈**。
 - 💬 **Issue 自动回答**：[开 issue](https://github.com/ivansolis1989/Smart-Config-Kit/issues/new/choose) 会触发 AI 自动回答（`/ai-help` 或者追问会升级深度推理分析），维护者人工兜底，**AI 回复机器人无代码修改权限**。
 
 ---
@@ -301,7 +301,7 @@ Clash Party / CMFA / OpenClash 都采用同一套分层方案（详见 `Clash Pa
 │  ④ fallback（海外域名回退通道，DoH + GeoIP 解毒）                 │
 │     https://1.1.1.1/dns-query + https://8.8.8.8/dns-query       │
 │     fallback-filter.geoip-code: CN                              │
-│     作用：国外域名若查出 CN 段 IP（说明被污染），自动用 fallback     │
+│     作用：国外域名若查出 CN 段 IP（说明被污染），自动用 fallback    │
 │           重查 → 避开 GFW 注入的假 IP                            │
 └─────────────────────────────────────────────────────────────────┘
 ```
