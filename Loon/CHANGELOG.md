@@ -4,6 +4,14 @@
 
 ---
 
+## v5.2.8-Loon.5 (2026-04-23) — 基线对齐 Clash Party v5.2.8（无代码改动）
+
+- 跟随基线 bump：`v5.2.4-Loon.4` → `v5.2.8-Loon.5`
+- v5.2.5（Accademia 裁剪）：Loon v5.2.4-Loon.2/.3 已独立完成同类裁剪，无需改动
+- v5.2.6（alpha-3 / fallback / cleanupSubscription 同构修复）：Loon `NameRegex FilterKey` 已有 TWN/JPN/KOR/SGP 完整覆盖，无需改动
+- v5.2.7（mirror URL 切换）：Loon 直接拉上游 URL，不走 mirror，无需改动
+- v5.2.8（CMFA/OpenClash 亚太 filter 同构修复）：Loon `NameRegex FilterKey` 已有 HK/TW/JP/KR 完整覆盖，无需改动
+
 ## v5.2.4-Loon.4 (2026-04-22) — 根治"第 229 行语法错误"：288 条 RULE-SET 迁移到 [Remote Rule]
 
 用户反馈 v5.2.4-Loon.3 仍然弹"第 229 行出现语法错误"（anti-ad-surge.txt）；同一天朋友指出 Loon

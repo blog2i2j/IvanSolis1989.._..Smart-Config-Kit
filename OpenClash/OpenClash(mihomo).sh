@@ -13,8 +13,8 @@
 # 架构：
 #   • 18 url-test 区域组（9 全部 + 9 家宽；interval 600s / tolerance 150ms / lazy：与 Smart 版同步延迟参数）
 #   • 28 业务策略组
-#   • 387 rule-providers（全部 proxy: "🚫 受限网站"，对齐 Clash Party FIX#17-P0）
-#   • ~977 条 rules
+#   • 384 rule-providers（全部 proxy: "🚫 受限网站"，对齐 Clash Party FIX#17-P0）
+#   • ~975 条 rules
 #   • DNS fake-ip + 嗅探（HTTP/TLS/QUIC）+ nameserver-policy 救援
 #   • Ruby 阶段做：节点过滤 / 区域分类 / url-test 组生成 / TLS 指纹注入
 # 基线：Clash Party v5.2.8（唯一主线）── 任何规则/组/DNS 改动必须先改 Clash Party JS，
@@ -445,11 +445,11 @@ proxy-groups:
 OVERRIDE_EOF
 
 # ============================================================================
-# OVERRIDE YAML (续) — Rule-Providers：387 项，对齐 Clash Party v5.2.2 主线
+# OVERRIDE YAML (续) — Rule-Providers：384 项，对齐 Clash Party v5.2.8 主线
 # 策略：
 #   ✓ 与 Clash Party 主线（BIZ.GFW = '🚫 受限网站'）一致：所有 provider 都走 GFW 组
 #     下载，在中国走代理、在印尼走 DIRECT，规避 jsdelivr/GitHub 冷启动死锁。
-#   ✓ 9 url-test 区域组 + 28 业务组 + 387 rule-providers + ~977 条规则
+#   ✓ 9 url-test 区域组 + 28 业务组 + 384 rule-providers + ~975 条规则
 #   ✓ 区域组统一 type: url-test + include-all-proxies / explicit proxies 分流
 #   ✓ TLS 指纹注入（Ruby 阶段 _simple_hash 分配）
 # ============================================================================

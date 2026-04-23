@@ -7,6 +7,16 @@
 
 ---
 
+## v5.2.8 (2026-04-23)
+
+- ★ **FIX#28-P0**：CMFA / OpenClash 亚太节点 filter 补 HK/TW/JP/KR 子串（同构 bug 补齐）
+  - 本 JS 主线已有正确覆盖（`apacNodes = c.HK.concat(c.TW, c.CN, c.JP, c.KR, c.SG, c.APAC_OTHER)`），无需改动
+  - CMFA YAML（`v5.2.8-cmfa.3`）：🌏 亚太节点 filter 补 `香港|HKG|台湾|TWN|日本|JPN|韩国|KOR` 等关键词
+  - OpenClash Normal / Full（`v5.2.8-oc-normal.3` / `v5.2.8-oc-full.3`）：Ruby `GROUP_MAP["APAC"]` 扩充 + 去掉分类循环 `break`
+  - ⛔ Shadowrocket / Surge / Loon / QX：`policy-regex-filter` / `server-tag-regex` 已有正确覆盖，无需改动
+  - ⛔ SingBox / v2rayN：无运行时节点分类（N/A）
+- 版本号 `v5.2.7` → `v5.2.8`（为 CMFA / OpenClash 同构修复提供基线标识）
+
 ## v5.2.7 (2026-04-23)
 
 - ★ **FIX#27-P1**：消除 mihomo 加载 3 个 classical rule-provider 时的 parse warning
