@@ -162,7 +162,8 @@ sing-box 由 SagerNet 团队开发，是目前**新协议实现最前沿**的代
 当 `Clash Party/ClashParty(mihomo-smart).js` 更新后，执行：
 
 ```bash
-node SingBox/SingBox(sing-box)-generator.js
+# 路径里的 ( ) 是 shell 语法 token，必须加引号
+node 'SingBox/SingBox(sing-box)-generator.js'
 ```
 
 脚本会自动：

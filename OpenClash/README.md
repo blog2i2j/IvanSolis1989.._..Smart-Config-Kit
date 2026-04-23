@@ -51,9 +51,11 @@
 在仓库根目录执行（示例 IP 为 `192.168.1.1`）：
 
 ```bash
-scp OpenClash/OpenClash(mihomo-smart).sh root@192.168.1.1:/etc/openclash/
-scp OpenClash/OpenClash(mihomo).sh root@192.168.1.1:/etc/openclash/
-ssh root@192.168.1.1 "chmod +x /etc/openclash/OpenClash(mihomo-smart).sh /etc/openclash/OpenClash(mihomo).sh"
+# 路径里的 ( ) 是 shell 语法 token，必须加引号
+scp 'OpenClash/OpenClash(mihomo-smart).sh' root@192.168.1.1:/etc/openclash/
+scp 'OpenClash/OpenClash(mihomo).sh' root@192.168.1.1:/etc/openclash/
+# ssh 远端 chmod：外层双引号 + 内层单引号
+ssh root@192.168.1.1 "chmod +x '/etc/openclash/OpenClash(mihomo-smart).sh' '/etc/openclash/OpenClash(mihomo).sh'"
 ```
 
 ### 步骤 4：在 OpenClash 启用自定义覆写脚本

@@ -64,7 +64,8 @@
 ### 生成工作流
 
 ```
-node SingBox/SingBox(sing-box)-generator.js
+# 路径里的 ( ) 是 shell 语法 token，必须加引号
+node 'SingBox/SingBox(sing-box)-generator.js'
 # 读 SingBox/SingBox(sing-box).json（本次重建好的 base）+ Clash Party 主线 JS
 # 产出 SingBox/SingBox(sing-box)-full.json
 ```
