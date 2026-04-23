@@ -5,6 +5,12 @@
 
 ---
 
+## v5.2.8-SR.5 (2026-04-23) — 基线对齐 Clash Party v5.2.8（无代码改动）
+
+- 跟随基线 bump：`v5.2.6-SR.4` → `v5.2.8-SR.5`
+- v5.2.7（mirror URL 切换）：SR 直接拉上游 URL，不走 mirror，无需改动
+- v5.2.8（CMFA/OpenClash 亚太 filter 同构修复）：SR `policy-regex-filter` 已有 HK/TW/JP/KR 完整覆盖，无需改动
+
 ## v5.2.6-SR.4 (2026-04-23) — FINAL 兜底补 `dns-failed` 标志
 
 跨产物审计（PR #65）发现 CLAUDE.md §3.3 硬约束违反：

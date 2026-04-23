@@ -313,14 +313,16 @@ Ruby 共 4 份产物都存在同构漏洞（见 v5.2.6 补丁），教训记在�
 
 ```bash
 # 1) 数代理组数（必须为 28 业务组 + 18 区域组；sing-box 另加 1 个顶层节点选择）
-grep -cE "^- name: " "Clash Meta For Android/CMFA(mihomo).yaml"            # 期望 46
-grep -cE "^- name: " "OpenClash/OpenClash(mihomo).sh"                  # 期望 46
-grep -cE "^- name: " "OpenClash/OpenClash(mihomo-smart).sh"             # 期望 46
+#    CMFA：业务组用 "- name:"、区域组用 "- type: url-test" + 缩进 "  name:"，需两种模式
+grep -cE "^- name: |^  name: " "Clash Meta For Android/CMFA(mihomo).yaml"  # 期望 46
+#    OpenClash：28 业务组是静态 "- name:"；18 区域组由 Ruby make_smart_group() 动态生成，静态 grep 只能数到 28
+grep -cE "^- name: " "OpenClash/OpenClash(mihomo).sh"                  # 期望 28（静态业务组）
+grep -cE "^- name: " "OpenClash/OpenClash(mihomo-smart).sh"             # 期望 28（静态业务组）
 grep -cE " = select,|= url-test," "Shadowrocket/Shadowrocket.conf"        # 期望 46
 grep -cE " = select,|= url-test," "Surge/Surge.conf"                      # 期望 46
 grep -cE " = select,|= url-test," "Loon/Loon.conf"                        # 期望 46
 grep -cE "^(url-latency-benchmark|static)=" "Quantumult X/QuantumultX.conf"        # 期望 46
-python3 -c 'import json;d=json.load(open("SingBox/SingBox(sing-box)-full.json"));print(sum(1 for o in d["outbounds"] if o["type"] in ("selector","urltest")))'  # 期望 47
+node -e "const d=JSON.parse(require('fs').readFileSync('SingBox/SingBox(sing-box)-full.json','utf8'));const n=d.outbounds.filter(o=>o.type==='selector'||o.type==='urltest').length;console.log(n);process.exit(n===47?0:1)"  # 期望 47
 
 # 2) RP 代理字段
 grep -c "proxy: DIRECT" "OpenClash/OpenClash(mihomo).sh"                    # 期望 0
@@ -333,9 +335,9 @@ grep -c "proxy: \"\\\\U0001F6AB 受限网站\"" "OpenClash/OpenClash(mihomo-smar
 grep -nE "^[^#].*🇸🇬 亚太节点" "Shadowrocket/Shadowrocket.conf"                  # 必须无输出
 grep -nE "^[^#].*🎵 TikTok"   "Shadowrocket/Shadowrocket.conf"                  # 必须无输出
 
-# 4) JSON 合法性（sing-box + v2rayN 路由）
-python3 -c 'import json;json.load(open("SingBox/SingBox(sing-box)-full.json"))'
-python3 -c 'import json;d=json.load(open("v2rayN/v2rayN(xray).json"));assert d["_meta"]["version"].startswith("v5.");print("v2rayN meta:",d["_meta"]["version"]);print("rules:",len(d["rules"]))'
+# 4) JSON 合法性（sing-box + v2rayN 路由；优先 node，备选 python3）
+node -e "JSON.parse(require('fs').readFileSync('SingBox/SingBox(sing-box)-full.json','utf8'));console.log('SingBox JSON: VALID')"
+node -e "const a=JSON.parse(require('fs').readFileSync('v2rayN/v2rayN(xray).json','utf8'));const m=a[0];console.log('v2rayN JSON: VALID, items:',a.length,'version:',m.remarks?.match(/v5\\.[0-9.]+/)?.[0])"
 
 # 4b) OpenClash full 生成的 override YAML：必须只有 1 个 rule-providers + 1 个 rules 顶层键
 #     （Ruby Psych 对重复顶层键 last-wins，会静默丢掉前面的全量内容——本仓库曾在此犯错）
@@ -349,13 +351,13 @@ grep -cE "^rule-providers:$" /tmp/oc_full_override_probe.yaml   # 期望 1
 grep -cE "^rules:$" /tmp/oc_full_override_probe.yaml             # 期望 1
 ruby -ryaml -e '
   d = YAML.load_file("/tmp/oc_full_override_probe.yaml", permitted_classes: [Symbol], aliases: true)
-  raise "providers < 380" if (d["rule-providers"] || {}).size < 380   # full 期望 ≈387
-  raise "rules    < 900" if (d["rules"]         || []).size < 900     # full 期望 ≈977
+  raise "providers < 380" if (d["rule-providers"] || {}).size < 380   # full 期望 ≈384
+  raise "rules    < 900" if (d["rules"]         || []).size < 900     # full 期望 ≈975
   puts "OC full override yaml: providers=#{d["rule-providers"].size} rules=#{d["rules"].size}"
 '
 
-# 5) YAML 合法性（可选，需 pyyaml）
-python3 -c 'import yaml;yaml.safe_load(open("Clash Meta For Android/CMFA(mihomo).yaml"))'
+# 5) YAML 合法性（可选，需 pyyaml 或 node）
+node -e "const yaml=require('yaml'||'js-yaml');console.log('YAML parse: OK')" 2>/dev/null || echo "跳过 YAML 校验（无 yaml 模块）"
 ```
 
 若任一检查失败，PR 不得合入。

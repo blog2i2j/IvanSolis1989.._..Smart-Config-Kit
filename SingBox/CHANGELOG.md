@@ -5,6 +5,12 @@
 
 ---
 
+## v5.2.8-sing.1 (2026-04-23) — 基线对齐 Clash Party v5.2.8（无代码改动）
+
+- 跟随基线 bump：`v5.2.6-sing.5` → `v5.2.8-sing.1`
+- v5.2.7（mirror URL 切换）：SingBox 使用 `route.rule_set` 拉取 binary `.srs`，与 Clash classical mirror 无关，无需改动
+- v5.2.8（CMFA/OpenClash 亚太 filter 同构修复）：SingBox 静态 outbound 列表，无运行时节点分类，无需改动
+
 ## v5.2.6-sing.5 (2026-04-23) — 删除 SingBox 非 Full 产物
 
 - ★ 删除旧的非 Full SingBox JSON 产物，本目录只保留 Full 配置。

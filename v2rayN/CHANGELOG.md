@@ -7,6 +7,12 @@
 
 ---
 
+## v5.2.7 / v5.2.8 — 不适用（v2rayN 维持 v5.2.6 基线）
+
+- v5.2.7（mirror URL 切换）：v2rayN Xray 路由 JSON 不消费 Clash classical rule-provider，无需改动
+- v5.2.8（CMFA/OpenClash 亚太 filter 同构修复）：v2rayN 无运行时节点分类（纯 routing rules），无需改动
+- v2rayN 当前基线 `Clash Party v5.2.6` 仍为最新有效基线
+
 ## v5.2.6-v2n.3 (2026-04-23) — 改为官方规则数组 + 移除悬空 dns-out
 
 本轮处理 P0 兼容性审查中 v2rayN Xray 路径的导入格式与 outboundTag 问题。

@@ -4,6 +4,12 @@
 
 ---
 
+## v5.2.8-Surge.4 (2026-04-23) — 基线对齐 Clash Party v5.2.8（无代码改动）
+
+- 跟随基线 bump：`v5.2.6-Surge.3` → `v5.2.8-Surge.4`
+- v5.2.7（mirror URL 切换）：Surge 直接拉上游 URL，不走 mirror，无需改动
+- v5.2.8（CMFA/OpenClash 亚太 filter 同构修复）：Surge `policy-regex-filter` 已有 HK/TW/JP/KR 完整覆盖，无需改动
+
 ## v5.2.6-Surge.3 (2026-04-23) — 修复区域 url-test 组候选池为空
 
 P0 审查发现 9 个区域 `url-test` 组只有 `policy-regex-filter`，没有候选节点来源；Surge 官方说明正则过滤需要配合 `include-all-proxies` / `include-other-group` / `policy-path` 使用，否则组内可能为空。

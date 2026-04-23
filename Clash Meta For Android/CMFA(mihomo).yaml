@@ -1,7 +1,7 @@
 # ================================================================
-# Clash Smart v5.2.8-cmfa.3 - CMFA (Clash Meta for Android) 配置
-# Build: 2026-04-23
-# 架构：proxy-providers 订阅 + 18 url-test 区域组（9 全部 + 9 家宽）+ 28 业务策略组 + 373+ rule-providers
+# Clash Smart v5.2.8-cmfa.4 - CMFA (Clash Meta for Android) 配置
+# Build: 2026-04-24
+# 架构：proxy-providers 订阅 + 18 url-test 区域组（9 全部 + 9 家宽）+ 28 业务策略组 + 384 rule-providers
 # 基线：Clash Party v5.2.8（唯一主线）
 # 变更历史：见 `Clash Meta For Android/CHANGELOG.md`
 # ================================================================
@@ -2592,20 +2592,6 @@ rule-providers:
     path: ./ruleset/bm7-Duolingo.yaml
     interval: 89780
     proxy: '🚫 受限网站'
-  ckrvxr-antipcdn:
-    type: http
-    behavior: classical
-    url: 'https://fastly.jsdelivr.net/gh/Ckrvxr/MihomoRules@main/Source/Addition/AntiPCDN.yaml'
-    path: ./ruleset/ckrvxr-AntiPCDN.yaml
-    interval: 89830
-    proxy: '🚫 受限网站'
-  ckrvxr-antifraud:
-    type: http
-    behavior: classical
-    url: 'https://fastly.jsdelivr.net/gh/Ckrvxr/MihomoRules@main/Source/Addition/AntiAntiFraud.yaml'
-    path: ./ruleset/ckrvxr-AntiAntiFraud.yaml
-    interval: 89839
-    proxy: '🚫 受限网站'
   sukka-phishing:
     type: http
     behavior: domain
@@ -3337,8 +3323,6 @@ rules:
 - 'RULE-SET,anti-ad,🛑 广告拦截'
 - 'RULE-SET,sukka-phishing,🛑 广告拦截'
 - 'RULE-SET,hagezi-tif,🛑 广告拦截'
-- 'RULE-SET,ckrvxr-antifraud,🛑 广告拦截'
-- 'RULE-SET,ckrvxr-antipcdn,🛑 广告拦截'
 - 'RULE-SET,acc-hijackingplus,🛑 广告拦截'
 - 'RULE-SET,acc-blockhttpdnsplus,🛑 广告拦截'
 - 'RULE-SET,acc-prerepaireasyprivacy,🛑 广告拦截'
@@ -3400,7 +3384,7 @@ rules:
 - 'DOMAIN-SUFFIX,mistral.ai,🤖 AI 服务'
 - 'DOMAIN-SUFFIX,x.ai,🤖 AI 服务'
 - 'DOMAIN-SUFFIX,grok.com,🤖 AI 服务'
-- 'DOMAIN-SUFFIX,deepseek.com,🤖 AI 服务'
+- 'DOMAIN-SUFFIX,deepseek.com,🏠 国内网站'
 - 'DOMAIN-SUFFIX,huggingface.co,🤖 AI 服务'
 - 'DOMAIN-SUFFIX,replicate.com,🤖 AI 服务'
 - 'DOMAIN-SUFFIX,together.ai,🤖 AI 服务'
@@ -3416,8 +3400,8 @@ rules:
 - 'DOMAIN-SUFFIX,notebooklm.google,🤖 AI 服务'
 - 'DOMAIN-SUFFIX,poe.com,🤖 AI 服务'
 - 'DOMAIN-SUFFIX,character.ai,🤖 AI 服务'
-- 'DOMAIN-SUFFIX,inflection.ai,🤖 AI 服务'
-- 'DOMAIN-SUFFIX,pi.ai,🤖 AI 服务'
+- 'DOMAIN-SUFFIX,inflection.ai,🚫 受限网站'
+- 'DOMAIN-SUFFIX,pi.ai,🚫 受限网站'
 - 'DOMAIN-SUFFIX,suno.ai,🤖 AI 服务'
 - 'DOMAIN-SUFFIX,suno.com,🤖 AI 服务'
 - 'DOMAIN-SUFFIX,runway.ml,🤖 AI 服务'

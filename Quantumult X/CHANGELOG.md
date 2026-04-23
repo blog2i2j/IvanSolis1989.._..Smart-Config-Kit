@@ -6,6 +6,13 @@
 
 ---
 
+## v5.2.8-QX.3 (2026-04-23) — 基线对齐 Clash Party v5.2.8（无代码改动）
+
+- 跟随基线 bump：`v5.2.5-QX.2` → `v5.2.8-QX.3`
+- v5.2.6（alpha-3 / fallback / cleanupSubscription 同构修复）：QX `server-tag-regex` 已有 TWN/JPN/KOR/SGP 完整覆盖，无需改动
+- v5.2.7（mirror URL 切换）：QX 直接拉上游 URL，不走 mirror，无需改动
+- v5.2.8（CMFA/OpenClash 亚太 filter 同构修复）：QX `server-tag-regex` 已有 HK/TW/JP/KR 完整覆盖，无需改动
+
 ## v5.2.5-QX.2 (2026-04-22) — 移除 72 条 Clash YAML + anti-AD/Sukka 兼容修复 + 版本对齐
 
 与 Loon v5.2.4-Loon.2/.3 与 Shadowrocket v5.2.5-SR.3 同批 "Clash Party 基线遗毒"：

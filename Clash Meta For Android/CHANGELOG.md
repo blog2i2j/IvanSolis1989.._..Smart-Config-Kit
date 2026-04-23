@@ -5,6 +5,19 @@
 
 ---
 
+## v5.2.8-cmfa.4 (2026-04-24)
+
+- ★ **删除 2 个离线 rule-provider**（与 Clash Party v5.2.1 对齐）
+  - `ckrvxr-antifraud`（`Ckrvxr/MihomoRules/.../AntiAntiFraud.yaml`）—— 源仓库持续 404，Clash Party JS 在 v5.2.1 已删除并注释 `v5.2.1 REMOVED`
+  - `ckrvxr-antipcdn`（`Ckrvxr/MihomoRules/.../AntiPCDN.yaml`）—— 同上
+  - 同时删除 `rules:` 段中对应的 2 条 `RULE-SET,ckrvxr-antifraud,🛑 广告拦截` / `RULE-SET,ckrvxr-antipcdn,🛑 广告拦截`
+  - rule-providers 数量 386 → 384（与 OpenClash 对齐）
+- ★ **修正 3 条规则目标组归属**（对齐 Clash Party JS 基线）：
+  - `deepseek.com`：`🤖 AI 服务` → `🏠 国内网站`（基线 `BIZ.CN_SITE`）
+  - `inflection.ai`：`🤖 AI 服务` → `🚫 受限网站`（基线 `BIZ.GFW`）
+  - `pi.ai`：`🤖 AI 服务` → `🚫 受限网站`（基线 `BIZ.GFW`）
+- 版本号 `v5.2.8-cmfa.3` → `v5.2.8-cmfa.4`
+
 ## v5.2.8-cmfa.3 (2026-04-23)
 
 - ★ **FIX#28-P0**（节点分类同构 bug 补齐）：🌏 亚太节点 filter 补 HK/TW/JP/KR 子串
