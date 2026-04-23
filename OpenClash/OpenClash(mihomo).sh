@@ -2,29 +2,29 @@
 . /usr/share/openclash/log.sh
 
 # ============================================================================
-# Clash v5.2.7-oc-normal.1 — OpenClash 覆写脚本（非 Smart 内核 / url-test 区域组）
+# Clash v5.2.8-oc-normal.2 — OpenClash 覆写脚本（非 Smart 内核 / url-test 区域组）
 # ============================================================================
 # 定位：与同目录 OpenClash(mihomo-smart).sh 规则 100% 等价的「非 Smart 内核」版本。
-#       两者唯一区别：9 个区域组从 type: smart（uselightgbm）换成 type: url-test。
+#       两者唯一区别：18 个区域组（9 全部 + 9 家宽）从 type: smart（uselightgbm）换成 type: url-test。
 #       适用场景：
 #         - OpenClash 内核选的是 Meta(mihomo 稳定版) 而非 Meta Alpha，不支持 smart + LightGBM
 #         - 或者明确想关闭 LightGBM ML 评估、只靠经典 url-test 延迟选路
 #       需要 LightGBM 智能评估请改用 OpenClash(mihomo-smart).sh（Smart 版）。
 # 架构：
-#   • 9 url-test 区域组（interval 600s / tolerance 150ms / lazy：与 Smart 版同步延迟参数）
+#   • 18 url-test 区域组（9 全部 + 9 家宽；interval 600s / tolerance 150ms / lazy：与 Smart 版同步延迟参数）
 #   • 28 业务策略组
 #   • 387 rule-providers（全部 proxy: "🚫 受限网站"，对齐 Clash Party FIX#17-P0）
 #   • ~977 条 rules
 #   • DNS fake-ip + 嗅探（HTTP/TLS/QUIC）+ nameserver-policy 救援
 #   • Ruby 阶段做：节点过滤 / 区域分类 / url-test 组生成 / TLS 指纹注入
-# 基线：Clash Party v5.2.7（唯一主线）── 任何规则/组/DNS 改动必须先改 Clash Party JS，
+# 基线：Clash Party v5.2.8（唯一主线）── 任何规则/组/DNS 改动必须先改 Clash Party JS，
 #       再同步到此文件。参见仓库根目录 CLAUDE.md / AGENTS.md。
 # 变更历史：见 `OpenClash/CHANGELOG.md`（Normal 部分）。
 # ============================================================================
 
 
 
-VERSION_TAG="v5.2.7-oc-normal.1"
+VERSION_TAG="v5.2.8-oc-normal.2"
 CONFIG_FILE="$1"
 LOG_FILE="/tmp/openclash.log"
 
@@ -188,115 +188,255 @@ proxy-groups:
 - name: 🤖 AI 服务
   type: select
   proxies: &id001
-  - 🌍 全球节点
-  - 🇭🇰 香港节点
-  - 🇹🇼 台湾节点
-  - 🇯🇵 日韩节点
-  - 🌏 亚太节点
-  - 🇺🇸 美国节点
-  - 🇪🇺 欧洲节点
-  - 🌎 美洲节点
-  - 🌍 非洲节点
-  - DIRECT
+    - 🏡 全球家宽
+    - 🏡 香港家宽
+    - 🏡 台湾家宽
+    - 🏡 日韩家宽
+    - 🏡 亚太家宽
+    - 🏡 美国家宽
+    - 🏡 欧洲家宽
+    - 🏡 美洲家宽
+    - 🏡 非洲家宽
+    - 🌍 全球节点
+    - 🇭🇰 香港节点
+    - 🇹🇼 台湾节点
+    - 🇯🇵 日韩节点
+    - 🌏 亚太节点
+    - 🇺🇸 美国节点
+    - 🇪🇺 欧洲节点
+    - 🌎 美洲节点
+    - 🌍 非洲节点
+    - DIRECT
 - name: 💰 加密货币
   type: select
-  proxies: *id001
+  proxies: &id002
+    - 🌍 全球节点
+    - 🏡 全球家宽
+    - 🇭🇰 香港节点
+    - 🏡 香港家宽
+    - 🇹🇼 台湾节点
+    - 🏡 台湾家宽
+    - 🇯🇵 日韩节点
+    - 🏡 日韩家宽
+    - 🌏 亚太节点
+    - 🏡 亚太家宽
+    - 🇺🇸 美国节点
+    - 🏡 美国家宽
+    - 🇪🇺 欧洲节点
+    - 🏡 欧洲家宽
+    - 🌎 美洲节点
+    - 🏡 美洲家宽
+    - 🌍 非洲节点
+    - 🏡 非洲家宽
+    - DIRECT
 - name: 🏦 金融支付
   type: select
-  proxies: *id001
+  proxies: *id002
 - name: 📧 邮件服务
   type: select
-  proxies: *id001
+  proxies: *id002
 - name: 💬 即时通讯
   type: select
-  proxies: *id001
+  proxies: *id002
 - name: 📱 社交媒体
   type: select
-  proxies: *id001
+  proxies: *id002
 - name: 🧑‍💼 会议协作
   type: select
-  proxies: *id001
+  proxies: *id002
 - name: 📺 国内流媒体
   type: select
-  proxies: &id002
+  proxies: &id003
   - DIRECT
   - 🌍 全球节点
+  - 🏡 全球家宽
   - 🇭🇰 香港节点
+  - 🏡 香港家宽
   - 🇹🇼 台湾节点
+  - 🏡 台湾家宽
   - 🇯🇵 日韩节点
+  - 🏡 日韩家宽
   - 🌏 亚太节点
+  - 🏡 亚太家宽
   - 🇺🇸 美国节点
+  - 🏡 美国家宽
   - 🇪🇺 欧洲节点
+  - 🏡 欧洲家宽
   - 🌎 美洲节点
+  - 🏡 美洲家宽
   - 🌍 非洲节点
+  - 🏡 非洲家宽
 - name: 📺 东南亚流媒体
   type: select
   proxies:
   - 🌏 亚太节点
+  - 🏡 亚太家宽
   - 🌍 全球节点
+  - 🏡 全球家宽
   - 🇭🇰 香港节点
+  - 🏡 香港家宽
   - 🇯🇵 日韩节点
+  - 🏡 日韩家宽
   - 🇺🇸 美国节点
+  - 🏡 美国家宽
   - DIRECT
 - name: 🇺🇸 美国流媒体
   type: select
-  proxies: *id001
+  proxies:
+    - 🇺🇸 美国节点
+    - 🏡 美国家宽
+    - 🌍 全球节点
+    - 🏡 全球家宽
+    - 🇭🇰 香港节点
+    - 🏡 香港家宽
+    - 🇹🇼 台湾节点
+    - 🏡 台湾家宽
+    - 🇯🇵 日韩节点
+    - 🏡 日韩家宽
+    - 🌏 亚太节点
+    - 🏡 亚太家宽
+    - 🇪🇺 欧洲节点
+    - 🏡 欧洲家宽
+    - 🌎 美洲节点
+    - 🏡 美洲家宽
+    - 🌍 非洲节点
+    - 🏡 非洲家宽
+    - DIRECT
 - name: 🇭🇰 香港流媒体
   type: select
-  proxies: *id001
+  proxies:
+    - 🇭🇰 香港节点
+    - 🏡 香港家宽
+    - 🌍 全球节点
+    - 🏡 全球家宽
+    - 🇹🇼 台湾节点
+    - 🏡 台湾家宽
+    - 🇯🇵 日韩节点
+    - 🏡 日韩家宽
+    - 🌏 亚太节点
+    - 🏡 亚太家宽
+    - 🇺🇸 美国节点
+    - 🏡 美国家宽
+    - 🇪🇺 欧洲节点
+    - 🏡 欧洲家宽
+    - 🌎 美洲节点
+    - 🏡 美洲家宽
+    - 🌍 非洲节点
+    - 🏡 非洲家宽
+    - DIRECT
 - name: 🇹🇼 台湾流媒体
   type: select
-  proxies: *id001
+  proxies:
+    - 🇹🇼 台湾节点
+    - 🏡 台湾家宽
+    - 🌍 全球节点
+    - 🏡 全球家宽
+    - 🇭🇰 香港节点
+    - 🏡 香港家宽
+    - 🇯🇵 日韩节点
+    - 🏡 日韩家宽
+    - 🌏 亚太节点
+    - 🏡 亚太家宽
+    - 🇺🇸 美国节点
+    - 🏡 美国家宽
+    - 🇪🇺 欧洲节点
+    - 🏡 欧洲家宽
+    - 🌎 美洲节点
+    - 🏡 美洲家宽
+    - 🌍 非洲节点
+    - 🏡 非洲家宽
+    - DIRECT
 - name: 🇯🇵 日韩流媒体
   type: select
-  proxies: *id001
+  proxies:
+    - 🇯🇵 日韩节点
+    - 🏡 日韩家宽
+    - 🌍 全球节点
+    - 🏡 全球家宽
+    - 🇭🇰 香港节点
+    - 🏡 香港家宽
+    - 🇹🇼 台湾节点
+    - 🏡 台湾家宽
+    - 🌏 亚太节点
+    - 🏡 亚太家宽
+    - 🇺🇸 美国节点
+    - 🏡 美国家宽
+    - 🇪🇺 欧洲节点
+    - 🏡 欧洲家宽
+    - 🌎 美洲节点
+    - 🏡 美洲家宽
+    - 🌍 非洲节点
+    - 🏡 非洲家宽
+    - DIRECT
 - name: 🇪🇺 欧洲流媒体
   type: select
-  proxies: *id001
+  proxies:
+    - 🇪🇺 欧洲节点
+    - 🏡 欧洲家宽
+    - 🌍 全球节点
+    - 🏡 全球家宽
+    - 🇭🇰 香港节点
+    - 🏡 香港家宽
+    - 🇹🇼 台湾节点
+    - 🏡 台湾家宽
+    - 🇯🇵 日韩节点
+    - 🏡 日韩家宽
+    - 🌏 亚太节点
+    - 🏡 亚太家宽
+    - 🇺🇸 美国节点
+    - 🏡 美国家宽
+    - 🌎 美洲节点
+    - 🏡 美洲家宽
+    - 🌍 非洲节点
+    - 🏡 非洲家宽
+    - DIRECT
 - name: 🕹️ 国内游戏
   type: select
-  proxies: *id002
+  proxies: *id003
 - name: 🎮 国外游戏
   type: select
-  proxies: *id001
+  proxies: *id002
 - name: 🔍 搜索引擎
   type: select
-  proxies: *id001
+  proxies: *id002
 - name: 📟 开发者服务
   type: select
-  proxies: *id001
+  proxies: *id002
 - name: Ⓜ️ 微软服务
   type: select
-  proxies: *id001
+  proxies: *id002
 - name: 🍎 苹果服务
   type: select
-  proxies: *id002
+  proxies: *id003
 - name: 📥 下载更新
   type: select
-  proxies: *id002
+  proxies: *id003
 - name: ☁️ 云与CDN
   type: select
-  proxies: *id001
+  proxies: *id002
 - name: 🛰️ BT/PT Tracker
   type: select
   proxies:
   - REJECT
   - DIRECT
   - 🌍 全球节点
+  - 🏡 全球家宽
   - 🇭🇰 香港节点
+  - 🏡 香港家宽
   - 🌏 亚太节点
+  - 🏡 亚太家宽
 - name: 🏠 国内网站
   type: select
-  proxies: *id002
+  proxies: *id003
 - name: 🚫 受限网站
   type: select
-  proxies: *id001
+  proxies: *id002
 - name: 🌐 国外网站
   type: select
-  proxies: *id001
+  proxies: *id002
 - name: 🐟 漏网之鱼
   type: select
-  proxies: *id001
+  proxies: *id002
 - name: 🛑 广告拦截
   type: select
   proxies:
@@ -4046,7 +4186,7 @@ OVERRIDE_EOF
 
 # ============================================================================
 # Ruby Script — 节点过滤、区域分类、url-test 组生成、TLS 指纹注入
-# ★ 核心架构：9 个区域组 type: url-test + include-all-proxies/explicit proxies ★
+# ★ 核心架构：18 个区域组（9 全部 + 9 家宽）type: url-test + include-all-proxies/explicit proxies ★
 # ============================================================================
 RUBY_SCRIPT="/tmp/clash_normal_ruby.rb"
 cat > "$RUBY_SCRIPT" << 'RUBY_EOF'
@@ -4055,7 +4195,7 @@ cat > "$RUBY_SCRIPT" << 'RUBY_EOF'
 require 'yaml'
 require 'digest'
 
-VERSION = "v5.2.7-oc-normal.1"
+VERSION = "v5.2.8-oc-normal.2"
 
 STATUS_LOG = "/tmp/clash_normal_status.log"
 File.open(STATUS_LOG, 'w') { |f| f.puts "[#{VERSION}] start" }
@@ -4068,7 +4208,7 @@ config   = YAML.load_file(config_path, permitted_classes: [Symbol], aliases: tru
 override = YAML.load_file(override_path, permitted_classes: [Symbol], aliases: true)
 
 # ---------------------------------------------------------------
-# Phase 1a: 过滤节点（去信息节点 + 去高倍率）
+# Phase 1a: 过滤节点（仅去信息节点；保留倍率节点）+ 家宽识别
 # ---------------------------------------------------------------
 INFO_PATTERNS = [
   /官网/, /官方/, /网站/, /群组/, /TG|telegram/i,
@@ -4078,14 +4218,22 @@ INFO_PATTERNS = [
   /dns|DNS/, /IPLC|iplc/, /中转/,
   /^剩余|^到期|^流量|^官网/
 ]
-SPEED_PATTERN = /(10x|20x|50x|100x|500x|1000x)/i
+RESIDENTIAL_PATTERNS = [
+  /家宽|家庭宽带|家庭住宅|住宅宽带|住宅|宽带/,
+  /\bresi(?:dential)?\b/i,
+  /\bhome(?:\s|-|_)?ip\b/i,
+  /\bhome(?:\s|-|_)?broadband\b/i,
+  /\bbroadband\b/i,
+  /\bisp\b/i,
+]
 
 raw_proxies = (config["proxies"] || []).dup
 filtered_proxies = raw_proxies.reject do |p|
   name = p["name"].to_s
-  INFO_PATTERNS.any? { |pat| name.match?(pat) } || name.match?(SPEED_PATTERN)
+  INFO_PATTERNS.any? { |pat| name.match?(pat) }
 end
-status "[filter] raw=#{raw_proxies.size} filtered=#{filtered_proxies.size} removed=#{raw_proxies.size - filtered_proxies.size}"
+is_residential = ->(name) { RESIDENTIAL_PATTERNS.any? { |pat| name.match?(pat) } }
+status "[filter] raw=#{raw_proxies.size} filtered=#{filtered_proxies.size} home=#{filtered_proxies.count { |p| is_residential.call(p['name'].to_s) }} removed=#{raw_proxies.size - filtered_proxies.size}"
 
 # ---------------------------------------------------------------
 # Phase 1b: 区域分类
@@ -4144,6 +4292,16 @@ GROUP_NAMES = {
   "AF"    => "🌍 非洲节点",
   "APAC"  => "🌏 亚太节点",
 }
+HOME_GROUP_NAMES = {
+  "HK"    => "🏡 香港家宽",
+  "TW"    => "🏡 台湾家宽",
+  "JP_KR" => "🏡 日韩家宽",
+  "US"    => "🏡 美国家宽",
+  "EU"    => "🏡 欧洲家宽",
+  "AM"    => "🏡 美洲家宽",
+  "AF"    => "🏡 非洲家宽",
+  "APAC"  => "🏡 亚太家宽",
+}
 
 classify = ->(name) {
   REGIONS.each { |code, re| return code if name.match?(re) }
@@ -4151,21 +4309,32 @@ classify = ->(name) {
 }
 
 buckets = Hash.new { |h, k| h[k] = [] }
+home_buckets = Hash.new { |h, k| h[k] = [] }
+home_all_members = []
 filtered_proxies.each do |p|
-  code = classify.call(p["name"].to_s)
+  name = p["name"].to_s
+  is_home = is_residential.call(name)
+  home_all_members << name if is_home
+
+  code = classify.call(name)
   next if code.nil?
+
   GROUP_MAP.each do |gkey, codes|
     if codes.include?(code)
-      buckets[gkey] << p["name"]
+      buckets[gkey] << name
+      home_buckets[gkey] << name if is_home
       break
     end
   end
 end
 
-buckets.each { |k, v| status "[region] #{GROUP_NAMES[k]}: #{v.size} nodes" }
+buckets.each do |k, v|
+  status "[region] #{GROUP_NAMES[k]}: #{v.uniq.size} nodes / home=#{home_buckets[k].uniq.size}"
+end
+status "[region] 🏡 全球家宽: #{home_all_members.uniq.size} nodes"
 
 # ---------------------------------------------------------------
-# Phase 1c: 构建 9 个区域组（非 Smart 内核，使用 type: url-test）
+# Phase 1c: 构建 18 个区域组（非 Smart 内核，使用 type: url-test）
 # 与 full 版唯一区别：type/uselightgbm/strategy/collectdata 替换为经典 url-test 字段集
 # 其余字段（url/interval/tolerance/lazy）完全保持一致，确保行为可比
 # ---------------------------------------------------------------
@@ -4180,12 +4349,8 @@ def make_smart_group(name, proxies_filter_mode:, explicit_proxies: nil)
   }
   if proxies_filter_mode == :include_all
     g["include-all-proxies"] = true
-  elsif proxies_filter_mode == :explicit
-    if explicit_proxies.nil? || explicit_proxies.empty?
-      g["proxies"] = ["DIRECT"]
-    else
-      g["proxies"] = explicit_proxies
-    end
+  elsif proxies_filter_mode == :explicit && explicit_proxies && !explicit_proxies.empty?
+    g["proxies"] = explicit_proxies
   end
   g
 end
@@ -4193,12 +4358,17 @@ end
 smart_groups = []
 # 🌍 全球节点：包含所有节点，url-test 自动选路
 smart_groups << make_smart_group("🌍 全球节点", proxies_filter_mode: :include_all)
+smart_groups << make_smart_group("🏡 全球家宽", proxies_filter_mode: :explicit, explicit_proxies: home_all_members.uniq) if home_all_members.any?
 
-# 8 个区域组：仅该区域节点参与 url-test
+# 8 个区域组：仅该区域节点参与 url-test；家宽子组只在匹配到家宽节点时创建
 %w[HK TW JP_KR US EU AM AF APAC].each do |gkey|
   gname = GROUP_NAMES[gkey]
   members = buckets[gkey].uniq
-  smart_groups << make_smart_group(gname, proxies_filter_mode: :explicit, explicit_proxies: members)
+  smart_groups << make_smart_group(gname, proxies_filter_mode: :explicit, explicit_proxies: members) unless members.empty?
+
+  home_name = HOME_GROUP_NAMES[gkey]
+  home_members = home_buckets[gkey].uniq
+  smart_groups << make_smart_group(home_name, proxies_filter_mode: :explicit, explicit_proxies: home_members) unless home_members.empty?
 end
 
 # ---------------------------------------------------------------
@@ -4228,8 +4398,15 @@ config["proxies"] = filtered_proxies
   config[key] = override[key] if override.key?(key)
 end
 
-# 清空并重建 proxy-groups：9 个 url-test 区域组在前，业务组在后
-override_biz_groups = override["proxy-groups"] || []
+# 清空并重建 proxy-groups：18 个区域组在前，仅保留已实际创建的候选组引用
+active_region_names = smart_groups.map { |g| g["name"] } + ["DIRECT", "REJECT"]
+override_biz_groups = (override["proxy-groups"] || []).map do |group|
+  next group unless group.is_a?(Hash) && group["proxies"].is_a?(Array)
+
+  patched = group.dup
+  patched["proxies"] = group["proxies"].select { |proxy| active_region_names.include?(proxy) }
+  patched
+end
 config["proxy-groups"] = smart_groups + override_biz_groups
 
 # 清空并重建 rule-providers 和 rules

@@ -1,8 +1,8 @@
 # ================================================================
-# Clash Smart v5.2.7-cmfa.1 - CMFA (Clash Meta for Android) 配置
+# Clash Smart v5.2.8-cmfa.2 - CMFA (Clash Meta for Android) 配置
 # Build: 2026-04-23
-# 架构：proxy-providers 订阅 + 9 url-test 区域组 + 28 业务策略组 + 373+ rule-providers
-# 基线：Clash Party v5.2.7（唯一主线）
+# 架构：proxy-providers 订阅 + 18 url-test 区域组（9 全部 + 9 家宽）+ 28 业务策略组 + 373+ rule-providers
+# 基线：Clash Party v5.2.8（唯一主线）
 # 变更历史：见 `Clash Meta For Android/CHANGELOG.md`
 # ================================================================
 # ★ 快速上手：
@@ -145,12 +145,20 @@ proxy-providers:
       enable: true
       url: 'https://www.gstatic.com/generate_204'
       interval: 300
-    exclude-filter: '(?i)(导航网址|距离下次重置|剩余流量|套餐到期|网址导航|官网|订阅|到期|剩余|重置|10x|20x|100x)'
+    exclude-filter: '(?i)(导航网址|距离下次重置|剩余流量|套餐到期|网址导航|官网|订阅|到期|剩余|重置)'
 proxy-groups:
 - name: '🤖 AI 服务'
   type: select
-  proxies:
-  - DIRECT
+  proxies: &id001
+  - '🏡 全球家宽'
+  - '🏡 香港家宽'
+  - '🏡 台湾家宽'
+  - '🏡 日韩家宽'
+  - '🏡 亚太家宽'
+  - '🏡 美国家宽'
+  - '🏡 欧洲家宽'
+  - '🏡 美洲家宽'
+  - '🏡 非洲家宽'
   - '🌍 全球节点'
   - '🇭🇰 香港节点'
   - '🇹🇼 台湾节点'
@@ -160,335 +168,237 @@ proxy-groups:
   - '🇪🇺 欧洲节点'
   - '🌎 美洲节点'
   - '🌍 非洲节点'
+  - DIRECT
 - name: '💰 加密货币'
   type: select
-  proxies:
-  - '🇭🇰 香港节点'
+  proxies: &id002
   - '🌍 全球节点'
+  - '🏡 全球家宽'
+  - '🇭🇰 香港节点'
+  - '🏡 香港家宽'
   - '🇹🇼 台湾节点'
+  - '🏡 台湾家宽'
   - '🇯🇵 日韩节点'
+  - '🏡 日韩家宽'
   - '🌏 亚太节点'
+  - '🏡 亚太家宽'
   - '🇺🇸 美国节点'
+  - '🏡 美国家宽'
   - '🇪🇺 欧洲节点'
+  - '🏡 欧洲家宽'
   - '🌎 美洲节点'
+  - '🏡 美洲家宽'
   - '🌍 非洲节点'
+  - '🏡 非洲家宽'
   - DIRECT
 - name: '🏦 金融支付'
   type: select
-  proxies:
-  - DIRECT
-  - '🌍 全球节点'
-  - '🇭🇰 香港节点'
-  - '🇹🇼 台湾节点'
-  - '🇯🇵 日韩节点'
-  - '🌏 亚太节点'
-  - '🇺🇸 美国节点'
-  - '🇪🇺 欧洲节点'
-  - '🌎 美洲节点'
-  - '🌍 非洲节点'
+  proxies: *id002
 - name: '📧 邮件服务'
   type: select
-  proxies:
-  - DIRECT
-  - '🌍 全球节点'
-  - '🇭🇰 香港节点'
-  - '🇹🇼 台湾节点'
-  - '🇯🇵 日韩节点'
-  - '🌏 亚太节点'
-  - '🇺🇸 美国节点'
-  - '🇪🇺 欧洲节点'
-  - '🌎 美洲节点'
-  - '🌍 非洲节点'
+  proxies: *id002
 - name: '💬 即时通讯'
   type: select
-  proxies:
-  - DIRECT
-  - '🌍 全球节点'
-  - '🇭🇰 香港节点'
-  - '🇹🇼 台湾节点'
-  - '🇯🇵 日韩节点'
-  - '🌏 亚太节点'
-  - '🇺🇸 美国节点'
-  - '🇪🇺 欧洲节点'
-  - '🌎 美洲节点'
-  - '🌍 非洲节点'
+  proxies: *id002
 - name: '📱 社交媒体'
   type: select
-  proxies:
-  - DIRECT
-  - '🌍 全球节点'
-  - '🇭🇰 香港节点'
-  - '🇹🇼 台湾节点'
-  - '🇯🇵 日韩节点'
-  - '🌏 亚太节点'
-  - '🇺🇸 美国节点'
-  - '🇪🇺 欧洲节点'
-  - '🌎 美洲节点'
-  - '🌍 非洲节点'
+  proxies: *id002
 - name: '🧑‍💼 会议协作'
   type: select
-  proxies:
-  - DIRECT
-  - '🌍 全球节点'
-  - '🇭🇰 香港节点'
-  - '🇹🇼 台湾节点'
-  - '🇯🇵 日韩节点'
-  - '🌏 亚太节点'
-  - '🇺🇸 美国节点'
-  - '🇪🇺 欧洲节点'
-  - '🌎 美洲节点'
-  - '🌍 非洲节点'
+  proxies: *id002
 - name: '📺 国内流媒体'
   type: select
-  proxies:
+  proxies: &id003
   - DIRECT
   - '🌍 全球节点'
+  - '🏡 全球家宽'
   - '🇭🇰 香港节点'
+  - '🏡 香港家宽'
   - '🇹🇼 台湾节点'
+  - '🏡 台湾家宽'
   - '🇯🇵 日韩节点'
+  - '🏡 日韩家宽'
   - '🌏 亚太节点'
+  - '🏡 亚太家宽'
   - '🇺🇸 美国节点'
+  - '🏡 美国家宽'
   - '🇪🇺 欧洲节点'
+  - '🏡 欧洲家宽'
   - '🌎 美洲节点'
+  - '🏡 美洲家宽'
   - '🌍 非洲节点'
+  - '🏡 非洲家宽'
 - name: '📺 东南亚流媒体'
   type: select
   proxies:
-  - DIRECT
   - '🌏 亚太节点'
+  - '🏡 亚太家宽'
   - '🌍 全球节点'
+  - '🏡 全球家宽'
   - '🇭🇰 香港节点'
+  - '🏡 香港家宽'
   - '🇯🇵 日韩节点'
+  - '🏡 日韩家宽'
   - '🇺🇸 美国节点'
+  - '🏡 美国家宽'
+  - DIRECT
 - name: '🇺🇸 美国流媒体'
   type: select
   proxies:
   - '🇺🇸 美国节点'
+  - '🏡 美国家宽'
   - '🌍 全球节点'
+  - '🏡 全球家宽'
   - '🇭🇰 香港节点'
+  - '🏡 香港家宽'
   - '🇹🇼 台湾节点'
+  - '🏡 台湾家宽'
   - '🇯🇵 日韩节点'
+  - '🏡 日韩家宽'
   - '🌏 亚太节点'
+  - '🏡 亚太家宽'
   - '🇪🇺 欧洲节点'
+  - '🏡 欧洲家宽'
   - '🌎 美洲节点'
+  - '🏡 美洲家宽'
   - '🌍 非洲节点'
+  - '🏡 非洲家宽'
   - DIRECT
 - name: '🇭🇰 香港流媒体'
   type: select
   proxies:
   - '🇭🇰 香港节点'
+  - '🏡 香港家宽'
   - '🌍 全球节点'
+  - '🏡 全球家宽'
   - '🇹🇼 台湾节点'
+  - '🏡 台湾家宽'
   - '🇯🇵 日韩节点'
+  - '🏡 日韩家宽'
   - '🌏 亚太节点'
+  - '🏡 亚太家宽'
   - '🇺🇸 美国节点'
+  - '🏡 美国家宽'
   - '🇪🇺 欧洲节点'
+  - '🏡 欧洲家宽'
   - '🌎 美洲节点'
+  - '🏡 美洲家宽'
   - '🌍 非洲节点'
+  - '🏡 非洲家宽'
   - DIRECT
 - name: '🇹🇼 台湾流媒体'
   type: select
   proxies:
   - '🇹🇼 台湾节点'
+  - '🏡 台湾家宽'
   - '🌍 全球节点'
+  - '🏡 全球家宽'
   - '🇭🇰 香港节点'
+  - '🏡 香港家宽'
   - '🇯🇵 日韩节点'
+  - '🏡 日韩家宽'
   - '🌏 亚太节点'
+  - '🏡 亚太家宽'
   - '🇺🇸 美国节点'
+  - '🏡 美国家宽'
   - '🇪🇺 欧洲节点'
+  - '🏡 欧洲家宽'
   - '🌎 美洲节点'
+  - '🏡 美洲家宽'
   - '🌍 非洲节点'
+  - '🏡 非洲家宽'
   - DIRECT
 - name: '🇯🇵 日韩流媒体'
   type: select
   proxies:
   - '🇯🇵 日韩节点'
+  - '🏡 日韩家宽'
   - '🌍 全球节点'
+  - '🏡 全球家宽'
   - '🇭🇰 香港节点'
+  - '🏡 香港家宽'
   - '🇹🇼 台湾节点'
+  - '🏡 台湾家宽'
   - '🌏 亚太节点'
+  - '🏡 亚太家宽'
   - '🇺🇸 美国节点'
+  - '🏡 美国家宽'
   - '🇪🇺 欧洲节点'
+  - '🏡 欧洲家宽'
   - '🌎 美洲节点'
+  - '🏡 美洲家宽'
   - '🌍 非洲节点'
+  - '🏡 非洲家宽'
   - DIRECT
 - name: '🇪🇺 欧洲流媒体'
   type: select
   proxies:
   - '🇪🇺 欧洲节点'
+  - '🏡 欧洲家宽'
   - '🌍 全球节点'
+  - '🏡 全球家宽'
   - '🇭🇰 香港节点'
+  - '🏡 香港家宽'
   - '🇹🇼 台湾节点'
+  - '🏡 台湾家宽'
   - '🇯🇵 日韩节点'
+  - '🏡 日韩家宽'
   - '🌏 亚太节点'
+  - '🏡 亚太家宽'
   - '🇺🇸 美国节点'
+  - '🏡 美国家宽'
   - '🌎 美洲节点'
+  - '🏡 美洲家宽'
   - '🌍 非洲节点'
+  - '🏡 非洲家宽'
   - DIRECT
 - name: '🕹️ 国内游戏'
   type: select
-  proxies:
-  - DIRECT
-  - '🌍 全球节点'
-  - '🇭🇰 香港节点'
-  - '🇹🇼 台湾节点'
-  - '🇯🇵 日韩节点'
-  - '🌏 亚太节点'
-  - '🇺🇸 美国节点'
-  - '🇪🇺 欧洲节点'
-  - '🌎 美洲节点'
-  - '🌍 非洲节点'
+  proxies: *id003
 - name: '🎮 国外游戏'
   type: select
-  proxies:
-  - DIRECT
-  - '🌍 全球节点'
-  - '🇭🇰 香港节点'
-  - '🇹🇼 台湾节点'
-  - '🇯🇵 日韩节点'
-  - '🌏 亚太节点'
-  - '🇺🇸 美国节点'
-  - '🇪🇺 欧洲节点'
-  - '🌎 美洲节点'
-  - '🌍 非洲节点'
+  proxies: *id002
 - name: '🔍 搜索引擎'
   type: select
-  proxies:
-  - DIRECT
-  - '🌍 全球节点'
-  - '🇭🇰 香港节点'
-  - '🇹🇼 台湾节点'
-  - '🇯🇵 日韩节点'
-  - '🌏 亚太节点'
-  - '🇺🇸 美国节点'
-  - '🇪🇺 欧洲节点'
-  - '🌎 美洲节点'
-  - '🌍 非洲节点'
+  proxies: *id002
 - name: '📟 开发者服务'
   type: select
-  proxies:
-  - DIRECT
-  - '🌍 全球节点'
-  - '🇭🇰 香港节点'
-  - '🇹🇼 台湾节点'
-  - '🇯🇵 日韩节点'
-  - '🌏 亚太节点'
-  - '🇺🇸 美国节点'
-  - '🇪🇺 欧洲节点'
-  - '🌎 美洲节点'
-  - '🌍 非洲节点'
+  proxies: *id002
 - name: 'Ⓜ️ 微软服务'
   type: select
-  proxies:
-  - DIRECT
-  - '🌍 全球节点'
-  - '🇭🇰 香港节点'
-  - '🇹🇼 台湾节点'
-  - '🇯🇵 日韩节点'
-  - '🌏 亚太节点'
-  - '🇺🇸 美国节点'
-  - '🇪🇺 欧洲节点'
-  - '🌎 美洲节点'
-  - '🌍 非洲节点'
+  proxies: *id002
 - name: '🍎 苹果服务'
   type: select
-  proxies:
-  - DIRECT
-  - '🌍 全球节点'
-  - '🇭🇰 香港节点'
-  - '🇹🇼 台湾节点'
-  - '🇯🇵 日韩节点'
-  - '🌏 亚太节点'
-  - '🇺🇸 美国节点'
-  - '🇪🇺 欧洲节点'
-  - '🌎 美洲节点'
-  - '🌍 非洲节点'
+  proxies: *id003
 - name: '📥 下载更新'
   type: select
-  proxies:
-  - DIRECT
-  - '🌍 全球节点'
-  - '🇭🇰 香港节点'
-  - '🇹🇼 台湾节点'
-  - '🇯🇵 日韩节点'
-  - '🌏 亚太节点'
-  - '🇺🇸 美国节点'
-  - '🇪🇺 欧洲节点'
-  - '🌎 美洲节点'
-  - '🌍 非洲节点'
+  proxies: *id003
 - name: '☁️ 云与CDN'
   type: select
-  proxies:
-  - '🇭🇰 香港节点'
-  - '🌍 全球节点'
-  - '🇹🇼 台湾节点'
-  - '🇯🇵 日韩节点'
-  - '🌏 亚太节点'
-  - '🇺🇸 美国节点'
-  - '🇪🇺 欧洲节点'
-  - '🌎 美洲节点'
-  - '🌍 非洲节点'
-  - DIRECT
+  proxies: *id002
 - name: '🛰️ BT/PT Tracker'
   type: select
   proxies:
-  - '🇭🇰 香港节点'
   - REJECT
   - DIRECT
   - '🌍 全球节点'
+  - '🏡 全球家宽'
+  - '🇭🇰 香港节点'
+  - '🏡 香港家宽'
   - '🌏 亚太节点'
+  - '🏡 亚太家宽'
 - name: '🏠 国内网站'
   type: select
-  proxies:
-  - '🇭🇰 香港节点'
-  - DIRECT
-  - '🌍 全球节点'
-  - '🇹🇼 台湾节点'
-  - '🇯🇵 日韩节点'
-  - '🌏 亚太节点'
-  - '🇺🇸 美国节点'
-  - '🇪🇺 欧洲节点'
-  - '🌎 美洲节点'
-  - '🌍 非洲节点'
+  proxies: *id003
 - name: '🚫 受限网站'
   type: select
-  proxies:
-  - DIRECT
-  - '🌍 全球节点'
-  - '🇭🇰 香港节点'
-  - '🇹🇼 台湾节点'
-  - '🇯🇵 日韩节点'
-  - '🌏 亚太节点'
-  - '🇺🇸 美国节点'
-  - '🇪🇺 欧洲节点'
-  - '🌎 美洲节点'
-  - '🌍 非洲节点'
+  proxies: *id002
 - name: '🌐 国外网站'
   type: select
-  proxies:
-  - DIRECT
-  - '🌍 全球节点'
-  - '🇭🇰 香港节点'
-  - '🇹🇼 台湾节点'
-  - '🇯🇵 日韩节点'
-  - '🌏 亚太节点'
-  - '🇺🇸 美国节点'
-  - '🇪🇺 欧洲节点'
-  - '🌎 美洲节点'
-  - '🌍 非洲节点'
+  proxies: *id002
 - name: '🐟 漏网之鱼'
   type: select
-  proxies:
-  - '🇭🇰 香港节点'
-  - '🌍 全球节点'
-  - '🇹🇼 台湾节点'
-  - '🇯🇵 日韩节点'
-  - '🌏 亚太节点'
-  - '🇺🇸 美国节点'
-  - '🇪🇺 欧洲节点'
-  - '🌎 美洲节点'
-  - '🌍 非洲节点'
-  - DIRECT
+  proxies: *id002
 - name: '🛑 广告拦截'
   type: select
   proxies:
@@ -507,10 +417,28 @@ proxy-groups:
   interval: 120
   tolerance: 30
   lazy: true
+  name: '🏡 全球家宽'
+  use:
+  - Subscribe
+  filter: '(?i)(resi(dential)?|home[-_ ]?ip|home[-_ ]?broadband|broadband|isp|家宽|家庭宽带|家庭住宅|住宅宽带|住宅|宽带)'
+- type: url-test
+  url: 'https://www.gstatic.com/generate_204'
+  interval: 120
+  tolerance: 30
+  lazy: true
   name: '🇭🇰 香港节点'
   use:
   - Subscribe
   filter: '(?i)(香港|Hong\s*Kong|HongKong|HKG|🇭🇰)'
+- type: url-test
+  url: 'https://www.gstatic.com/generate_204'
+  interval: 120
+  tolerance: 30
+  lazy: true
+  name: '🏡 香港家宽'
+  use:
+  - Subscribe
+  filter: '(?i)((香港|Hong\s*Kong|HongKong|HKG|🇭🇰).*(resi(dential)?|home[-_ ]?ip|home[-_ ]?broadband|broadband|isp|家宽|家庭宽带|家庭住宅|住宅宽带|住宅|宽带)|(resi(dential)?|home[-_ ]?ip|home[-_ ]?broadband|broadband|isp|家宽|家庭宽带|家庭住宅|住宅宽带|住宅|宽带).*(香港|Hong\s*Kong|HongKong|HKG|🇭🇰))'
 - type: url-test
   url: 'https://www.gstatic.com/generate_204'
   interval: 120
@@ -525,28 +453,10 @@ proxy-groups:
   interval: 120
   tolerance: 30
   lazy: true
-  name: '🇺🇸 美国节点'
+  name: '🏡 台湾家宽'
   use:
   - Subscribe
-  filter: '(?i)(美国|United\s*States|USA|洛杉矶|Los\s*Angeles|旧金山|San\s*Francisco|西雅图|Seattle|纽约|New\s*York|LAX|SJC|SFO|JFK|🇺🇸)'
-- type: url-test
-  url: 'https://www.gstatic.com/generate_204'
-  interval: 120
-  tolerance: 30
-  lazy: true
-  name: '🇪🇺 欧洲节点'
-  use:
-  - Subscribe
-  filter: '(?i)(欧洲|Europe|英国|UK|伦敦|London|法国|France|巴黎|Paris|德国|Germany|法兰克福|Frankfurt|荷兰|Netherlands|阿姆斯特丹|Amsterdam|瑞士|Switzerland|俄罗斯|Russia|🇬🇧|🇫🇷|🇩🇪|🇪🇺)'
-- type: url-test
-  url: 'https://www.gstatic.com/generate_204'
-  interval: 120
-  tolerance: 30
-  lazy: true
-  name: '🌏 亚太节点'
-  use:
-  - Subscribe
-  filter: '(?i)(新加坡|Singapore|SGP|马来西亚|Malaysia|印度尼西亚|印尼|Indonesia|泰国|Thailand|越南|Vietnam|菲律宾|Philippines|印度|India|澳大利亚|Australia|新西兰|New\s*Zealand|土耳其|Turkey|以色列|Israel|阿联酋|UAE|迪拜|Dubai|🇸🇬|🇲🇾|🇮🇩|🇹🇭|🇻🇳|🇵🇭|🇮🇳|🇦🇺)'
+  filter: '(?i)((台湾|台北|台中|高雄|Taiwan|Taipei|TPE|TWN|🇹🇼).*(resi(dential)?|home[-_ ]?ip|home[-_ ]?broadband|broadband|isp|家宽|家庭宽带|家庭住宅|住宅宽带|住宅|宽带)|(resi(dential)?|home[-_ ]?ip|home[-_ ]?broadband|broadband|isp|家宽|家庭宽带|家庭住宅|住宅宽带|住宅|宽带).*(台湾|台北|台中|高雄|Taiwan|Taipei|TPE|TWN|🇹🇼))'
 - type: url-test
   url: 'https://www.gstatic.com/generate_204'
   interval: 120
@@ -561,6 +471,69 @@ proxy-groups:
   interval: 120
   tolerance: 30
   lazy: true
+  name: '🏡 日韩家宽'
+  use:
+  - Subscribe
+  filter: '(?i)((日本|东京|大阪|Japan|Tokyo|Osaka|NRT|KIX|JPN|韩国|首尔|Korea|Seoul|ICN|KOR|🇯🇵|🇰🇷).*(resi(dential)?|home[-_ ]?ip|home[-_ ]?broadband|broadband|isp|家宽|家庭宽带|家庭住宅|住宅宽带|住宅|宽带)|(resi(dential)?|home[-_ ]?ip|home[-_ ]?broadband|broadband|isp|家宽|家庭宽带|家庭住宅|住宅宽带|住宅|宽带).*(日本|东京|大阪|Japan|Tokyo|Osaka|NRT|KIX|JPN|韩国|首尔|Korea|Seoul|ICN|KOR|🇯🇵|🇰🇷))'
+- type: url-test
+  url: 'https://www.gstatic.com/generate_204'
+  interval: 120
+  tolerance: 30
+  lazy: true
+  name: '🌏 亚太节点'
+  use:
+  - Subscribe
+  filter: '(?i)(新加坡|Singapore|SGP|马来西亚|Malaysia|印度尼西亚|印尼|Indonesia|泰国|Thailand|越南|Vietnam|菲律宾|Philippines|印度|India|澳大利亚|Australia|新西兰|New\s*Zealand|土耳其|Turkey|以色列|Israel|阿联酋|UAE|迪拜|Dubai|🇸🇬|🇲🇾|🇮🇩|🇹🇭|🇻🇳|🇵🇭|🇮🇳|🇦🇺)'
+- type: url-test
+  url: 'https://www.gstatic.com/generate_204'
+  interval: 120
+  tolerance: 30
+  lazy: true
+  name: '🏡 亚太家宽'
+  use:
+  - Subscribe
+  filter: '(?i)((新加坡|Singapore|SGP|马来西亚|Malaysia|印度尼西亚|印尼|Indonesia|泰国|Thailand|越南|Vietnam|菲律宾|Philippines|印度|India|澳大利亚|Australia|新西兰|New\s*Zealand|土耳其|Turkey|以色列|Israel|阿联酋|UAE|迪拜|Dubai|🇸🇬|🇲🇾|🇮🇩|🇹🇭|🇻🇳|🇵🇭|🇮🇳|🇦🇺).*(resi(dential)?|home[-_ ]?ip|home[-_ ]?broadband|broadband|isp|家宽|家庭宽带|家庭住宅|住宅宽带|住宅|宽带)|(resi(dential)?|home[-_ ]?ip|home[-_ ]?broadband|broadband|isp|家宽|家庭宽带|家庭住宅|住宅宽带|住宅|宽带).*(新加坡|Singapore|SGP|马来西亚|Malaysia|印度尼西亚|印尼|Indonesia|泰国|Thailand|越南|Vietnam|菲律宾|Philippines|印度|India|澳大利亚|Australia|新西兰|New\s*Zealand|土耳其|Turkey|以色列|Israel|阿联酋|UAE|迪拜|Dubai|🇸🇬|🇲🇾|🇮🇩|🇹🇭|🇻🇳|🇵🇭|🇮🇳|🇦🇺))'
+- type: url-test
+  url: 'https://www.gstatic.com/generate_204'
+  interval: 120
+  tolerance: 30
+  lazy: true
+  name: '🇺🇸 美国节点'
+  use:
+  - Subscribe
+  filter: '(?i)(美国|United\s*States|USA|洛杉矶|Los\s*Angeles|旧金山|San\s*Francisco|西雅图|Seattle|纽约|New\s*York|LAX|SJC|SFO|JFK|🇺🇸)'
+- type: url-test
+  url: 'https://www.gstatic.com/generate_204'
+  interval: 120
+  tolerance: 30
+  lazy: true
+  name: '🏡 美国家宽'
+  use:
+  - Subscribe
+  filter: '(?i)((美国|United\s*States|USA|洛杉矶|Los\s*Angeles|旧金山|San\s*Francisco|西雅图|Seattle|纽约|New\s*York|LAX|SJC|SFO|JFK|🇺🇸).*(resi(dential)?|home[-_ ]?ip|home[-_ ]?broadband|broadband|isp|家宽|家庭宽带|家庭住宅|住宅宽带|住宅|宽带)|(resi(dential)?|home[-_ ]?ip|home[-_ ]?broadband|broadband|isp|家宽|家庭宽带|家庭住宅|住宅宽带|住宅|宽带).*(美国|United\s*States|USA|洛杉矶|Los\s*Angeles|旧金山|San\s*Francisco|西雅图|Seattle|纽约|New\s*York|LAX|SJC|SFO|JFK|🇺🇸))'
+- type: url-test
+  url: 'https://www.gstatic.com/generate_204'
+  interval: 120
+  tolerance: 30
+  lazy: true
+  name: '🇪🇺 欧洲节点'
+  use:
+  - Subscribe
+  filter: '(?i)(欧洲|Europe|英国|UK|伦敦|London|法国|France|巴黎|Paris|德国|Germany|法兰克福|Frankfurt|荷兰|Netherlands|阿姆斯特丹|Amsterdam|瑞士|Switzerland|俄罗斯|Russia|🇬🇧|🇫🇷|🇩🇪|🇪🇺)'
+- type: url-test
+  url: 'https://www.gstatic.com/generate_204'
+  interval: 120
+  tolerance: 30
+  lazy: true
+  name: '🏡 欧洲家宽'
+  use:
+  - Subscribe
+  filter: '(?i)((欧洲|Europe|英国|UK|伦敦|London|法国|France|巴黎|Paris|德国|Germany|法兰克福|Frankfurt|荷兰|Netherlands|阿姆斯特丹|Amsterdam|瑞士|Switzerland|俄罗斯|Russia|🇬🇧|🇫🇷|🇩🇪|🇪🇺).*(resi(dential)?|home[-_ ]?ip|home[-_ ]?broadband|broadband|isp|家宽|家庭宽带|家庭住宅|住宅宽带|住宅|宽带)|(resi(dential)?|home[-_ ]?ip|home[-_ ]?broadband|broadband|isp|家宽|家庭宽带|家庭住宅|住宅宽带|住宅|宽带).*(欧洲|Europe|英国|UK|伦敦|London|法国|France|巴黎|Paris|德国|Germany|法兰克福|Frankfurt|荷兰|Netherlands|阿姆斯特丹|Amsterdam|瑞士|Switzerland|俄罗斯|Russia|🇬🇧|🇫🇷|🇩🇪|🇪🇺))'
+- type: url-test
+  url: 'https://www.gstatic.com/generate_204'
+  interval: 120
+  tolerance: 30
+  lazy: true
   name: '🌎 美洲节点'
   use:
   - Subscribe
@@ -570,10 +543,28 @@ proxy-groups:
   interval: 120
   tolerance: 30
   lazy: true
+  name: '🏡 美洲家宽'
+  use:
+  - Subscribe
+  filter: '(?i)((美国|United\s*States|USA|加拿大|Canada|墨西哥|Mexico|巴西|Brazil|阿根廷|Argentina|LAX|SJC|SFO|JFK|🇺🇸|🇨🇦|🇲🇽|🇧🇷).*(resi(dential)?|home[-_ ]?ip|home[-_ ]?broadband|broadband|isp|家宽|家庭宽带|家庭住宅|住宅宽带|住宅|宽带)|(resi(dential)?|home[-_ ]?ip|home[-_ ]?broadband|broadband|isp|家宽|家庭宽带|家庭住宅|住宅宽带|住宅|宽带).*(美国|United\s*States|USA|加拿大|Canada|墨西哥|Mexico|巴西|Brazil|阿根廷|Argentina|LAX|SJC|SFO|JFK|🇺🇸|🇨🇦|🇲🇽|🇧🇷))'
+- type: url-test
+  url: 'https://www.gstatic.com/generate_204'
+  interval: 120
+  tolerance: 30
+  lazy: true
   name: '🌍 非洲节点'
   use:
   - Subscribe
   filter: '(?i)(非洲|Africa|南非|South\s*Africa|埃及|Egypt|🇿🇦|🇪🇬)'
+- type: url-test
+  url: 'https://www.gstatic.com/generate_204'
+  interval: 120
+  tolerance: 30
+  lazy: true
+  name: '🏡 非洲家宽'
+  use:
+  - Subscribe
+  filter: '(?i)((非洲|Africa|南非|South\s*Africa|埃及|Egypt|🇿🇦|🇪🇬).*(resi(dential)?|home[-_ ]?ip|home[-_ ]?broadband|broadband|isp|家宽|家庭宽带|家庭住宅|住宅宽带|住宅|宽带)|(resi(dential)?|home[-_ ]?ip|home[-_ ]?broadband|broadband|isp|家宽|家庭宽带|家庭住宅|住宅宽带|住宅|宽带).*(非洲|Africa|南非|South\s*Africa|埃及|Egypt|🇿🇦|🇪🇬))'
 rule-providers:
   anti-ad:
     type: http

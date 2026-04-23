@@ -1,16 +1,16 @@
 // Clash Smart 内核覆写脚本 - SUB-STORE 多机场精细分流版
-// 版本：v5.2.7 (2026-04-23)
-// 架构：SUB-STORE 多机场融合 + 9 Smart 区域组 + 28 业务策略组 + 371+ rule-providers 100%+ 服务覆盖
+// 版本：v5.2.8 (2026-04-23)
+// 架构：SUB-STORE 多机场融合 + 18 Smart 区域组（9 全部 + 9 家宽）+ 28 业务策略组 + 371+ rule-providers 100%+ 服务覆盖
 // 变更历史：见 `Clash Party/CHANGELOG.md`
 
 // ================================================================
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.2.7'
+const VERSION = 'v5.2.8'
 
 // ================================================================
-//  模块 A：节点过滤（沿用 v3.1）
+//  模块 A：节点过滤 / 家宽识别
 // ================================================================
 
 function isInfoNode(name) {
@@ -19,9 +19,18 @@ function isInfoNode(name) {
   return infoPatterns.some(p => s.includes(p))
 }
 
-function isBlockedSpeedTag(name) {
-  const s = String(name || '').toLowerCase()
-  return /(^|[^0-9])(10x|20x|100x)([^0-9]|$)/.test(s)
+const RESIDENTIAL_PATTERNS = [
+  /家宽|家庭宽带|家庭住宅|住宅宽带|住宅|宽带/,
+  /\bresi(?:dential)?\b/i,
+  /\bhome(?:\s|-|_)?ip\b/i,
+  /\bhome(?:\s|-|_)?broadband\b/i,
+  /\bbroadband\b/i,
+  /\bisp\b/i,
+]
+
+function isResidentialNode(name) {
+  const s = String(name || '')
+  return RESIDENTIAL_PATTERNS.some(re => re.test(s))
 }
 
 // ================================================================
@@ -89,17 +98,26 @@ function classifyNode(name) {
 }
 
 function classifyAllNodes(proxies) {
-  var result = { HK: [], TW: [], CN: [], JP: [], KR: [], SG: [], US: [], EU: [], AM: [], AF: [], APAC_OTHER: [], UNCLASSIFIED: [], ALL: [] }
+  var result = {
+    HK: [], TW: [], CN: [], JP: [], KR: [], SG: [], US: [], EU: [], AM: [], AF: [], APAC_OTHER: [], UNCLASSIFIED: [], ALL: [],
+    HOME_HK: [], HOME_TW: [], HOME_CN: [], HOME_JP: [], HOME_KR: [], HOME_SG: [], HOME_US: [], HOME_EU: [], HOME_AM: [], HOME_AF: [], HOME_APAC_OTHER: [], HOME_UNCLASSIFIED: [], HOME_ALL: [],
+  }
   for (var i = 0; i < proxies.length; i++) {
     var p = proxies[i]
     if (!p || typeof p !== 'object' || !p.name) continue
     if (isInfoNode(p.name)) continue
-    if (isBlockedSpeedTag(p.name)) continue
     var name = String(p.name)
+    var isHome = isResidentialNode(name)
     result.ALL.push(name)
+    if (isHome) result.HOME_ALL.push(name)
     var region = classifyNode(name)
-    if (region && result[region]) { result[region].push(name) }
-    else { result.UNCLASSIFIED.push(name) }
+    if (region && result[region]) {
+      result[region].push(name)
+      if (isHome && result['HOME_' + region]) result['HOME_' + region].push(name)
+    } else {
+      result.UNCLASSIFIED.push(name)
+      if (isHome) result.HOME_UNCLASSIFIED.push(name)
+    }
   }
   return result
 }
@@ -109,9 +127,15 @@ function classifyAllNodes(proxies) {
 // ================================================================
 
 const SMART = {
-  GLOBAL: '🌍 全球节点', HK: '🇭🇰 香港节点', TW: '🇹🇼 台湾节点',
-  JPKR: '🇯🇵 日韩节点', APAC: '🌏 亚太节点', US: '🇺🇸 美国节点',
-  EU: '🇪🇺 欧洲节点', AMERICAS: '🌎 美洲节点', AFRICA: '🌍 非洲节点',
+  GLOBAL: '🌍 全球节点', GLOBAL_HOME: '🏡 全球家宽',
+  HK: '🇭🇰 香港节点', HK_HOME: '🏡 香港家宽',
+  TW: '🇹🇼 台湾节点', TW_HOME: '🏡 台湾家宽',
+  JPKR: '🇯🇵 日韩节点', JPKR_HOME: '🏡 日韩家宽',
+  APAC: '🌏 亚太节点', APAC_HOME: '🏡 亚太家宽',
+  US: '🇺🇸 美国节点', US_HOME: '🏡 美国家宽',
+  EU: '🇪🇺 欧洲节点', EU_HOME: '🏡 欧洲家宽',
+  AMERICAS: '🌎 美洲节点', AMERICAS_HOME: '🏡 美洲家宽',
+  AFRICA: '🌍 非洲节点', AFRICA_HOME: '🏡 非洲家宽',
 }
 
 const BIZ = {
@@ -128,10 +152,59 @@ const BIZ = {
   FINAL: '🐟 漏网之鱼', AD: '🛑 广告拦截',
 }
 
-const STANDARD_PROXIES = [SMART.GLOBAL, SMART.HK, SMART.TW, SMART.JPKR, SMART.APAC, SMART.US, SMART.EU, SMART.AMERICAS, SMART.AFRICA, 'DIRECT']
-const DIRECT_FIRST_PROXIES = ['DIRECT', SMART.GLOBAL, SMART.HK, SMART.TW, SMART.JPKR, SMART.APAC, SMART.US, SMART.EU, SMART.AMERICAS, SMART.AFRICA]
-const TRACKER_PROXIES = ['REJECT', 'DIRECT', SMART.GLOBAL, SMART.HK, SMART.APAC]
-const SEA_PROXIES = [SMART.APAC, SMART.GLOBAL, SMART.HK, SMART.JPKR, SMART.US, 'DIRECT']
+const REGION_ORDER = ['GLOBAL', 'HK', 'TW', 'JPKR', 'APAC', 'US', 'EU', 'AMERICAS', 'AFRICA']
+const REGION_HOME_MAP = {
+  GLOBAL: 'GLOBAL_HOME', HK: 'HK_HOME', TW: 'TW_HOME',
+  JPKR: 'JPKR_HOME', APAC: 'APAC_HOME', US: 'US_HOME',
+  EU: 'EU_HOME', AMERICAS: 'AMERICAS_HOME', AFRICA: 'AFRICA_HOME',
+}
+
+function withResidential(keys) {
+  var result = []
+  for (var i = 0; i < keys.length; i++) {
+    var key = keys[i]
+    if (SMART[key]) result.push(SMART[key])
+    var homeKey = REGION_HOME_MAP[key]
+    if (homeKey && SMART[homeKey]) result.push(SMART[homeKey])
+  }
+  return result
+}
+
+function buildStandardProxies() {
+  return withResidential(REGION_ORDER).concat('DIRECT')
+}
+
+function buildHomeFirstProxies(keys) {
+  var homes = []
+  var full = []
+  for (var i = 0; i < keys.length; i++) {
+    var key = keys[i]
+    var homeKey = REGION_HOME_MAP[key]
+    if (homeKey && SMART[homeKey]) homes.push(SMART[homeKey])
+  }
+  for (var j = 0; j < keys.length; j++) {
+    var fullKey = keys[j]
+    if (SMART[fullKey]) full.push(SMART[fullKey])
+  }
+  return homes.concat(full, ['DIRECT'])
+}
+
+function buildRegionPreferredProxies(primaryKey) {
+  var order = [primaryKey].concat(REGION_ORDER.filter(function(key) { return key !== primaryKey }))
+  return withResidential(order).concat('DIRECT')
+}
+
+function buildDirectFirstProxies() {
+  return ['DIRECT'].concat(withResidential(REGION_ORDER))
+}
+
+function buildTrackerProxies() {
+  return ['REJECT', 'DIRECT'].concat(withResidential(['GLOBAL', 'HK', 'APAC']))
+}
+
+function buildSeaProxies() {
+  return withResidential(['APAC', 'GLOBAL', 'HK', 'JPKR', 'US']).concat('DIRECT')
+}
 
 // v5.1.2: GeoRouting 区域列表（module-level，供 providers + rules 共用）
 // ★ FIX#1: Asia_China 从 INTL 循环剥离，单独映射 CN_SITE（v5.1.1 误将中国域名/IP 路由到国外网站）
@@ -160,35 +233,49 @@ function upsertSmartGroup(config, name, proxies) {
 //  模块 F：业务策略组注入（28组）
 // ================================================================
 
-function injectBusinessGroups(config) {
+function injectBusinessGroups(config, activeSmartNames) {
+  function filterActive(arr) {
+    if (!activeSmartNames) return arr.slice()
+    return arr.filter(function(p) { return activeSmartNames.has(p) })
+  }
+  var aiProxies = filterActive(buildHomeFirstProxies(REGION_ORDER))
+  var standardProxies = filterActive(buildStandardProxies())
+  var streamUsProxies = filterActive(buildRegionPreferredProxies('US'))
+  var streamHkProxies = filterActive(buildRegionPreferredProxies('HK'))
+  var streamTwProxies = filterActive(buildRegionPreferredProxies('TW'))
+  var streamJpProxies = filterActive(buildRegionPreferredProxies('JPKR'))
+  var streamEuProxies = filterActive(buildRegionPreferredProxies('EU'))
+  var directFirstProxies = filterActive(buildDirectFirstProxies())
+  var trackerProxies = filterActive(buildTrackerProxies())
+  var seaProxies = filterActive(buildSeaProxies())
   var groups = [
-    { name: BIZ.AI, type: 'select', proxies: STANDARD_PROXIES.slice() },
-    { name: BIZ.CRYPTO, type: 'select', proxies: STANDARD_PROXIES.slice() },
-    { name: BIZ.PAYMENTS, type: 'select', proxies: STANDARD_PROXIES.slice() },
-    { name: BIZ.EMAIL, type: 'select', proxies: STANDARD_PROXIES.slice() },
-    { name: BIZ.IM, type: 'select', proxies: STANDARD_PROXIES.slice() },
-    { name: BIZ.SOCIAL, type: 'select', proxies: STANDARD_PROXIES.slice() },
-    { name: BIZ.WORK, type: 'select', proxies: STANDARD_PROXIES.slice() },
-    { name: BIZ.CNMEDIA, type: 'select', proxies: DIRECT_FIRST_PROXIES.slice() },
-    { name: BIZ.STREAM_SEA, type: 'select', proxies: SEA_PROXIES.slice() },
-    { name: BIZ.STREAM_US, type: 'select', proxies: STANDARD_PROXIES.slice() },
-    { name: BIZ.STREAM_HK, type: 'select', proxies: STANDARD_PROXIES.slice() },
-    { name: BIZ.STREAM_TW, type: 'select', proxies: STANDARD_PROXIES.slice() },
-    { name: BIZ.STREAM_JP, type: 'select', proxies: STANDARD_PROXIES.slice() },
-    { name: BIZ.STREAM_EU, type: 'select', proxies: STANDARD_PROXIES.slice() },
-    { name: BIZ.GAME_CN, type: 'select', proxies: DIRECT_FIRST_PROXIES.slice() },
-    { name: BIZ.GAME_INTL, type: 'select', proxies: STANDARD_PROXIES.slice() },
-    { name: BIZ.SEARCH, type: 'select', proxies: STANDARD_PROXIES.slice() },
-    { name: BIZ.DEV, type: 'select', proxies: STANDARD_PROXIES.slice() },
-    { name: BIZ.MS, type: 'select', proxies: STANDARD_PROXIES.slice() },
-    { name: BIZ.APPLE, type: 'select', proxies: DIRECT_FIRST_PROXIES.slice() },
-    { name: BIZ.DOWNLOAD, type: 'select', proxies: DIRECT_FIRST_PROXIES.slice() },
-    { name: BIZ.CLOUD_CDN, type: 'select', proxies: STANDARD_PROXIES.slice() },
-    { name: BIZ.TRACKER, type: 'select', proxies: TRACKER_PROXIES.slice() },
-    { name: BIZ.CN_SITE, type: 'select', proxies: DIRECT_FIRST_PROXIES.slice() },
-    { name: BIZ.GFW, type: 'select', proxies: STANDARD_PROXIES.slice() },
-    { name: BIZ.INTL_SITE, type: 'select', proxies: STANDARD_PROXIES.slice() },
-    { name: BIZ.FINAL, type: 'select', proxies: STANDARD_PROXIES.slice() },
+    { name: BIZ.AI, type: 'select', proxies: aiProxies.slice() },
+    { name: BIZ.CRYPTO, type: 'select', proxies: standardProxies.slice() },
+    { name: BIZ.PAYMENTS, type: 'select', proxies: standardProxies.slice() },
+    { name: BIZ.EMAIL, type: 'select', proxies: standardProxies.slice() },
+    { name: BIZ.IM, type: 'select', proxies: standardProxies.slice() },
+    { name: BIZ.SOCIAL, type: 'select', proxies: standardProxies.slice() },
+    { name: BIZ.WORK, type: 'select', proxies: standardProxies.slice() },
+    { name: BIZ.CNMEDIA, type: 'select', proxies: directFirstProxies.slice() },
+    { name: BIZ.STREAM_SEA, type: 'select', proxies: seaProxies.slice() },
+    { name: BIZ.STREAM_US, type: 'select', proxies: streamUsProxies.slice() },
+    { name: BIZ.STREAM_HK, type: 'select', proxies: streamHkProxies.slice() },
+    { name: BIZ.STREAM_TW, type: 'select', proxies: streamTwProxies.slice() },
+    { name: BIZ.STREAM_JP, type: 'select', proxies: streamJpProxies.slice() },
+    { name: BIZ.STREAM_EU, type: 'select', proxies: streamEuProxies.slice() },
+    { name: BIZ.GAME_CN, type: 'select', proxies: directFirstProxies.slice() },
+    { name: BIZ.GAME_INTL, type: 'select', proxies: standardProxies.slice() },
+    { name: BIZ.SEARCH, type: 'select', proxies: standardProxies.slice() },
+    { name: BIZ.DEV, type: 'select', proxies: standardProxies.slice() },
+    { name: BIZ.MS, type: 'select', proxies: standardProxies.slice() },
+    { name: BIZ.APPLE, type: 'select', proxies: directFirstProxies.slice() },
+    { name: BIZ.DOWNLOAD, type: 'select', proxies: directFirstProxies.slice() },
+    { name: BIZ.CLOUD_CDN, type: 'select', proxies: standardProxies.slice() },
+    { name: BIZ.TRACKER, type: 'select', proxies: trackerProxies.slice() },
+    { name: BIZ.CN_SITE, type: 'select', proxies: directFirstProxies.slice() },
+    { name: BIZ.GFW, type: 'select', proxies: standardProxies.slice() },
+    { name: BIZ.INTL_SITE, type: 'select', proxies: standardProxies.slice() },
+    { name: BIZ.FINAL, type: 'select', proxies: standardProxies.slice() },
     { name: BIZ.AD, type: 'select', proxies: ['REJECT', 'DIRECT'] },
   ]
   var firstSmartIdx = config['proxy-groups'].findIndex(function(g) { return g && g.type === 'smart' })
@@ -2104,9 +2191,9 @@ function overwriteGeneral(config) {
 function cleanupSubscription(config) {
   // v5.2.6 FIX#26-P0: 清空订阅自带的所有 proxy-groups
   //   原 4 关键词黑名单（负载均衡/自动选择/手动选择/节点选择）只能清除部分机场模板，
-  //   机场若提供地区组（🇭🇰 香港 / 🇹🇼 台湾 / …）或流媒体组，会和本脚本 9 Smart + 28 业务组共存，
-  //   用户端会看到 50+ 甚至 60+ 代理组（本脚本期望恰好 37 个）。
-  //   本脚本 37 个组是唯一权威来源：业务组只引用 SMART.* / DIRECT / REJECT，Smart 组只引用
+  //   机场若提供地区组（🇭🇰 香港 / 🇹🇼 台湾 / …）或流媒体组，会和本脚本 18 Smart + 28 业务组共存，
+  //   用户端会看到 60+ 甚至 70+ 代理组（本脚本期望恰好 46 个）。
+  //   本脚本 46 个组是唯一权威来源：业务组只引用 SMART.* / DIRECT / REJECT，Smart 组只引用
   //   config.proxies 里的节点名，不依赖任何订阅原生组，所以可以安全地整体清空。
   var removed = (config['proxy-groups'] || []).length
   config['proxy-groups'] = []
@@ -2187,32 +2274,41 @@ function main(config) {
     cleanupSubscription(config)
     injectSmartFingerprint(config)
     var c = classifyAllNodes(config.proxies)
-    console.log(`[${VERSION}] Classification: ALL=${c.ALL.length} HK=${c.HK.length} TW=${c.TW.length} CN=${c.CN.length} JP=${c.JP.length} KR=${c.KR.length} SG=${c.SG.length} US=${c.US.length} EU=${c.EU.length} AM=${c.AM.length} AF=${c.AF.length} APAC_OTHER=${c.APAC_OTHER.length} UNCLASSIFIED=${c.UNCLASSIFIED.length}`)
+    console.log(`[${VERSION}] Classification: ALL=${c.ALL.length} HOME_ALL=${c.HOME_ALL.length} HK=${c.HK.length}/${c.HOME_HK.length} TW=${c.TW.length}/${c.HOME_TW.length} CN=${c.CN.length}/${c.HOME_CN.length} JP=${c.JP.length}/${c.HOME_JP.length} KR=${c.KR.length}/${c.HOME_KR.length} SG=${c.SG.length}/${c.HOME_SG.length} US=${c.US.length}/${c.HOME_US.length} EU=${c.EU.length}/${c.HOME_EU.length} AM=${c.AM.length}/${c.HOME_AM.length} AF=${c.AF.length}/${c.HOME_AF.length} APAC_OTHER=${c.APAC_OTHER.length}/${c.HOME_APAC_OTHER.length} UNCLASSIFIED=${c.UNCLASSIFIED.length}/${c.HOME_UNCLASSIFIED.length}`)
     var jpkrNodes = c.JP.concat(c.KR)
     var apacNodes = c.HK.concat(c.TW, c.CN, c.JP, c.KR, c.SG, c.APAC_OTHER)
     var americasNodes = c.US.concat(c.AM)
+    var homeJpkrNodes = c.HOME_JP.concat(c.HOME_KR)
+    var homeApacNodes = c.HOME_HK.concat(c.HOME_TW, c.HOME_CN, c.HOME_JP, c.HOME_KR, c.HOME_SG, c.HOME_APAC_OTHER)
+    var homeAmericasNodes = c.HOME_US.concat(c.HOME_AM)
     upsertSmartGroup(config, SMART.GLOBAL, c.ALL)
+    if (c.HOME_ALL.length > 0) upsertSmartGroup(config, SMART.GLOBAL_HOME, c.HOME_ALL)
     // v5.2.6 FIX#25-P0: 统一空区域不建组（原 HK/TW/JPKR/APAC/US fallback 到 apacNodes/c.ALL
     //   会把 HK/全节点 silently 塞入 🇹🇼 台湾节点 / 🇯🇵 日韩节点 —— 区域污染）
     //   SMART.GLOBAL 始终存在作为兜底；业务组对 STANDARD_PROXIES 的 filterProxies 会自动剔除未创建的组引用
     if (c.HK.length > 0) upsertSmartGroup(config, SMART.HK, c.HK)
+    if (c.HOME_HK.length > 0) upsertSmartGroup(config, SMART.HK_HOME, c.HOME_HK)
     if (c.TW.length > 0) upsertSmartGroup(config, SMART.TW, c.TW)
+    if (c.HOME_TW.length > 0) upsertSmartGroup(config, SMART.TW_HOME, c.HOME_TW)
     if (jpkrNodes.length > 0) upsertSmartGroup(config, SMART.JPKR, jpkrNodes)
+    if (homeJpkrNodes.length > 0) upsertSmartGroup(config, SMART.JPKR_HOME, homeJpkrNodes)
     if (apacNodes.length > 0) upsertSmartGroup(config, SMART.APAC, apacNodes)
+    if (homeApacNodes.length > 0) upsertSmartGroup(config, SMART.APAC_HOME, homeApacNodes)
     if (c.US.length > 0) upsertSmartGroup(config, SMART.US, c.US)
+    if (c.HOME_US.length > 0) upsertSmartGroup(config, SMART.US_HOME, c.HOME_US)
     if (c.EU.length > 0) upsertSmartGroup(config, SMART.EU, c.EU)
+    if (c.HOME_EU.length > 0) upsertSmartGroup(config, SMART.EU_HOME, c.HOME_EU)
     if (americasNodes.length > 0) upsertSmartGroup(config, SMART.AMERICAS, americasNodes)
+    if (homeAmericasNodes.length > 0) upsertSmartGroup(config, SMART.AMERICAS_HOME, homeAmericasNodes)
     if (c.AF.length > 0) upsertSmartGroup(config, SMART.AFRICA, c.AF)
+    if (c.HOME_AF.length > 0) upsertSmartGroup(config, SMART.AFRICA_HOME, c.HOME_AF)
 
     // 收集实际创建的 Smart 组名，过滤业务组的 proxy 引用
     var activeSmartNames = new Set(config['proxy-groups'].filter(function(g) { return g && g.type === 'smart' }).map(function(g) { return g.name }))
     activeSmartNames.add('DIRECT'); activeSmartNames.add('REJECT')
-    function filterProxies(arr) { return arr.filter(function(p) { return activeSmartNames.has(p) }) }
-    STANDARD_PROXIES.splice(0, STANDARD_PROXIES.length, ...filterProxies(STANDARD_PROXIES))
-    DIRECT_FIRST_PROXIES.splice(0, DIRECT_FIRST_PROXIES.length, ...filterProxies(DIRECT_FIRST_PROXIES))
     console.log(`[${VERSION}] Active Smart groups: ${[...activeSmartNames].filter(function(n) { return n !== 'DIRECT' && n !== 'REJECT' }).join(', ')}`)
 
-    injectBusinessGroups(config)
+    injectBusinessGroups(config, activeSmartNames)
     injectRuleProviders(config)
     injectRules(config)
     sortProxyGroups(config)

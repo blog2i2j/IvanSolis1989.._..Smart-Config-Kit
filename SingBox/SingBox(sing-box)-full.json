@@ -12,9 +12,9 @@
     },
     "_meta": {
       "name": "SingBox Smart Full",
-      "version": "v5.2.6-sing.5",
+      "version": "v5.2.8-sing.1",
       "build": "2026-04-23",
-      "baseline": "Clash Party v5.2.6",
+      "baseline": "Clash Party v5.2.8",
       "changelog": "见 SingBox/CHANGELOG.md"
     }
   },
@@ -30,7 +30,7 @@
         "tag": "dns_proxy",
         "type": "https",
         "server": "1.1.1.1",
-        "detour": "🌍 全球节点"
+        "detour": "🚀 节点选择"
       }
     ],
     "rules": [
@@ -72,6 +72,7 @@
       "tag": "🚀 节点选择",
       "outbounds": [
         "🌍 全球节点",
+        "🏡 全球家宽",
         "DIRECT"
       ],
       "default": "🌍 全球节点"
@@ -93,6 +94,22 @@
       "tolerance": 50
     },
     {
+      "type": "urltest",
+      "tag": "🏡 全球家宽",
+      "outbounds": [
+        "🏡 香港家宽",
+        "🏡 台湾家宽",
+        "🏡 日韩家宽",
+        "🏡 亚太家宽",
+        "🏡 美国家宽",
+        "🏡 欧洲家宽",
+        "🏡 美洲家宽",
+        "🏡 非洲家宽"
+      ],
+      "interval": "3m",
+      "tolerance": 50
+    },
+    {
       "type": "selector",
       "tag": "🇭🇰 香港节点",
       "outbounds": [
@@ -104,12 +121,30 @@
     },
     {
       "type": "selector",
+      "tag": "🏡 香港家宽",
+      "outbounds": [
+        "proxy-hk-home-1",
+        "DIRECT"
+      ],
+      "default": "proxy-hk-home-1"
+    },
+    {
+      "type": "selector",
       "tag": "🇹🇼 台湾节点",
       "outbounds": [
         "proxy-tw-1",
         "DIRECT"
       ],
       "default": "proxy-tw-1"
+    },
+    {
+      "type": "selector",
+      "tag": "🏡 台湾家宽",
+      "outbounds": [
+        "proxy-tw-home-1",
+        "DIRECT"
+      ],
+      "default": "proxy-tw-home-1"
     },
     {
       "type": "selector",
@@ -123,13 +158,37 @@
     },
     {
       "type": "selector",
+      "tag": "🏡 日韩家宽",
+      "outbounds": [
+        "proxy-jp-home-1",
+        "proxy-kr-home-1",
+        "DIRECT"
+      ],
+      "default": "proxy-jp-home-1"
+    },
+    {
+      "type": "selector",
       "tag": "🌏 亚太节点",
       "outbounds": [
         "proxy-sg-1",
         "proxy-id-1",
+        "proxy-hk-1",
+        "proxy-jp-1",
         "DIRECT"
       ],
       "default": "proxy-sg-1"
+    },
+    {
+      "type": "selector",
+      "tag": "🏡 亚太家宽",
+      "outbounds": [
+        "proxy-sg-home-1",
+        "proxy-hk-home-1",
+        "proxy-jp-home-1",
+        "proxy-tw-home-1",
+        "DIRECT"
+      ],
+      "default": "proxy-sg-home-1"
     },
     {
       "type": "selector",
@@ -143,12 +202,30 @@
     },
     {
       "type": "selector",
+      "tag": "🏡 美国家宽",
+      "outbounds": [
+        "proxy-us-home-1",
+        "DIRECT"
+      ],
+      "default": "proxy-us-home-1"
+    },
+    {
+      "type": "selector",
       "tag": "🇪🇺 欧洲节点",
       "outbounds": [
         "proxy-eu-1",
         "DIRECT"
       ],
       "default": "proxy-eu-1"
+    },
+    {
+      "type": "selector",
+      "tag": "🏡 欧洲家宽",
+      "outbounds": [
+        "proxy-eu-home-1",
+        "DIRECT"
+      ],
+      "default": "proxy-eu-home-1"
     },
     {
       "type": "selector",
@@ -162,6 +239,16 @@
     },
     {
       "type": "selector",
+      "tag": "🏡 美洲家宽",
+      "outbounds": [
+        "proxy-ca-home-1",
+        "proxy-us-home-1",
+        "DIRECT"
+      ],
+      "default": "proxy-ca-home-1"
+    },
+    {
+      "type": "selector",
       "tag": "🌍 非洲节点",
       "outbounds": [
         "proxy-af-1",
@@ -171,190 +258,524 @@
     },
     {
       "type": "selector",
+      "tag": "🏡 非洲家宽",
+      "outbounds": [
+        "proxy-af-home-1",
+        "DIRECT"
+      ],
+      "default": "proxy-af-home-1"
+    },
+    {
+      "type": "selector",
       "tag": "🤖 AI 服务",
       "outbounds": [
-        "🇺🇸 美国节点",
+        "🏡 全球家宽",
+        "🏡 香港家宽",
+        "🏡 台湾家宽",
+        "🏡 日韩家宽",
+        "🏡 亚太家宽",
+        "🏡 美国家宽",
+        "🏡 欧洲家宽",
+        "🏡 美洲家宽",
+        "🏡 非洲家宽",
         "🌍 全球节点",
+        "🇭🇰 香港节点",
+        "🇹🇼 台湾节点",
         "🇯🇵 日韩节点",
+        "🌏 亚太节点",
+        "🇺🇸 美国节点",
+        "🇪🇺 欧洲节点",
+        "🌎 美洲节点",
+        "🌍 非洲节点",
         "DIRECT"
-      ]
+      ],
+      "default": "🏡 全球家宽"
     },
     {
       "type": "selector",
       "tag": "💰 加密货币",
       "outbounds": [
-        "🇭🇰 香港节点",
         "🌍 全球节点",
+        "🏡 全球家宽",
+        "🇭🇰 香港节点",
+        "🏡 香港家宽",
+        "🇹🇼 台湾节点",
+        "🏡 台湾家宽",
+        "🇯🇵 日韩节点",
+        "🏡 日韩家宽",
+        "🌏 亚太节点",
+        "🏡 亚太家宽",
         "🇺🇸 美国节点",
+        "🏡 美国家宽",
+        "🇪🇺 欧洲节点",
+        "🏡 欧洲家宽",
+        "🌎 美洲节点",
+        "🏡 美洲家宽",
+        "🌍 非洲节点",
+        "🏡 非洲家宽",
         "DIRECT"
-      ]
+      ],
+      "default": "🌍 全球节点"
     },
     {
       "type": "selector",
       "tag": "🏦 金融支付",
       "outbounds": [
-        "DIRECT",
+        "🌍 全球节点",
+        "🏡 全球家宽",
         "🇭🇰 香港节点",
+        "🏡 香港家宽",
+        "🇹🇼 台湾节点",
+        "🏡 台湾家宽",
         "🇯🇵 日韩节点",
-        "🌍 全球节点"
-      ]
+        "🏡 日韩家宽",
+        "🌏 亚太节点",
+        "🏡 亚太家宽",
+        "🇺🇸 美国节点",
+        "🏡 美国家宽",
+        "🇪🇺 欧洲节点",
+        "🏡 欧洲家宽",
+        "🌎 美洲节点",
+        "🏡 美洲家宽",
+        "🌍 非洲节点",
+        "🏡 非洲家宽",
+        "DIRECT"
+      ],
+      "default": "🌍 全球节点"
     },
     {
       "type": "selector",
       "tag": "📧 邮件服务",
       "outbounds": [
-        "🇯🇵 日韩节点",
         "🌍 全球节点",
+        "🏡 全球家宽",
+        "🇭🇰 香港节点",
+        "🏡 香港家宽",
+        "🇹🇼 台湾节点",
+        "🏡 台湾家宽",
+        "🇯🇵 日韩节点",
+        "🏡 日韩家宽",
+        "🌏 亚太节点",
+        "🏡 亚太家宽",
+        "🇺🇸 美国节点",
+        "🏡 美国家宽",
+        "🇪🇺 欧洲节点",
+        "🏡 欧洲家宽",
+        "🌎 美洲节点",
+        "🏡 美洲家宽",
+        "🌍 非洲节点",
+        "🏡 非洲家宽",
         "DIRECT"
-      ]
+      ],
+      "default": "🌍 全球节点"
     },
     {
       "type": "selector",
       "tag": "💬 即时通讯",
       "outbounds": [
-        "🇭🇰 香港节点",
-        "🇯🇵 日韩节点",
         "🌍 全球节点",
+        "🏡 全球家宽",
+        "🇭🇰 香港节点",
+        "🏡 香港家宽",
+        "🇹🇼 台湾节点",
+        "🏡 台湾家宽",
+        "🇯🇵 日韩节点",
+        "🏡 日韩家宽",
+        "🌏 亚太节点",
+        "🏡 亚太家宽",
+        "🇺🇸 美国节点",
+        "🏡 美国家宽",
+        "🇪🇺 欧洲节点",
+        "🏡 欧洲家宽",
+        "🌎 美洲节点",
+        "🏡 美洲家宽",
+        "🌍 非洲节点",
+        "🏡 非洲家宽",
         "DIRECT"
-      ]
+      ],
+      "default": "🌍 全球节点"
     },
     {
       "type": "selector",
       "tag": "📱 社交媒体",
       "outbounds": [
-        "🇯🇵 日韩节点",
         "🌍 全球节点",
+        "🏡 全球家宽",
+        "🇭🇰 香港节点",
+        "🏡 香港家宽",
+        "🇹🇼 台湾节点",
+        "🏡 台湾家宽",
+        "🇯🇵 日韩节点",
+        "🏡 日韩家宽",
+        "🌏 亚太节点",
+        "🏡 亚太家宽",
         "🇺🇸 美国节点",
+        "🏡 美国家宽",
+        "🇪🇺 欧洲节点",
+        "🏡 欧洲家宽",
+        "🌎 美洲节点",
+        "🏡 美洲家宽",
+        "🌍 非洲节点",
+        "🏡 非洲家宽",
         "DIRECT"
-      ]
+      ],
+      "default": "🌍 全球节点"
     },
     {
       "type": "selector",
       "tag": "🧑‍💼 会议协作",
       "outbounds": [
-        "🇯🇵 日韩节点",
         "🌍 全球节点",
+        "🏡 全球家宽",
+        "🇭🇰 香港节点",
+        "🏡 香港家宽",
+        "🇹🇼 台湾节点",
+        "🏡 台湾家宽",
+        "🇯🇵 日韩节点",
+        "🏡 日韩家宽",
+        "🌏 亚太节点",
+        "🏡 亚太家宽",
+        "🇺🇸 美国节点",
+        "🏡 美国家宽",
+        "🇪🇺 欧洲节点",
+        "🏡 欧洲家宽",
+        "🌎 美洲节点",
+        "🏡 美洲家宽",
+        "🌍 非洲节点",
+        "🏡 非洲家宽",
         "DIRECT"
-      ]
+      ],
+      "default": "🌍 全球节点"
     },
     {
       "type": "selector",
       "tag": "📺 国内流媒体",
       "outbounds": [
         "DIRECT",
+        "🌍 全球节点",
+        "🏡 全球家宽",
         "🇭🇰 香港节点",
-        "🌍 全球节点"
-      ]
+        "🏡 香港家宽",
+        "🇹🇼 台湾节点",
+        "🏡 台湾家宽",
+        "🇯🇵 日韩节点",
+        "🏡 日韩家宽",
+        "🌏 亚太节点",
+        "🏡 亚太家宽",
+        "🇺🇸 美国节点",
+        "🏡 美国家宽",
+        "🇪🇺 欧洲节点",
+        "🏡 欧洲家宽",
+        "🌎 美洲节点",
+        "🏡 美洲家宽",
+        "🌍 非洲节点",
+        "🏡 非洲家宽"
+      ],
+      "default": "DIRECT"
     },
     {
       "type": "selector",
       "tag": "📺 东南亚流媒体",
       "outbounds": [
         "🌏 亚太节点",
+        "🏡 亚太家宽",
         "🌍 全球节点",
+        "🏡 全球家宽",
+        "🇭🇰 香港节点",
+        "🏡 香港家宽",
+        "🇯🇵 日韩节点",
+        "🏡 日韩家宽",
+        "🇺🇸 美国节点",
+        "🏡 美国家宽",
         "DIRECT"
-      ]
+      ],
+      "default": "🌏 亚太节点"
     },
     {
       "type": "selector",
       "tag": "🇺🇸 美国流媒体",
       "outbounds": [
         "🇺🇸 美国节点",
+        "🏡 美国家宽",
         "🌍 全球节点",
+        "🏡 全球家宽",
+        "🇭🇰 香港节点",
+        "🏡 香港家宽",
+        "🇹🇼 台湾节点",
+        "🏡 台湾家宽",
+        "🇯🇵 日韩节点",
+        "🏡 日韩家宽",
+        "🌏 亚太节点",
+        "🏡 亚太家宽",
+        "🇪🇺 欧洲节点",
+        "🏡 欧洲家宽",
+        "🌎 美洲节点",
+        "🏡 美洲家宽",
+        "🌍 非洲节点",
+        "🏡 非洲家宽",
         "DIRECT"
-      ]
+      ],
+      "default": "🇺🇸 美国节点"
     },
     {
       "type": "selector",
       "tag": "🇭🇰 香港流媒体",
       "outbounds": [
         "🇭🇰 香港节点",
+        "🏡 香港家宽",
         "🌍 全球节点",
+        "🏡 全球家宽",
+        "🇹🇼 台湾节点",
+        "🏡 台湾家宽",
+        "🇯🇵 日韩节点",
+        "🏡 日韩家宽",
+        "🌏 亚太节点",
+        "🏡 亚太家宽",
+        "🇺🇸 美国节点",
+        "🏡 美国家宽",
+        "🇪🇺 欧洲节点",
+        "🏡 欧洲家宽",
+        "🌎 美洲节点",
+        "🏡 美洲家宽",
+        "🌍 非洲节点",
+        "🏡 非洲家宽",
         "DIRECT"
-      ]
+      ],
+      "default": "🇭🇰 香港节点"
     },
     {
       "type": "selector",
       "tag": "🇹🇼 台湾流媒体",
       "outbounds": [
         "🇹🇼 台湾节点",
+        "🏡 台湾家宽",
         "🌍 全球节点",
+        "🏡 全球家宽",
+        "🇭🇰 香港节点",
+        "🏡 香港家宽",
+        "🇯🇵 日韩节点",
+        "🏡 日韩家宽",
+        "🌏 亚太节点",
+        "🏡 亚太家宽",
+        "🇺🇸 美国节点",
+        "🏡 美国家宽",
+        "🇪🇺 欧洲节点",
+        "🏡 欧洲家宽",
+        "🌎 美洲节点",
+        "🏡 美洲家宽",
+        "🌍 非洲节点",
+        "🏡 非洲家宽",
         "DIRECT"
-      ]
+      ],
+      "default": "🇹🇼 台湾节点"
     },
     {
       "type": "selector",
       "tag": "🇯🇵 日韩流媒体",
       "outbounds": [
         "🇯🇵 日韩节点",
+        "🏡 日韩家宽",
         "🌍 全球节点",
+        "🏡 全球家宽",
+        "🇭🇰 香港节点",
+        "🏡 香港家宽",
+        "🇹🇼 台湾节点",
+        "🏡 台湾家宽",
+        "🌏 亚太节点",
+        "🏡 亚太家宽",
+        "🇺🇸 美国节点",
+        "🏡 美国家宽",
+        "🇪🇺 欧洲节点",
+        "🏡 欧洲家宽",
+        "🌎 美洲节点",
+        "🏡 美洲家宽",
+        "🌍 非洲节点",
+        "🏡 非洲家宽",
         "DIRECT"
-      ]
+      ],
+      "default": "🇯🇵 日韩节点"
     },
     {
       "type": "selector",
       "tag": "🇪🇺 欧洲流媒体",
       "outbounds": [
         "🇪🇺 欧洲节点",
+        "🏡 欧洲家宽",
         "🌍 全球节点",
+        "🏡 全球家宽",
+        "🇭🇰 香港节点",
+        "🏡 香港家宽",
+        "🇹🇼 台湾节点",
+        "🏡 台湾家宽",
+        "🇯🇵 日韩节点",
+        "🏡 日韩家宽",
+        "🌏 亚太节点",
+        "🏡 亚太家宽",
+        "🇺🇸 美国节点",
+        "🏡 美国家宽",
+        "🌎 美洲节点",
+        "🏡 美洲家宽",
+        "🌍 非洲节点",
+        "🏡 非洲家宽",
         "DIRECT"
-      ]
+      ],
+      "default": "🇪🇺 欧洲节点"
     },
     {
       "type": "selector",
       "tag": "🕹️ 国内游戏",
       "outbounds": [
         "DIRECT",
+        "🌍 全球节点",
+        "🏡 全球家宽",
         "🇭🇰 香港节点",
-        "🌍 全球节点"
-      ]
+        "🏡 香港家宽",
+        "🇹🇼 台湾节点",
+        "🏡 台湾家宽",
+        "🇯🇵 日韩节点",
+        "🏡 日韩家宽",
+        "🌏 亚太节点",
+        "🏡 亚太家宽",
+        "🇺🇸 美国节点",
+        "🏡 美国家宽",
+        "🇪🇺 欧洲节点",
+        "🏡 欧洲家宽",
+        "🌎 美洲节点",
+        "🏡 美洲家宽",
+        "🌍 非洲节点",
+        "🏡 非洲家宽"
+      ],
+      "default": "DIRECT"
     },
     {
       "type": "selector",
       "tag": "🎮 国外游戏",
       "outbounds": [
-        "🇯🇵 日韩节点",
-        "🇭🇰 香港节点",
         "🌍 全球节点",
+        "🏡 全球家宽",
+        "🇭🇰 香港节点",
+        "🏡 香港家宽",
+        "🇹🇼 台湾节点",
+        "🏡 台湾家宽",
+        "🇯🇵 日韩节点",
+        "🏡 日韩家宽",
+        "🌏 亚太节点",
+        "🏡 亚太家宽",
+        "🇺🇸 美国节点",
+        "🏡 美国家宽",
+        "🇪🇺 欧洲节点",
+        "🏡 欧洲家宽",
+        "🌎 美洲节点",
+        "🏡 美洲家宽",
+        "🌍 非洲节点",
+        "🏡 非洲家宽",
         "DIRECT"
-      ]
+      ],
+      "default": "🌍 全球节点"
     },
     {
       "type": "selector",
       "tag": "🔍 搜索引擎",
       "outbounds": [
         "🌍 全球节点",
+        "🏡 全球家宽",
+        "🇭🇰 香港节点",
+        "🏡 香港家宽",
+        "🇹🇼 台湾节点",
+        "🏡 台湾家宽",
         "🇯🇵 日韩节点",
+        "🏡 日韩家宽",
+        "🌏 亚太节点",
+        "🏡 亚太家宽",
+        "🇺🇸 美国节点",
+        "🏡 美国家宽",
+        "🇪🇺 欧洲节点",
+        "🏡 欧洲家宽",
+        "🌎 美洲节点",
+        "🏡 美洲家宽",
+        "🌍 非洲节点",
+        "🏡 非洲家宽",
         "DIRECT"
-      ]
+      ],
+      "default": "🌍 全球节点"
     },
     {
       "type": "selector",
       "tag": "📟 开发者服务",
       "outbounds": [
         "🌍 全球节点",
-        "🇺🇸 美国节点",
+        "🏡 全球家宽",
+        "🇭🇰 香港节点",
+        "🏡 香港家宽",
+        "🇹🇼 台湾节点",
+        "🏡 台湾家宽",
         "🇯🇵 日韩节点",
+        "🏡 日韩家宽",
+        "🌏 亚太节点",
+        "🏡 亚太家宽",
+        "🇺🇸 美国节点",
+        "🏡 美国家宽",
+        "🇪🇺 欧洲节点",
+        "🏡 欧洲家宽",
+        "🌎 美洲节点",
+        "🏡 美洲家宽",
+        "🌍 非洲节点",
+        "🏡 非洲家宽",
         "DIRECT"
-      ]
+      ],
+      "default": "🌍 全球节点"
     },
     {
       "type": "selector",
       "tag": "Ⓜ️ 微软服务",
       "outbounds": [
         "🌍 全球节点",
+        "🏡 全球家宽",
+        "🇭🇰 香港节点",
+        "🏡 香港家宽",
+        "🇹🇼 台湾节点",
+        "🏡 台湾家宽",
         "🇯🇵 日韩节点",
+        "🏡 日韩家宽",
+        "🌏 亚太节点",
+        "🏡 亚太家宽",
+        "🇺🇸 美国节点",
+        "🏡 美国家宽",
+        "🇪🇺 欧洲节点",
+        "🏡 欧洲家宽",
+        "🌎 美洲节点",
+        "🏡 美洲家宽",
+        "🌍 非洲节点",
+        "🏡 非洲家宽",
         "DIRECT"
-      ]
+      ],
+      "default": "🌍 全球节点"
     },
     {
       "type": "selector",
       "tag": "🍎 苹果服务",
       "outbounds": [
         "DIRECT",
+        "🌍 全球节点",
+        "🏡 全球家宽",
         "🇭🇰 香港节点",
-        "🌍 全球节点"
-      ]
+        "🏡 香港家宽",
+        "🇹🇼 台湾节点",
+        "🏡 台湾家宽",
+        "🇯🇵 日韩节点",
+        "🏡 日韩家宽",
+        "🌏 亚太节点",
+        "🏡 亚太家宽",
+        "🇺🇸 美国节点",
+        "🏡 美国家宽",
+        "🇪🇺 欧洲节点",
+        "🏡 欧洲家宽",
+        "🌎 美洲节点",
+        "🏡 美洲家宽",
+        "🌍 非洲节点",
+        "🏡 非洲家宽"
+      ],
+      "default": "DIRECT"
     },
     {
       "type": "selector",
@@ -362,70 +783,179 @@
       "outbounds": [
         "DIRECT",
         "🌍 全球节点",
-        "🇭🇰 香港节点"
-      ]
+        "🏡 全球家宽",
+        "🇭🇰 香港节点",
+        "🏡 香港家宽",
+        "🇹🇼 台湾节点",
+        "🏡 台湾家宽",
+        "🇯🇵 日韩节点",
+        "🏡 日韩家宽",
+        "🌏 亚太节点",
+        "🏡 亚太家宽",
+        "🇺🇸 美国节点",
+        "🏡 美国家宽",
+        "🇪🇺 欧洲节点",
+        "🏡 欧洲家宽",
+        "🌎 美洲节点",
+        "🏡 美洲家宽",
+        "🌍 非洲节点",
+        "🏡 非洲家宽"
+      ],
+      "default": "DIRECT"
     },
     {
       "type": "selector",
       "tag": "☁️ 云与CDN",
       "outbounds": [
         "🌍 全球节点",
-        "DIRECT",
-        "🇺🇸 美国节点"
-      ]
+        "🏡 全球家宽",
+        "🇭🇰 香港节点",
+        "🏡 香港家宽",
+        "🇹🇼 台湾节点",
+        "🏡 台湾家宽",
+        "🇯🇵 日韩节点",
+        "🏡 日韩家宽",
+        "🌏 亚太节点",
+        "🏡 亚太家宽",
+        "🇺🇸 美国节点",
+        "🏡 美国家宽",
+        "🇪🇺 欧洲节点",
+        "🏡 欧洲家宽",
+        "🌎 美洲节点",
+        "🏡 美洲家宽",
+        "🌍 非洲节点",
+        "🏡 非洲家宽",
+        "DIRECT"
+      ],
+      "default": "🌍 全球节点"
     },
     {
       "type": "selector",
       "tag": "🛰️ BT/PT Tracker",
       "outbounds": [
+        "REJECT",
         "DIRECT",
         "🌍 全球节点",
-        "🇭🇰 香港节点"
-      ]
+        "🏡 全球家宽",
+        "🇭🇰 香港节点",
+        "🏡 香港家宽",
+        "🌏 亚太节点",
+        "🏡 亚太家宽"
+      ],
+      "default": "REJECT"
     },
     {
       "type": "selector",
       "tag": "🏠 国内网站",
       "outbounds": [
         "DIRECT",
+        "🌍 全球节点",
+        "🏡 全球家宽",
         "🇭🇰 香港节点",
-        "🌍 全球节点"
-      ]
+        "🏡 香港家宽",
+        "🇹🇼 台湾节点",
+        "🏡 台湾家宽",
+        "🇯🇵 日韩节点",
+        "🏡 日韩家宽",
+        "🌏 亚太节点",
+        "🏡 亚太家宽",
+        "🇺🇸 美国节点",
+        "🏡 美国家宽",
+        "🇪🇺 欧洲节点",
+        "🏡 欧洲家宽",
+        "🌎 美洲节点",
+        "🏡 美洲家宽",
+        "🌍 非洲节点",
+        "🏡 非洲家宽"
+      ],
+      "default": "DIRECT"
     },
     {
       "type": "selector",
       "tag": "🚫 受限网站",
       "outbounds": [
         "🌍 全球节点",
+        "🏡 全球家宽",
+        "🇭🇰 香港节点",
+        "🏡 香港家宽",
+        "🇹🇼 台湾节点",
+        "🏡 台湾家宽",
+        "🇯🇵 日韩节点",
+        "🏡 日韩家宽",
+        "🌏 亚太节点",
+        "🏡 亚太家宽",
         "🇺🇸 美国节点",
+        "🏡 美国家宽",
+        "🇪🇺 欧洲节点",
+        "🏡 欧洲家宽",
+        "🌎 美洲节点",
+        "🏡 美洲家宽",
+        "🌍 非洲节点",
+        "🏡 非洲家宽",
         "DIRECT"
-      ]
+      ],
+      "default": "🌍 全球节点"
     },
     {
       "type": "selector",
       "tag": "🌐 国外网站",
       "outbounds": [
         "🌍 全球节点",
+        "🏡 全球家宽",
+        "🇭🇰 香港节点",
+        "🏡 香港家宽",
+        "🇹🇼 台湾节点",
+        "🏡 台湾家宽",
         "🇯🇵 日韩节点",
+        "🏡 日韩家宽",
+        "🌏 亚太节点",
+        "🏡 亚太家宽",
         "🇺🇸 美国节点",
+        "🏡 美国家宽",
+        "🇪🇺 欧洲节点",
+        "🏡 欧洲家宽",
+        "🌎 美洲节点",
+        "🏡 美洲家宽",
+        "🌍 非洲节点",
+        "🏡 非洲家宽",
         "DIRECT"
-      ]
+      ],
+      "default": "🌍 全球节点"
     },
     {
       "type": "selector",
       "tag": "🐟 漏网之鱼",
       "outbounds": [
         "🌍 全球节点",
-        "DIRECT",
-        "🇭🇰 香港节点"
-      ]
+        "🏡 全球家宽",
+        "🇭🇰 香港节点",
+        "🏡 香港家宽",
+        "🇹🇼 台湾节点",
+        "🏡 台湾家宽",
+        "🇯🇵 日韩节点",
+        "🏡 日韩家宽",
+        "🌏 亚太节点",
+        "🏡 亚太家宽",
+        "🇺🇸 美国节点",
+        "🏡 美国家宽",
+        "🇪🇺 欧洲节点",
+        "🏡 欧洲家宽",
+        "🌎 美洲节点",
+        "🏡 美洲家宽",
+        "🌍 非洲节点",
+        "🏡 非洲家宽",
+        "DIRECT"
+      ],
+      "default": "🌍 全球节点"
     },
     {
       "type": "selector",
       "tag": "🛑 广告拦截",
       "outbounds": [
+        "REJECT",
         "DIRECT"
-      ]
+      ],
+      "default": "REJECT"
     },
     {
       "type": "trojan",
@@ -451,6 +981,17 @@
     },
     {
       "type": "trojan",
+      "tag": "proxy-hk-home-1",
+      "server": "example-hk-home-1.com",
+      "server_port": 443,
+      "password": "REPLACE_ME",
+      "tls": {
+        "enabled": true,
+        "server_name": "example-hk-home-1.com"
+      }
+    },
+    {
+      "type": "trojan",
       "tag": "proxy-tw-1",
       "server": "example-tw-1.com",
       "server_port": 443,
@@ -458,6 +999,17 @@
       "tls": {
         "enabled": true,
         "server_name": "example-tw-1.com"
+      }
+    },
+    {
+      "type": "trojan",
+      "tag": "proxy-tw-home-1",
+      "server": "example-tw-home-1.com",
+      "server_port": 443,
+      "password": "REPLACE_ME",
+      "tls": {
+        "enabled": true,
+        "server_name": "example-tw-home-1.com"
       }
     },
     {
@@ -484,6 +1036,28 @@
     },
     {
       "type": "trojan",
+      "tag": "proxy-jp-home-1",
+      "server": "example-jp-home-1.com",
+      "server_port": 443,
+      "password": "REPLACE_ME",
+      "tls": {
+        "enabled": true,
+        "server_name": "example-jp-home-1.com"
+      }
+    },
+    {
+      "type": "trojan",
+      "tag": "proxy-kr-home-1",
+      "server": "example-kr-home-1.com",
+      "server_port": 443,
+      "password": "REPLACE_ME",
+      "tls": {
+        "enabled": true,
+        "server_name": "example-kr-home-1.com"
+      }
+    },
+    {
+      "type": "trojan",
       "tag": "proxy-sg-1",
       "server": "example-sg-1.com",
       "server_port": 443,
@@ -502,6 +1076,17 @@
       "tls": {
         "enabled": true,
         "server_name": "example-id-1.com"
+      }
+    },
+    {
+      "type": "trojan",
+      "tag": "proxy-sg-home-1",
+      "server": "example-sg-home-1.com",
+      "server_port": 443,
+      "password": "REPLACE_ME",
+      "tls": {
+        "enabled": true,
+        "server_name": "example-sg-home-1.com"
       }
     },
     {
@@ -528,6 +1113,17 @@
     },
     {
       "type": "trojan",
+      "tag": "proxy-us-home-1",
+      "server": "example-us-home-1.com",
+      "server_port": 443,
+      "password": "REPLACE_ME",
+      "tls": {
+        "enabled": true,
+        "server_name": "example-us-home-1.com"
+      }
+    },
+    {
+      "type": "trojan",
       "tag": "proxy-eu-1",
       "server": "example-eu-1.com",
       "server_port": 443,
@@ -535,6 +1131,17 @@
       "tls": {
         "enabled": true,
         "server_name": "example-eu-1.com"
+      }
+    },
+    {
+      "type": "trojan",
+      "tag": "proxy-eu-home-1",
+      "server": "example-eu-home-1.com",
+      "server_port": 443,
+      "password": "REPLACE_ME",
+      "tls": {
+        "enabled": true,
+        "server_name": "example-eu-home-1.com"
       }
     },
     {
@@ -550,6 +1157,17 @@
     },
     {
       "type": "trojan",
+      "tag": "proxy-ca-home-1",
+      "server": "example-ca-home-1.com",
+      "server_port": 443,
+      "password": "REPLACE_ME",
+      "tls": {
+        "enabled": true,
+        "server_name": "example-ca-home-1.com"
+      }
+    },
+    {
+      "type": "trojan",
       "tag": "proxy-af-1",
       "server": "example-af-1.com",
       "server_port": 443,
@@ -560,8 +1178,23 @@
       }
     },
     {
+      "type": "trojan",
+      "tag": "proxy-af-home-1",
+      "server": "example-af-home-1.com",
+      "server_port": 443,
+      "password": "REPLACE_ME",
+      "tls": {
+        "enabled": true,
+        "server_name": "example-af-home-1.com"
+      }
+    },
+    {
       "type": "direct",
       "tag": "DIRECT"
+    },
+    {
+      "type": "block",
+      "tag": "REJECT"
     }
   ],
   "route": {
