@@ -2,7 +2,7 @@ const fs = require('fs');
 const vm = require('vm');
 
 const clashScript = fs.readFileSync('Clash Party/ClashParty(mihomo-smart).js', 'utf8');
-const baseConfig = JSON.parse(fs.readFileSync('SingBox/SingBox(sing-box).json', 'utf8'));
+const baseConfig = JSON.parse(fs.readFileSync('SingBox/SingBox(sing-box)-full.json', 'utf8'));
 
 const sandbox = { console };
 vm.createContext(sandbox);

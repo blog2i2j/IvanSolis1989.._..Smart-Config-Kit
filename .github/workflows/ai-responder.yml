@@ -146,7 +146,7 @@ jobs:
 
           【仓库定位】
           以 Clash Party JS 覆写脚本为基线，同步产出 10 份客户端等价配置：
-          CMFA YAML / OpenClash slim+full / Shadowrocket / SingBox slim+full /
+          CMFA YAML / OpenClash Normal+Smart / Shadowrocket / SingBox Full /
           Surge / Loon / Quantumult X / v2rayN / Passwall2。
           架构核心：28 业务组 × 9 区域组 + 多源 rule-providers + LightGBM 智能选路。
 

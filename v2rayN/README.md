@@ -173,7 +173,6 @@ mihomo 会读取 YAML 里写的 dns/sniffer 块。但 v2rayN 默认用系统 DNS
 
 | 文件 | 规则量 | 适合 |
 |---|---:|---|
-| `SingBox/SingBox(sing-box).json` | 2 remote rule_set + 2 route rules | 快速验证 |
 | `SingBox/SingBox(sing-box)-full.json`（推荐） | 39 remote rule_set + 623 route rules | 与 Clash Party 关键路径对齐且保证 SRS 兼容 |
 
 打开 JSON，找到 `outbounds` 里 `"type": "trojan"` / `"type": "vless"` 的占位节点，替换成你自己的节点配置。

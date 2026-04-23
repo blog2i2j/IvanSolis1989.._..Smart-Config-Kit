@@ -5,8 +5,8 @@
 # Clash Smart v5.2.6-oc-full.1 — OpenClash 覆写脚本（与 Clash Party 主线同等规则量）
 # ============================================================================
 # 定位：对齐 Clash Party v5.2.4 JS 主线的 OpenClash 全量版本。
-#       与同目录 OpenClash(mihomo).sh（slim, 136 providers）互补：
-#         - slim  面向 1–4GB 路由器 / 低 OOM 风险
+#       与同目录 OpenClash(mihomo).sh（Normal）互补：
+#         - Normal 面向稳定版 mihomo / 经典 url-test
 #         - full  面向 4GB+ 路由器 / 需要与 Clash Party 桌面端一致的细粒度分流
 # 架构：
 #   • 9 Smart 区域组（uselightgbm: true + include-all-proxies: true）

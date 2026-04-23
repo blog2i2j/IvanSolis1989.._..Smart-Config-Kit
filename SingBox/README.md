@@ -1,14 +1,9 @@
 # SingBox 使用教程（对齐 Clash Party v5.2.6 Full 语义）
 
-> 配置文件（推荐）：`SingBox/SingBox(sing-box)-full.json`（v5.2.6-sing.4）
-> 基础模板：`SingBox/SingBox(sing-box).json`（v5.2.6-sing.4，兼容 sing-box 1.12+）
+> 配置文件：`SingBox/SingBox(sing-box)-full.json`（v5.2.6-sing.5）
 > 生成脚本：`SingBox/SingBox(sing-box)-generator.js`
 > 目标：在 **sing-box** 上复刻 Clash Party 的「9 个区域组 + 28 个业务组」策略结构，并只使用 sing-box 官方可消费的 SRS 规则集，保持 sing-box 1.12/1.13/1.14 官方配置兼容。
-
-> **v5.2.6-sing.4（2026-04-23）兼容性重要变更**：
-> - 修复 Slim / Full DNS 规则引用未定义 `rule_set` 的 P0 问题
-> - 生成器停止把 Clash YAML/list 规则源机械替换为 `.srs`，避免 Full 版启动后大量 403/404
-> - 广告规则直接使用 `action: "reject"`，不再导向只有 `DIRECT` 的广告 selector
+> 本目录只提供 Full 配置。
 
 ---
 
@@ -16,12 +11,6 @@
 
 ### 这是什么？
 一份 **sing-box 原生 JSON 配置**。sing-box 是一个新一代跨平台代理内核，**比 Clash 内存占用更低、协议支持更新**。任何加载 sing-box 内核的客户端都能用这份配置——包括 **Hiddify**、**SFA**（sing-box for Android）、**SFM**（Mac）、**SFI**（iOS）、**Karing**、**NekoBox**、以及 **v2rayN 切到 sing-box 核**。
-
-### 选哪份文件？
-| 文件 | 规则数 | 适合 |
-|---|---:|---|
-| `SingBox(sing-box).json` | 2 remote rule_set + 2 条基础规则 | 快速体验 / 学习结构 |
-| `SingBox(sing-box)-full.json` | 39 remote rule_set + 623 条路由规则 | **推荐**，对齐 Clash Party 关键路径且保证 SRS 兼容 |
 
 ### 术语速查
 - **sing-box**：一个代理内核（类比 mihomo/Xray）。**不是**一个具体的客户端 App，它是核心引擎，由各种 GUI 客户端调用。
@@ -137,12 +126,12 @@ sing-box 由 SagerNet 团队开发，是目前**新协议实现最前沿**的代
 
 ## 2a. Hiddify 用户看这里
 
-**Hiddify 的内核就是 sing-box**（实际打包的是 `hiddify-sing-box` 二进制，在官方 sing-box 基础上加了 WARP+、Hiddify Profile Format 等自家扩展）。所以本目录的配置 **不需要单独开一份 Hiddify 版本**——直接把 `SingBox/SingBox(sing-box)-full.json` 或 `SingBox/SingBox(sing-box).json` 喂给 Hiddify 即可。
+**Hiddify 的内核就是 sing-box**（实际打包的是 `hiddify-sing-box` 二进制，在官方 sing-box 基础上加了 WARP+、Hiddify Profile Format 等自家扩展）。所以本目录的配置 **不需要单独开一份 Hiddify 版本**——直接把 `SingBox/SingBox(sing-box)-full.json` 喂给 Hiddify 即可。
 
 ### 在 Hiddify 里导入
 
 1. 打开 Hiddify → 右上角 **配置 / Profile** → **添加新的配置** → **从剪贴板 / 从文件导入**。
-2. 选择本仓库的 `SingBox/SingBox(sing-box)-full.json`（推荐）或 `SingBox/SingBox(sing-box).json`（精简）。
+2. 选择本仓库的 `SingBox/SingBox(sing-box)-full.json`。
 3. Hiddify 会读取文件里的 `outbounds`、`route`、`dns`、`rule_set`，9 区域 + 28 业务组会全部出现在 Hiddify 的「策略」面板。
 
 ### 两个小提示
@@ -269,7 +258,7 @@ Clash Party 当前使用 JS 覆写引擎做节点名称分类；sing-box 原生 
 
 ### Q3：为什么 Full 版不是 300+ remote rule_set？
 
-sing-box remote rule-set 的 `source` 格式是 sing-box 自己的 JSON `{version,rules}`，`binary` 格式是 `.srs`。Clash / Mihomo 的 `.yaml`、`.list`、`.mrs` 不能靠改后缀变成 sing-box 规则集；v5.2.6-sing.4 起生成器只保留官方可消费的 SRS 规则源。
+sing-box remote rule-set 的 `source` 格式是 sing-box 自己的 JSON `{version,rules}`，`binary` 格式是 `.srs`。Clash / Mihomo 的 `.yaml`、`.list`、`.mrs` 不能靠改后缀变成 sing-box 规则集；当前生成器只保留官方可消费的 SRS 规则源。
 
 ### Q4：想继续贴近 Clash Party 规则量（300+ provider）怎么办？
 

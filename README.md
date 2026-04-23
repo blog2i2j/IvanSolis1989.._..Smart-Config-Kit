@@ -1,41 +1,5 @@
 # 🚀 科学上网智能分流配置中心
 
-> [!IMPORTANT]
-> **📦 2026-04-23 文件重命名公告**（存量订阅用户必读）
->
-> 为统一命名规范，仓库所有主配置文件统一为 **`APP名称(内核名称).扩展名`** 格式（专有引擎的 APP 省略括号）。**如果你用 GitHub Raw URL 订阅，必须更新订阅链接**，否则旧 URL 会 404。
->
-> <details>
-> <summary>🔽 展开查看 16 处旧名 → 新名对照表</summary>
->
-> | 子目录 | 旧名 | 新名 |
-> |---|---|---|
-> | `Clash Party/` | `Clash Smart内核覆写脚本.js` | `ClashParty(mihomo-smart).js` |
-> | `Clash Party/` | `Clash 普通内核覆写脚本.js` | `ClashParty(mihomo).js` |
-> | `Clash Meta For Android/` | `clash-smart-cmfa.yaml` | `CMFA(mihomo).yaml` |
-> | `OpenClash/` | `openclash_custom_overwrite_full.sh` | `OpenClash(mihomo-smart).sh` |
-> | `OpenClash/` | `openclash_custom_overwrite_normal.sh` | `OpenClash(mihomo).sh` |
-> | `OpenClash/` | `clash-smart-openclash.conf` | `OpenClash(mihomo).conf` |
-> | `Shadowrocket/` | `shadowrocket-smart.conf` | `Shadowrocket.conf` |
-> | `SingBox/` | `singbox-smart.json` | `SingBox(sing-box).json` |
-> | `SingBox/` | `singbox-smart-full.json` | `SingBox(sing-box)-full.json` |
-> | `SingBox/` | `generate-singbox-full.js` | `SingBox(sing-box)-generator.js` |
-> | `v2rayN/` | `v2rayn-smart-xray-routing.json` | `v2rayN(xray).json` |
-> | `Surge/` | `surge-smart.conf` | `Surge.conf` |
-> | `Loon/` | `loon-smart.conf` | `Loon.conf` |
-> | `Quantumult X/` | `qx-smart.conf` | `QuantumultX.conf` |
-> | `Passwall2/` | `passwall2-smart-shunt.conf` | `Passwall2(xray+sing-box).conf` |
-> | `Passwall2/` | `apply-shunt-rules.sh` | `Passwall2(xray+sing-box)-apply.sh` |
->
-> **没改名的**：`Passwall2/shunt-rules/*.list`（28 个规则清单，本身编号+分类命名已清晰）、所有 `README.md` / `CHANGELOG.md`。
->
-> **迁移方式**：
-> - Clash Verge Rev / CMFA / ClashMi / Mihomo Party 等订阅用户 → 把旧订阅 URL 里的文件名段替换为新名
-> - OpenClash / Passwall2 / v2rayN 等 SSH 或本地导入用户 → 重新下载新文件或 `git pull`
-> - Shadowrocket / Surge / Loon / Quantumult X 等 iCloud + URL 订阅用户 → 删掉旧订阅再用新 URL 导入
->
-> </details>
-
 > 一套以 **Clash Party（Mihomo Smart 内核）JS 覆写脚本** 为基线，同步产出多核心 / 多客户端等价配置的科学上网分流体系。  
 > 覆盖核心：**Mihomo (Clash.Meta / Smart)** · **sing-box** · **Xray** · **Shadowrocket / Surge / Loon / Quantumult X 各自私有引擎**  
 > 覆盖客户端：**Clash Party / Clash Verge Rev / Mihomo Party / CMFA / FlClash / mihomo-party-android / ClashMi / OpenClash / PassWall2 / Shadowrocket / Surge / Loon / Quantumult X / sing-box / Hiddify / v2rayN**  
@@ -401,11 +365,9 @@ tcpdump -n -i any port 443       # 应看到持续流量 → DoH 正常
 - Surge → `Surge.conf`
 - Loon → `Loon.conf`
 - Quantumult X → `QuantumultX.conf`
-- SingBox → `SingBox(sing-box)-full.json`（推荐） / `SingBox(sing-box).json`（精简）
+- SingBox → `SingBox(sing-box)-full.json`
 - v2rayN Xray → `v2rayN(xray).json`
 - v2rayN mihomo/sing-box → 复用 `Clash Meta For Android/CMFA(mihomo).yaml` 或 `SingBox/SingBox(sing-box)-full.json`
-
-> **2026-04-23 兼容性修复**：SingBox Full 已停止把 Clash YAML/list 规则源机械改成 `.srs`，当前只保留 39 个官方 SRS 兼容 remote rule_set；Surge 区域组已补 `include-all-proxies=true` 作为正则过滤候选来源；v2rayN Xray 路由文件已改为官方规则数组格式。
 
 ### 一句话决策树
 - 机场只给 **SS / VMess / Trojan**：任何客户端都行，**按设备+预算挑**

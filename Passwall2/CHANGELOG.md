@@ -84,7 +84,7 @@
 
 - ✅ 已经装了 Passwall2 且不想换 OpenClash 的用户
 - ✅ 只要基础分流能力，不在乎 LightGBM / 自动归位
-- ✅ 路由器内存紧张但不愿装 OpenClash slim
+- ✅ 路由器内存紧张但不愿装 OpenClash
 
 ### 不推荐的场景（请换 OpenClash）
 

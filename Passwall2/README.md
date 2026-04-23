@@ -23,7 +23,7 @@
 | JS 覆写 / 订阅预处理 | ❌ | ✅ |
 | 广告拦截（纵深多源）| ⚠️ 只能导 1-2 个 list | ✅ 20+ 源 |
 
-**功能约 OpenClash slim 的 70%**。想要完整体验，用本仓库 `OpenClash/`。
+这是把两层策略组展平后的降级实现。想要完整体验，用本仓库 `OpenClash/`。
 
 ### 我要准备什么？
 1. **OpenWrt / iStoreOS / ImmortalWrt** 路由器已刷好

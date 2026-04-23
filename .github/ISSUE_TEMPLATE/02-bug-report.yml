@@ -30,11 +30,10 @@ body:
       options:
         - Clash Party/Clash Smart内核覆写脚本.js（基线）
         - Clash Meta For Android/clash-smart-cmfa.yaml
-        - OpenClash/openclash_custom_overwrite.sh (slim)
-        - OpenClash/openclash_custom_overwrite_full.sh (full)
+        - OpenClash/openclash_custom_overwrite.sh (normal)
+        - OpenClash/openclash_custom_overwrite_full.sh (smart)
         - Shadowrocket/shadowrocket-smart.conf
-        - SingBox/singbox-smart.json (slim)
-        - SingBox/singbox-smart-full.json (full)
+        - SingBox/SingBox(sing-box)-full.json
         - Surge/surge-smart.conf
         - Loon/loon-smart.conf
         - Quantumult X/qx-smart.conf
