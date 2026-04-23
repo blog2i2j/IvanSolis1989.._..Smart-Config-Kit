@@ -2,7 +2,7 @@
 . /usr/share/openclash/log.sh
 
 # ============================================================================
-# Clash v5.2.8-oc-normal.2 — OpenClash 覆写脚本（非 Smart 内核 / url-test 区域组）
+# Clash v5.2.8-oc-normal.3 — OpenClash 覆写脚本（非 Smart 内核 / url-test 区域组）
 # ============================================================================
 # 定位：与同目录 OpenClash(mihomo-smart).sh 规则 100% 等价的「非 Smart 内核」版本。
 #       两者唯一区别：18 个区域组（9 全部 + 9 家宽）从 type: smart（uselightgbm）换成 type: url-test。
@@ -24,7 +24,7 @@
 
 
 
-VERSION_TAG="v5.2.8-oc-normal.2"
+VERSION_TAG="v5.2.8-oc-normal.3"
 CONFIG_FILE="$1"
 LOG_FILE="/tmp/openclash.log"
 
@@ -4195,7 +4195,7 @@ cat > "$RUBY_SCRIPT" << 'RUBY_EOF'
 require 'yaml'
 require 'digest'
 
-VERSION = "v5.2.8-oc-normal.2"
+VERSION = "v5.2.8-oc-normal.3"
 
 STATUS_LOG = "/tmp/clash_normal_status.log"
 File.open(STATUS_LOG, 'w') { |f| f.puts "[#{VERSION}] start" }
@@ -4272,15 +4272,22 @@ REGIONS = {
   "AE"  => /阿联酋|AE\b|UAE|Dubai|🇦🇪/i,
 }
 
+# v5.2.8-oc-normal.3 FIX#28-P0: GROUP_MAP 展平同源 bug
+#   原实现每个 code 只落入 GROUP_MAP 的首个命中条目（下方 each/break），导致：
+#     • HK/TW/JP/KR 只进香港/台湾/日韩子组，永远进不了 🌏 亚太节点
+#     • US 只进美国子组，永远进不了 🌎 美洲节点
+#   Clash Party JS 主线语义：区域大组 = 子区域并集（apacNodes = HK+TW+CN+JP+KR+SG+APAC_OTHER；
+#   americasNodes = US+AM）。修复：APAC 扩充至涵盖 HK/TW/JP/KR + 原 APAC_OTHER 集；AM 扩充至
+#   包含 US；分类循环移除 break，同一节点可同时进入子区域组与所属大洲组。
 GROUP_MAP = {
   "HK"     => ["HK"],
   "TW"     => ["TW"],
   "JP_KR"  => ["JP", "KR"],
   "US"     => ["US"],
   "EU"     => ["UK", "DE", "FR", "NL", "CH", "RU"],
-  "AM"     => ["CA", "MX", "BR", "AR"],
+  "AM"     => ["US", "CA", "MX", "BR", "AR"],
   "AF"     => ["ZA", "EG", "NG"],
-  "APAC"   => ["SG", "IN", "TH", "VN", "MY", "ID", "PH", "AU", "NZ"],
+  "APAC"   => ["HK", "TW", "JP", "KR", "SG", "IN", "TH", "VN", "MY", "ID", "PH", "AU", "NZ", "TR", "AE"],
 }
 GROUP_NAMES = {
   "HK"    => "🇭🇰 香港节点",
@@ -4319,11 +4326,11 @@ filtered_proxies.each do |p|
   code = classify.call(name)
   next if code.nil?
 
+  # v5.2.8-oc-normal.3 FIX#28-P0: 去掉 break，单节点可并入多个区域组（子区域 + 所属大洲）
   GROUP_MAP.each do |gkey, codes|
     if codes.include?(code)
       buckets[gkey] << name
       home_buckets[gkey] << name if is_home
-      break
     end
   end
 end
