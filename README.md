@@ -405,6 +405,8 @@ tcpdump -n -i any port 443       # 应看到持续流量 → DoH 正常
 - v2rayN Xray → `v2rayN(xray).json`
 - v2rayN mihomo/sing-box → 复用 `Clash Meta For Android/CMFA(mihomo).yaml` 或 `SingBox/SingBox(sing-box)-full.json`
 
+> **2026-04-23 兼容性修复**：SingBox Full 已停止把 Clash YAML/list 规则源机械改成 `.srs`，当前只保留 39 个官方 SRS 兼容 remote rule_set；Surge 区域组已补 `include-all-proxies=true` 作为正则过滤候选来源；v2rayN Xray 路由文件已改为官方规则数组格式。
+
 ### 一句话决策树
 - 机场只给 **SS / VMess / Trojan**：任何客户端都行，**按设备+预算挑**
 - 机场主推 **VLESS + REALITY**：Mihomo / sing-box / Shadowrocket / Loon / v2rayN 任选

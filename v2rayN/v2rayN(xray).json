@@ -1,20 +1,18 @@
-{
-  "_meta": {
-    "name": "Smart-Config-Kit v2rayN Xray Routing",
-    "version": "v5.2.5-v2n.2",
-    "build": "2026-04-22",
-    "baseline": "Clash Party v5.2.5 (Clash Party/ClashParty(mihomo-smart).js)",
-    "note": "v2rayN + Xray-core 只支持 3 个出站 (proxy / direct / block)，无法还原 Clash Party 的 28 业务组 + 9 区域组。若要完整体验请在 v2rayN 里切到 mihomo 核心并导入 Clash Meta For Android/CMFA(mihomo).yaml。",
-    "changelog": "见 v2rayN/CHANGELOG.md"
-  },
-  "remarks": "Smart-Config-Kit v5.2.5 (v2rayN + Xray)",
-  "url": "",
-  "customIcon": "",
-  "sort": 0,
-  "locked": false,
-  "domainStrategy": "IPIfNonMatch",
-  "domainMatcher": "hybrid",
-  "rules": [
+[
+    {
+      "id": "scki-000-meta",
+      "enabled": false,
+      "remarks": "Smart-Config-Kit v5.2.6-v2n.3 | Build 2026-04-23 | Baseline Clash Party v5.2.6 | changelog: v2rayN/CHANGELOG.md",
+      "outboundTag": "direct",
+      "domain": [
+        "domain:smart-config-kit.invalid"
+      ],
+      "ip": [],
+      "port": "",
+      "protocol": [],
+      "inboundTag": [],
+      "network": "tcp,udp"
+    },
     {
       "id": "scki-001-ads",
       "enabled": true,
@@ -32,8 +30,8 @@
     {
       "id": "scki-002-dns-hijack",
       "enabled": true,
-      "remarks": "DNS 劫持 → 转发 Xray DNS 出站",
-      "outboundTag": "dns-out",
+      "remarks": "DNS 53 → 直连（v2rayN 路由导入不定义 dns-out 出站）",
+      "outboundTag": "direct",
       "domain": [],
       "ip": [],
       "port": "53",
@@ -548,5 +546,4 @@
       "inboundTag": [],
       "network": "tcp,udp"
     }
-  ]
-}
+]

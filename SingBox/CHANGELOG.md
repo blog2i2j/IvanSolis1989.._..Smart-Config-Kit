@@ -5,6 +5,37 @@
 
 ---
 
+## v5.2.6-sing.4 (2026-04-23) — 修复 DNS 悬空 rule_set + Full 规则集 URL 兼容
+
+本轮处理 P0 兼容性审查中会导致 sing-box 导入/启动失败的问题。
+
+- ★ **FIX#sing-04-P0**：`dns.rules[*].rule_set` 不再引用未定义 tag
+  - `geosite-cn` → `cn`，与 `route.rule_set` 中真实存在的 MetaCubeX `@sing/geo/geosite/cn.srs` tag 对齐。
+  - Slim 模板补入 `cn` / `geosite-category-ads-all` 两个 `route.rule_set`，并补两条基础 route rule，避免 DNS 层引用悬空。
+  - `dns_direct.detour` `direct` → `DIRECT`，对齐实际 outbound tag。
+
+- ★ **FIX#sing-05-P0**：Full 生成器停止把 Clash/Mihomo 规则源机械改成 `.srs`
+  - MetaCubeX `meta-rules-dat@meta/*.mrs` 正确映射到 `meta-rules-dat@sing/*.srs`。
+  - DustinWin `anti-ad` 改用其官方 `sing-box-ruleset/ads.srs`。
+  - blackmatrix7 / ACL4SSR / Accademia 等 Clash YAML/list 规则源不再伪装成 `.srs`；这些源需要专门转换为 sing-box source JSON，不能直接当 remote binary rule-set。
+
+- ★ **FIX#sing-06-P1**：广告路由不再导向只有 `DIRECT` 的 `🛑 广告拦截` selector
+  - `RULE-SET,* ,🛑 广告拦截` 在生成时统一转成 `action: "reject"`。
+  - Full 版 `anti-ad` / `geosite-category-ads-all` 两条广告规则均为 reject。
+
+### 自检摘要
+
+- 重新生成 `SingBox/SingBox(sing-box)-full.json`：51 outbounds / 38 selector+urltest / 39 remote rule_set / 623 route rules。
+- Slim / Full 的 DNS+Route rule_set 引用缺失数：0。
+- Full 中 `blackmatrix7` / `ACL4SSR` / `Accademia` 被机械 `.srs` 化的 URL：0。
+
+### 官方文档证据
+
+- [sing-box Rule Set](https://sing-box.sagernet.org/configuration/rule-set/)：remote rule-set 需要 `tag` / `format` / `url`，`format` 为 `source` 或 `binary`。
+- [sing-box Source Format](https://sing-box.sagernet.org/configuration/rule-set/source-format/)：`source` 是 sing-box JSON `{version,rules}`，不是 Clash YAML。
+- [sing-box DNS Rule](https://sing-box.sagernet.org/configuration/dns/rule/)：DNS rule 可通过 `rule_set` 匹配已定义的 rule-set。
+- [sing-box Route Rule Action](https://sing-box.sagernet.org/configuration/route/rule_action/)：`reject` 是原生 action。
+
 ## v5.2.6-sing.3 (2026-04-23) — `SingBox(sing-box).json` 补 `route.final` + 注入 `_meta` 块
 
 跨产物审计（PR #65）发现 CLAUDE.md §3.3 硬约束违反：

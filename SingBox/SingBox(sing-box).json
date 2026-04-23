@@ -12,7 +12,7 @@
     },
     "_meta": {
       "name": "SingBox Smart Full",
-      "version": "v5.2.6-sing.3",
+      "version": "v5.2.6-sing.4",
       "build": "2026-04-23",
       "baseline": "Clash Party v5.2.6",
       "changelog": "见 SingBox/CHANGELOG.md"
@@ -24,7 +24,7 @@
         "tag": "dns_direct",
         "type": "https",
         "server": "223.5.5.5",
-        "detour": "direct"
+        "detour": "DIRECT"
       },
       {
         "tag": "dns_proxy",
@@ -36,7 +36,7 @@
     "rules": [
       {
         "rule_set": [
-          "geosite-cn"
+          "cn"
         ],
         "action": "route",
         "server": "dns_direct"
@@ -567,6 +567,38 @@
   "route": {
     "auto_detect_interface": true,
     "final": "🐟 漏网之鱼",
-    "rules": []
+    "rule_set": [
+      {
+        "type": "remote",
+        "tag": "cn",
+        "format": "binary",
+        "url": "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/cn.srs",
+        "download_detour": "🌍 全球节点",
+        "update_interval": "1d"
+      },
+      {
+        "type": "remote",
+        "tag": "geosite-category-ads-all",
+        "format": "binary",
+        "url": "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/category-ads-all.srs",
+        "download_detour": "🌍 全球节点",
+        "update_interval": "1d"
+      }
+    ],
+    "rules": [
+      {
+        "rule_set": [
+          "geosite-category-ads-all"
+        ],
+        "action": "reject"
+      },
+      {
+        "rule_set": [
+          "cn"
+        ],
+        "action": "route",
+        "outbound": "🏠 国内网站"
+      }
+    ]
   }
 }

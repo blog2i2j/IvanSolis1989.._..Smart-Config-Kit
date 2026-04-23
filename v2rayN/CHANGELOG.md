@@ -7,6 +7,32 @@
 
 ---
 
+## v5.2.6-v2n.3 (2026-04-23) — 改为官方规则数组 + 移除悬空 dns-out
+
+本轮处理 P0 兼容性审查中 v2rayN Xray 路径的导入格式与 outboundTag 问题。
+
+### 改动
+
+- ★ **FIX#v2n-05-P0**：`v2rayN(xray).json` 顶层从对象改为官方“规则数组”
+  - v2rayN 官方 Wiki 明确：自定义路由规则是“一个数组，数组中每一项是一个规则”。
+  - 保留 29 条启用规则；额外增加 1 条 `enabled:false` 的 `scki-000-meta` 版本标记，避免 JSON 数组格式下完全丢失产物版本信息。
+- ★ **FIX#v2n-06-P0**：DNS 53 规则 `outboundTag` `dns-out` → `direct`
+  - 本仓库路径 C 只承诺使用 v2rayN/Xray 的 `proxy` / `direct` / `block` 三个出站。
+  - `v2rayN(xray).json` 是路由规则导入文件，不定义 Xray outbounds；继续指向 `dns-out` 会形成悬空引用。
+- ★ 版本标记更新为 `v5.2.6-v2n.3`，Build `2026-04-23`，基线对齐 Clash Party v5.2.6。
+
+### 自检
+
+- JSON 顶层为数组 ✓
+- 对象总数 30，其中启用规则 29、禁用 metadata 1 ✓
+- outboundTag 集合只剩 `proxy` / `direct` / `block` ✓
+- `dns-out` 残留 0 ✓
+
+### 官方文档证据
+
+- [v2rayN Wiki: Description of custom routing rules](https://github.com/2dust/v2rayN/wiki/Description-of-custom-routing-rules)：官方示例为 JSON 数组。
+- [Xray / V2Ray Routing RuleObject](https://xtls.github.io/config/routing.html#ruleobject)：路由规则通过 `outboundTag` 指向已存在出站。
+
 ## v5.2.5-v2n.2 (2026-04-22) — geosite 类别兼容修复 + 版本对齐
 
 深度审查发现 `即时通讯` 规则里 `geosite:kakaotalk` 在 **v2fly/domain-list-community 里不存在**

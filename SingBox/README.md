@@ -1,14 +1,14 @@
-# SingBox 使用教程（对齐 Clash Party v5.2.5 Full 语义）
+# SingBox 使用教程（对齐 Clash Party v5.2.6 Full 语义）
 
-> 配置文件（推荐）：`SingBox/SingBox(sing-box)-full.json`（v5.2.5-sing.2）
-> 基础模板：`SingBox/SingBox(sing-box).json`（重建于 v5.2.5-sing.2，兼容 sing-box 1.12+）
+> 配置文件（推荐）：`SingBox/SingBox(sing-box)-full.json`（v5.2.6-sing.4）
+> 基础模板：`SingBox/SingBox(sing-box).json`（v5.2.6-sing.4，兼容 sing-box 1.12+）
 > 生成脚本：`SingBox/SingBox(sing-box)-generator.js`
-> 目标：在 **sing-box** 上复刻 Clash Party 的「9 个区域组 + 28 个业务组 + 391 rule-providers + 975 规则」语义，并保持 sing-box 1.12/1.13/1.14 官方配置兼容。
+> 目标：在 **sing-box** 上复刻 Clash Party 的「9 个区域组 + 28 个业务组」策略结构，并只使用 sing-box 官方可消费的 SRS 规则集，保持 sing-box 1.12/1.13/1.14 官方配置兼容。
 
-> **v5.2.5-sing.2（2026-04-22）兼容性重要变更**：
-> - 删除已废弃的 `type: "block"` 特殊 outbound（sing-box 1.11 deprecated, 1.13 removed），避免用户升到 1.13+ 后 FATAL 起不来
-> - DNS server 迁移到新 schema（`{type:"https",server:"..."}` 取代 legacy `{address:"https://..."}`），避免 1.14 起被移除
-> - 重建基础模板 `SingBox(sing-box).json`（之前被误删），生成脚本重新可用
+> **v5.2.6-sing.4（2026-04-23）兼容性重要变更**：
+> - 修复 Slim / Full DNS 规则引用未定义 `rule_set` 的 P0 问题
+> - 生成器停止把 Clash YAML/list 规则源机械替换为 `.srs`，避免 Full 版启动后大量 403/404
+> - 广告规则直接使用 `action: "reject"`，不再导向只有 `DIRECT` 的广告 selector
 
 ---
 
@@ -20,8 +20,8 @@
 ### 选哪份文件？
 | 文件 | 规则数 | 适合 |
 |---|---:|---|
-| `SingBox(sing-box).json` | 4 rule-sets + 28 条内联规则 | 快速体验 / 学习结构 |
-| `SingBox(sing-box)-full.json` | 387 rule-sets + 977 规则 | **推荐**，对齐 Clash Party 全量 |
+| `SingBox(sing-box).json` | 2 remote rule_set + 2 条基础规则 | 快速体验 / 学习结构 |
+| `SingBox(sing-box)-full.json` | 39 remote rule_set + 623 条路由规则 | **推荐**，对齐 Clash Party 关键路径且保证 SRS 兼容 |
 
 ### 术语速查
 - **sing-box**：一个代理内核（类比 mihomo/Xray）。**不是**一个具体的客户端 App，它是核心引擎，由各种 GUI 客户端调用。
@@ -43,11 +43,11 @@
 ### 跑起来怎么验证？
 - 浏览器打开 `https://www.google.com` 能打开 = 代理通了
 - 客户端的"出站"/"策略"面板应看到 38 个组（1 `🚀 节点选择` + 9 区域 + 28 业务）
-- 首次启动后等 387 个 rule-set 下载完（约 1–3 分钟），日志不报 404 即可
+- 首次启动后等 39 个 remote rule_set 下载完（约 1 分钟），日志不报 403/404 即可
 
 ### 最常见踩坑
 - ❌ **客户端说 "config invalid"**：你改节点时漏了逗号/引号。用 `python3 -c 'import json; json.load(open("SingBox(sing-box)-full.json"))'` 校验 JSON 合法性。
-- ❌ **rule_set 下载失败**：jsdelivr 被墙。先用任意一个能通的节点连上，再重新启用本配置，让 sing-box 把 387 个 .srs 拉下来缓存。
+- ❌ **rule_set 下载失败**：jsdelivr 被墙。先用任意一个能通的节点连上，再重新启用本配置，让 sing-box 把 39 个 `.srs` 拉下来缓存。
 - ❌ **Hiddify 提示 TUN 冲突**：Hiddify 会自己管 TUN。把本 JSON 里的 `inbounds.tun` 段删掉就好。
 - ❌ **配置里的节点占位跑不通**：那是示例节点（`proxy-hk-1` 等），需要你替换成真实节点。**不替换直接导入是跑不通的**。
 
@@ -119,7 +119,7 @@ sing-box 由 SagerNet 团队开发，是目前**新协议实现最前沿**的代
 
 - **规则层策略一致**：
   - AI、支付、加密货币、流媒体、即时通讯、开发者服务等关键域名前置匹配。
-  - 国内/国外流量使用 `geosite-cn` + `geoip-cn` 与 `geosite-geolocation-!cn` 收口。
+  - 国内/国外流量使用 `cn`、`cn-ip` 与 `proxy` 收口。
   - 广告使用 `category-ads-all` 统一拦截。
   - 通过生成脚本从 `Clash Party/ClashParty(mihomo-smart).js` 自动提取 rule-providers 与 rules，确保顺序和策略定义持续跟随 Clash Party 主线。
 
@@ -131,7 +131,7 @@ sing-box 由 SagerNet 团队开发，是目前**新协议实现最前沿**的代
 2. 将 `SingBox/SingBox(sing-box)-full.json` 导入客户端。
 3. 将文件内 `proxy-xxx` 示例节点替换成你自己的真实节点（trojan/vless/vmess/hysteria2 都可以）。
 
-> 说明：`SingBox(sing-box)-full.json` 已内置 387 个 rule_set 入口与 977 条路由规则；你只需要替换节点出站即可。
+> 说明：`SingBox(sing-box)-full.json` 已内置 39 个 sing-box SRS remote rule_set 与 623 条路由规则；你只需要替换节点出站即可。
 
 ---
 
@@ -169,12 +169,9 @@ node 'SingBox/SingBox(sing-box)-generator.js'
 脚本会自动：
 
 - 调用 Clash Party 的 `main(config)` 构建完整规则；
-- 同步导出 sing-box `route.rule_set`（387 项）；
-- 同步导出 sing-box `route.rules`（977 条）。
-2. 将 `SingBox/SingBox(sing-box).json` 导入客户端。
-3. 将文件内 `proxy-xxx` 示例节点替换成你自己的真实节点（trojan/vless/vmess/hysteria2 都可以）。
-
-> 说明：我在模板中提供了可运行结构和占位节点，便于你快速迁移 Clash Party 的组策略；实际连接能力由你替换后的节点决定。
+- 同步导出 sing-box `route.rule_set`（39 项，全部为官方 SRS 兼容 remote rule_set）；
+- 同步导出 sing-box `route.rules`（623 条）。
+> 说明：Clash YAML/list 规则源不能直接作为 sing-box `source` rule-set 使用；生成器只保留可验证的 SRS 来源，避免用户导入后才遇到远程规则下载失败。
 
 ---
 
@@ -214,7 +211,7 @@ node 'SingBox/SingBox(sing-box)-generator.js'
 - **DNS 增强**：
   - `dns_direct`（223.5.5.5 DoH）用于国内规则集；
   - `dns_proxy`（1.1.1.1 DoH）用于代理解析；
-  - `dns_block`（rcode://success）用于广告域名返回空响应。
+  - 广告 DNS 规则使用 `action: "reject"` 返回拒绝响应。
 - **嗅探增强**：
   - `inbounds.tun.sniff=true`
   - `sniff_override_destination=true`
@@ -248,9 +245,9 @@ node 'SingBox/SingBox(sing-box)-generator.js'
 
 1. **出站组是否完整**：能看到 9 区域 + 28 业务组。  
 2. **DNS 是否生效**：国内域名走 `dns_direct`，国外域名走 `dns_proxy`。  
-3. **规则集下载是否成功**：应看到 `387+` 个 `rule_set` 被加载（与 Clash Party Provider 数量对齐）。  
-3. **规则集下载是否成功**：`geosite-cn / geoip-cn / geolocation-!cn / category-ads-all`。  
-4. **典型业务是否命中**：
+3. **规则集下载是否成功**：应看到 39 个 remote `rule_set` 被加载，且无 403/404。
+4. **关键规则集是否存在**：`cn / cn-ip / proxy / geosite-category-ads-all`。
+5. **典型业务是否命中**：
    - ChatGPT 命中 `🤖 AI 服务`
    - Binance 命中 `💰 加密货币`
    - YouTube/Netflix 命中对应流媒体组
@@ -270,12 +267,13 @@ Clash Party 当前使用 JS 覆写引擎做节点名称分类；sing-box 原生 
 - 若你所在网络对 CDN 有限制，可替换为你可访问的镜像地址；
 - 保持 `.srs` 二进制格式和 `format: binary` 一致。
 
-### Q3：如何保证和 Clash Party 规则保持完全一致？
+### Q3：为什么 Full 版不是 300+ remote rule_set？
 
-使用 `SingBox(sing-box)-generator.js` 从 Clash Party 脚本自动提取是最稳妥方式。只要上游 `ClashParty(mihomo-smart).js` 更新，你重新执行脚本即可同步。
-### Q3：想继续贴近 Clash Party 规则量（300+ provider）怎么办？
+sing-box remote rule-set 的 `source` 格式是 sing-box 自己的 JSON `{version,rules}`，`binary` 格式是 `.srs`。Clash / Mihomo 的 `.yaml`、`.list`、`.mrs` 不能靠改后缀变成 sing-box 规则集；v5.2.6-sing.4 起生成器只保留官方可消费的 SRS 规则源。
 
-可以继续扩展 `route.rule_set` 与 `route.rules`，将更多服务拆分成独立 rule-set。当前版本先保证“结构一致 + 主功能一致 + sing-box 官方格式兼容”。
+### Q4：想继续贴近 Clash Party 规则量（300+ provider）怎么办？
+
+可以继续扩展生成器，把 Clash YAML/list 拉取后转换为 sing-box source JSON 或编译为 `.srs`。当前版本先保证“结构一致 + 主功能一致 + sing-box 官方格式兼容”。
 
 ---
 

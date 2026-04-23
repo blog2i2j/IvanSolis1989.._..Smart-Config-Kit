@@ -4,6 +4,34 @@
 
 ---
 
+## v5.2.6-Surge.3 (2026-04-23) — 修复区域 url-test 组候选池为空
+
+P0 审查发现 9 个区域 `url-test` 组只有 `policy-regex-filter`，没有候选节点来源；Surge 官方说明正则过滤需要配合 `include-all-proxies` / `include-other-group` / `policy-path` 使用，否则组内可能为空。
+
+### 改动
+
+- ★ **FIX#Surge-06-P0**：9 个区域组全部补 `include-all-proxies=true`
+  - `🌍 全球节点`
+  - `🇭🇰 香港节点`
+  - `🇹🇼 台湾节点`
+  - `🇯🇵 日韩节点`
+  - `🌏 亚太节点`
+  - `🇺🇸 美国节点`
+  - `🇪🇺 欧洲节点`
+  - `🌎 美洲节点`
+  - `🌍 非洲节点`
+- ★ 头部版本号 `v5.2.5-Surge.2` → `v5.2.6-Surge.3`，Build `2026-04-23`，基线对齐 Clash Party v5.2.6。
+
+### 自检
+
+- 代理组 37 个 ✓
+- 区域 `url-test` 组 9 个，且每个均包含 `include-all-proxies=true` ✓
+- `policy-regex-filter` 保留，地区节点名过滤语义不变 ✓
+
+### 官方文档证据
+
+- [Surge Policy Including](https://manual.nssurge.com/policy-group/policy-including.html)：`include-all-proxies=true` 会包含 `[Proxy]` 中所有代理，并可与 `policy-regex-filter` 联用过滤。
+
 ## v5.2.5-Surge.2 (2026-04-22) — 移除 72 条 Clash YAML + anti-AD CDN + 版本对齐
 
 与 Loon v5.2.4-Loon.2 / .3 同批"Clash Party v5.2.4 基线遗毒"。Surge manual 明确 RULE-SET
