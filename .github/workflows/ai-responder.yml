@@ -343,8 +343,8 @@ jobs:
 
           echo "🎯 Model: ${MODEL} / Thinking: ${THINKING} / CodeMod: ${CODE_MOD} / Timeout: ${CURL_TIMEOUT}s"
 
-          # ── 构建 system prompt ────────────────────────────────
-          SYSTEM_PROMPT=$(cat <<'PROMPT_BASE'
+          # ── 构建 system prompt → 写入文件（防 ARG_MAX 溢出）───
+          cat > /tmp/sys_prompt.txt <<'PROMPT_BASE'
           你是 Smart-Config-Kit（科学上网分流配置仓库）的 issue 初筛助手。
 
           【仓库定位】
@@ -408,11 +408,10 @@ jobs:
              → 第一行用「🤖 AI 深度分析（<类型> · 追问）」，并**正面回应评论里的追问焦点**，
                别重复首轮讲过的内容
           PROMPT_BASE
-          )
 
           # ── 代码修改模式追加指令 ──────────────────────────
           if [ "${CODE_MOD}" = "true" ]; then
-            CODE_MOD_INSTR=$(cat <<'PROMPT_CODE_MOD'
+            cat >> /tmp/sys_prompt.txt <<'PROMPT_CODE_MOD'
 
           【代码修改模式 — 已激活】
           你有代码修改权限。当你判断需要修改代码时，按以下格式输出响应：
@@ -446,26 +445,22 @@ jobs:
           - 文本回复（AI_REPLY）里**不要**重复贴代码块——代码修改全部放到 AI_PATCH 里，
             workflow 会自动提取并创建 PR。回复里只需说明分析结论 + 引用 PR 链接占位符。
           PROMPT_CODE_MOD
-          )
-            SYSTEM_PROMPT="${SYSTEM_PROMPT}${CODE_MOD_INSTR}"
           fi
 
           # ── 无代码修改模式追加指令 ──────────────────────────
           if [ "${CODE_MOD}" != "true" ]; then
-            NO_CODE_INSTR=$(cat <<'PROMPT_NO_CODE'
+            cat >> /tmp/sys_prompt.txt <<'PROMPT_NO_CODE'
 
           【无代码修改权限】
           - ❌ **不要给具体代码修改 / diff / patch**——就算你已判断出根因，
              也只说"可能在哪一层"，不提"把 X 改成 Y"。代码决策 100% 留给维护者。
           - 回复里不要出现 AI_PATCH 或 AI_PR 标记。
           PROMPT_NO_CODE
-          )
-            SYSTEM_PROMPT="${SYSTEM_PROMPT}${NO_CODE_INSTR}"
           fi
 
           # ── 回复结构（按代码修改权限区分）─────────────────
           if [ "${CODE_MOD}" = "true" ]; then
-            REPLY_STRUCTURE=$(cat <<'PROMPT_STRUCTURE_CODE'
+            cat >> /tmp/sys_prompt.txt <<'PROMPT_STRUCTURE_CODE'
 
           【回复结构】
           - **第一行**按分层规则写类型标签（使用问题 / 疑似 bug → 需维护者确认 /
@@ -476,9 +471,8 @@ jobs:
              > 以上分析和代码修改仅供参考，**最终合并 / 关闭请等维护者人工处理**。
           - 末尾**不要**再自己签名——workflow 会自动补 Model / Workflow / PR 链接元信息。
           PROMPT_STRUCTURE_CODE
-          )
           else
-            REPLY_STRUCTURE=$(cat <<'PROMPT_STRUCTURE_NOCODE'
+            cat >> /tmp/sys_prompt.txt <<'PROMPT_STRUCTURE_NOCODE'
 
           【回复结构】
           - **第一行**按分层规则写类型标签（使用问题 / 疑似 bug → 需维护者确认 /
@@ -489,14 +483,12 @@ jobs:
              > 以上分析仅供参考，**最终修复 / 采纳 / 关闭请等维护者人工处理**。
           - 末尾**不要**再自己签名——workflow 会自动补 Model / Workflow 元信息。
           PROMPT_STRUCTURE_NOCODE
-          )
           fi
-          SYSTEM_PROMPT="${SYSTEM_PROMPT}${REPLY_STRUCTURE}"
 
-          # ── 拼 API 请求 JSON ─────────────────────────────────
-          REQ_BODY=$(jq -n \
+          # ── 拼 API 请求 JSON → 写入文件（防 ARG_MAX 溢出）───
+          jq -n \
             --arg model   "$MODEL" \
-            --arg sys     "$SYSTEM_PROMPT" \
+            --rawfile sys /tmp/sys_prompt.txt \
             --arg tier    "$TIER_MARK" \
             --arg title   "$ISSUE_TITLE" \
             --arg body    "$ISSUE_BODY" \
@@ -517,12 +509,12 @@ jobs:
               thinking: { type: $thinking },
               max_tokens: (if $thinking == "enabled" then 4096 else 1500 end),
               stream: false
-            }')
+            }' > /tmp/req_body.json
 
           RESPONSE=$(curl -s --max-time "$CURL_TIMEOUT" https://api.deepseek.com/chat/completions \
             -H "Authorization: Bearer $DEEPSEEK_API_KEY" \
             -H "Content-Type: application/json" \
-            -d "$REQ_BODY")
+            -d @/tmp/req_body.json)
 
           RAW_REPLY=$(echo "$RESPONSE" | jq -r '.choices[0].message.content // empty')
           if [ -z "$RAW_REPLY" ]; then
