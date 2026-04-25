@@ -5,6 +5,17 @@
 
 ---
 
+## v5.2.10-cmfa.1 (2026-04-25) — 境外 DoH 端点改路由到 🚫 受限网站
+
+- ★ **FIX#39**（同构联动）：跟随 Clash Party v5.2.10 基线
+  - `DOMAIN,dns.google,☁️ 云与CDN` → `🚫 受限网站`
+  - `DOMAIN,dns.google.com,☁️ 云与CDN` → `🚫 受限网站`
+  - `DOMAIN-SUFFIX,cloudflare-dns.com,☁️ 云与CDN` → `🚫 受限网站`
+  - 原因：dns.google / cloudflare-dns.com 在境内被 GFW 阻断，语义上属"受限网站"而非"CDN"；
+    放在 `🚫 受限网站` 后即使 `☁️ 云与CDN` 被用户改成直连，DoH 仍能走代理。
+  - 国内 DoH 端点（doh.pub / dns.alidns.com）保留 `nameserver` / `direct-nameserver` 配置不变。
+- Bump: `v5.2.8-cmfa.6` → `v5.2.10-cmfa.1`（主版本追平到 v5.2.10）
+
 ## v5.2.8-cmfa.6 (2026-04-25) — 补齐 18 区域 filter 中缺失的裸 ISO alpha-2 代码
 
 - ★ **FIX#29-P2**：CMFA 区域 filter 缺少裸 ISO alpha-2 代码（`HK`/`TW`/`JP`/`KR`/`SG`/`US`/`CA`/`EU`/`AF`）

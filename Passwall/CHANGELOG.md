@@ -7,6 +7,20 @@
 
 ---
 
+## v5.2.10-pw.1 (2026-04-25) — 主版本追平（FIX#39 平台例外）
+
+- ★ **FIX#39 同构审计 — 平台例外（CLAUDE.md §1.4）**：本轮主线把 `dns.google` /
+  `cloudflare-dns.com` 从 `☁️ 云与CDN` 移到 `🚫 受限网站`，但 Passwall 的 shunt-rules
+  里**没有这两个域名的特化条目**——它们由更上层的 `geosite:google`（`18-search.list`）
+  和 `geosite:cloudflare`（`23-cloud-cdn.list`）覆盖。
+  - 要把单个域名拆出来归到 `26-gfw.list`，必须在编号 < 18 的列表里前置一条特化匹配
+    （Passwall 的 shunt-rules 按列表前缀数字顺序匹配，先命中先决策），
+    这意味着要重排 18-search / 23-cloud-cdn 的覆盖范围，**超出本次最小修复的范围**。
+  - 按 §1.4「平台专属字段 / 平台能力受限」标记为不同步，仅 bump 版本号追平基线。
+- 唯一改动：脚本头部 `Version` 注释 `v5.2.8-pw.4` → `v5.2.10-pw.1`
+- 后续如果用户对此有强需求，可单开 PR 重排 `shunt-rules/` 列表前缀（例如新增
+  `19-gfw-priority.list` 在 google/cloudflare 命中前匹配）。
+
 ## v5.2.8-pw.4 (2026-04-24) — ★ 广告拦截规则置顶 + `apply.sh` 路径加引号
 
 审查 Codex 针对 `Passwall/` 的两条建议，两条均确认为真实问题，本次一并修复：

@@ -7,6 +7,29 @@
 
 ---
 
+## v5.2.10 (2026-04-25)
+
+- ★ **FIX#39**：境外 DoH 端点改路由到 `🚫 受限网站`（防 `☁️ 云与CDN` 被设直连导致 DoH 失败）
+  - `DOMAIN,dns.google` / `DOMAIN,dns.google.com`：`${BIZ.CLOUD_CDN}` → `${BIZ.GFW}`（line ~1197-1198）
+  - `DOMAIN-SUFFIX,cloudflare-dns.com`：`${BIZ.CLOUD_CDN}` → `${BIZ.GFW}`（line ~1988）
+  - 动机：dns.google / cloudflare-dns.com 两个 DoH 端点在境内被 GFW 阻断，
+    语义上属于"受限网站"而非"CDN"。原放在 `☁️ 云与CDN` 是历史遗留；
+    若用户把 `☁️ 云与CDN` 误设为 `DIRECT`（部分玩家会这么干以减少 CDN 走代理浪费流量），
+    DoH 即刻失败 → 系统级 DNS fallback → 解析劣化甚至污染。
+    放在 `🚫 受限网站` 后即使 CDN 组被设直连，DoH 仍走代理，行为更稳健。
+  - 国内 DNS 提供商（DNSPod `doh.pub` / 阿里 `alidns.com`）保留原配置，
+    本身不被封，无需改动。
+- ★ **同构联动**：Clash Party Normal JS（同目录 `ClashParty(mihomo).js`，§1.5 同源运行时）/
+  CMFA YAML / OpenClash Normal+Smart / Shadowrocket / SingBox / Surge / Loon / Quantumult X 同步迁移
+  - SingBox 通过 `node SingBox/SingBox(sing-box)-generator.js` 重新生成（自动继承 JS 基线）
+  - v2rayN：Xray 路由只有 proxy/direct/block 三出站，dns.google / cloudflare-dns.com
+    在两种分组下都是 `proxy`，无 rule diff，仅 `_meta` 版本号 bump
+  - Passwall / Passwall2：原本就没有 `cloudflare-dns.com` / `dns.google` 的特化条目
+    （由更上层的 `geosite:cloudflare` / `geosite:google` 在 23-cloud-cdn / 18-search 列表里覆盖）。
+    要把单域名拆出来归到 26-gfw.list 必须重排整张列表的优先级（早于 18 / 23 命中），
+    超出本次最小修复的范围；按 §1.4 标记为平台例外，不修改 shunt-rules，仅 bump 版本号。
+- Bump: `v5.2.9` → `v5.2.10`，所有产物主版本同步追平到 `v5.2.10`
+
 ## v5.2.9 (2026-04-25)
 
 - ★ **全量代码审查**：修复 3 个 P0/P1 基线 bug + 跨产物同构修复

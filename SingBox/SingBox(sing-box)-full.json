@@ -11,9 +11,9 @@
     },
     "_meta": {
       "name": "SingBox Smart Full",
-      "version": "v5.2.9-sing.3",
+      "version": "v5.2.10-sing.1",
       "build": "2026-04-25",
-      "baseline": "Clash Party v5.2.9",
+      "baseline": "Clash Party v5.2.10",
       "changelog": "见 SingBox/CHANGELOG.md"
     }
   },
@@ -1845,14 +1845,14 @@
           "dns.google"
         ],
         "action": "route",
-        "outbound": "☁️ 云与CDN"
+        "outbound": "🚫 受限网站"
       },
       {
         "domain": [
           "dns.google.com"
         ],
         "action": "route",
-        "outbound": "☁️ 云与CDN"
+        "outbound": "🚫 受限网站"
       },
       {
         "domain_suffix": [
@@ -5313,7 +5313,7 @@
           "cloudflare-dns.com"
         ],
         "action": "route",
-        "outbound": "☁️ 云与CDN"
+        "outbound": "🚫 受限网站"
       },
       {
         "domain_suffix": [

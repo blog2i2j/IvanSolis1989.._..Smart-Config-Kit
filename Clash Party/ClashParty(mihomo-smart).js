@@ -7,7 +7,7 @@
 //  版本常量
 // ================================================================
 
-const VERSION = 'v5.2.9'
+const VERSION = 'v5.2.10'
 
 // ================================================================
 //  模块 A：节点过滤 / 家宽识别
@@ -1193,9 +1193,10 @@ function injectRules(config) {
     `DOMAIN-SUFFIX,binance.org,${BIZ.CRYPTO}`,
     `DOMAIN-SUFFIX,binancefuture.com,${BIZ.CRYPTO}`,
     // v5.1.8 FIX#11-P0: dns.google 是 DoH 服务，前置拦截防止 szkane-ai 宽规则吞入 AI 组
-    // 日志：[TCP] dial 🤖 AI 服务 (match RuleSet/szkane-ai) mihomo --> dns.google:443
-    `DOMAIN,dns.google,${BIZ.CLOUD_CDN}`,
-    `DOMAIN,dns.google.com,${BIZ.CLOUD_CDN}`,
+    // v5.2.10 FIX#39: 由 ☁️ 云与CDN 改路由到 🚫 受限网站——dns.google 在境内被封，
+    //                 若用户把 CDN 组误设直连，DoH 必失败；放在 GFW 组语义更准确
+    `DOMAIN,dns.google,${BIZ.GFW}`,
+    `DOMAIN,dns.google.com,${BIZ.GFW}`,
     // v5.1.8 FIX#14-P0: YouTube/googlevideo 被 szkane-ai 宽规则吞入 AI 组
     // szkane AiDomain.list 含 Google 宽域名（因 Gemini），导致 YouTube 全系误走 AI 代理
     // 日志：[TCP] dial 🤖 AI 服务 (match RuleSet/szkane-ai) --> www.youtube.com / yt3.ggpht.com / googlevideo.com
@@ -1984,7 +1985,8 @@ function injectRules(config) {
     // v5.2.1 FIX: jsdelivr 走受限网站组（中国用代理，海外可设直连），避免 rule-provider 刷新时 DNS 循环依赖
     `DOMAIN-SUFFIX,jsdelivr.net,${BIZ.GFW}`,
     `DOMAIN-SUFFIX,unpkg.com,${BIZ.CLOUD_CDN}`,
-    `DOMAIN-SUFFIX,cloudflare-dns.com,${BIZ.CLOUD_CDN}`,
+    // v5.2.10 FIX#39: 同 dns.google 改到 GFW 组（cloudflare-dns.com 在境内被封）
+    `DOMAIN-SUFFIX,cloudflare-dns.com,${BIZ.GFW}`,
     `DOMAIN-SUFFIX,cloudflarestorage.com,${BIZ.CLOUD_CDN}`,
     `DOMAIN-SUFFIX,r2.dev,${BIZ.CLOUD_CDN}`,
     `DOMAIN-SUFFIX,ziffstatic.com,${BIZ.CLOUD_CDN}`,

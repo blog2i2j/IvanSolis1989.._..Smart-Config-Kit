@@ -5,6 +5,16 @@
 
 ---
 
+## v5.2.10-sing.1 (2026-04-25) — 境外 DoH 端点改路由到 🚫 受限网站
+
+- ★ **FIX#39**（同构联动）：跟随 Clash Party v5.2.10 基线，由生成器自动重生成
+  - `route.rules[].outbound`：
+    - `dns.google` / `dns.google.com`：`☁️ 云与CDN` → `🚫 受限网站`
+    - `cloudflare-dns.com`（domain_suffix）：`☁️ 云与CDN` → `🚫 受限网站`
+  - `dns.servers[].server: cloudflare-dns.com` 保留不动（这是 DoH 上游服务器定义，不是路由规则）
+- ★ 同步 `SingBox(sing-box)-generator.js` 顶部 `VERSION` / `BASELINE` 常量
+- Bump: `v5.2.9-sing.3` → `v5.2.10-sing.1`（主版本追平到 v5.2.10）
+
 ---
 
 ## v5.2.9-sing.3 (2026-04-25) — 兼容性审计修复
