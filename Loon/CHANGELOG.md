@@ -4,6 +4,15 @@
 
 ---
 
+## v5.2.10-Loon.1 (2026-04-25) — 境外 DoH 端点改路由到 🚫 受限网站
+
+- ★ **FIX#39**（同构联动）：跟随 Clash Party v5.2.10 基线
+  - `DOMAIN,dns.google,☁️ 云与CDN` → `🚫 受限网站`
+  - `DOMAIN,dns.google.com,☁️ 云与CDN` → `🚫 受限网站`
+  - `DOMAIN-SUFFIX,cloudflare-dns.com,☁️ 云与CDN` → `🚫 受限网站`
+  - `[General] doh-server` 保留 cloudflare/google DoH 不动（Loon App 自身上游 DoH 配置）
+- Bump: `v5.2.8-Loon.7` → `v5.2.10-Loon.1`（主版本追平到 v5.2.10）
+
 ## v5.2.8-Loon.7 (2026-04-25) — 欧洲节点 filter 补全 GR/RO/HU/CZ 及多国关键词扩充
 
 - ★ **FIX#29-P2**（同构 bug）：🇪🇺 欧洲节点 + 🏡 欧洲家宽 group filter 补全缺失欧洲国家

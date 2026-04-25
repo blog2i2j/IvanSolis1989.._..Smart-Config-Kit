@@ -9,6 +9,16 @@
 
 ## Normal（`OpenClash(mihomo).sh`，非 Smart 内核 / url-test 版）
 
+### v5.2.10-oc-normal.1 (2026-04-25) — 境外 DoH 端点改路由到 🚫 受限网站
+
+- ★ **FIX#39**（同构联动）：跟随 Clash Party v5.2.10 基线
+  - `DOMAIN,dns.google,☁️ 云与CDN` → `"DOMAIN,dns.google,\U0001F6AB 受限网站"`
+  - `DOMAIN,dns.google.com,☁️ 云与CDN` → `"DOMAIN,dns.google.com,\U0001F6AB 受限网站"`
+  - `DOMAIN-SUFFIX,cloudflare-dns.com,☁️ 云与CDN` → `"DOMAIN-SUFFIX,cloudflare-dns.com,\U0001F6AB 受限网站"`
+  - 用 `\U0001F6AB` 转义形式与本文件中其他 `🚫 受限网站` 规则保持一致
+- ★ 同步 Ruby 脚本 `VERSION` 常量 + heredoc 头部 `VERSION_TAG`
+- Bump: `v5.2.9-oc-normal.5` → `v5.2.10-oc-normal.1`（主版本追平到 v5.2.10）
+
 ### v5.2.9-oc-normal.5 (2026-04-25) — 兼容性审计修复
 
 - ★ FIX-OC-01：REGIONS 正则补齐 HK/TW/JP/SG/US 的 `\b` word boundary
@@ -104,6 +114,14 @@
 ---
 
 ## Full（`OpenClash(mihomo-smart).sh`）
+
+### v5.2.10-oc-full.1 (2026-04-25) — 境外 DoH 端点改路由到 🚫 受限网站
+
+- ★ **FIX#39**（同构联动，与 Normal 完全一致）：跟随 Clash Party v5.2.10 基线
+  - `DOMAIN,dns.google,☁️ 云与CDN` → `"DOMAIN,dns.google,\U0001F6AB 受限网站"`
+  - `DOMAIN,dns.google.com,☁️ 云与CDN` → `"DOMAIN,dns.google.com,\U0001F6AB 受限网站"`
+  - `DOMAIN-SUFFIX,cloudflare-dns.com,☁️ 云与CDN` → `"DOMAIN-SUFFIX,cloudflare-dns.com,\U0001F6AB 受限网站"`
+- Bump: `v5.2.9-oc-full.5` → `v5.2.10-oc-full.1`（主版本追平到 v5.2.10）
 
 ### v5.2.9-oc-full.5 (2026-04-25) — 兼容性审计修复
 

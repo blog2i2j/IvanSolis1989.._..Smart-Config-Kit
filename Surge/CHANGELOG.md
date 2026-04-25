@@ -4,6 +4,15 @@
 
 ---
 
+## v5.2.10-Surge.1 (2026-04-25) — 境外 DoH 端点改路由到 🚫 受限网站
+
+- ★ **FIX#39**（同构联动）：跟随 Clash Party v5.2.10 基线
+  - `DOMAIN,dns.google,☁️ 云与CDN` → `🚫 受限网站`
+  - `DOMAIN,dns.google.com,☁️ 云与CDN` → `🚫 受限网站`
+  - `DOMAIN-SUFFIX,cloudflare-dns.com,☁️ 云与CDN` → `🚫 受限网站`
+  - `[General] encrypted-dns-server` 保留 cloudflare/google DoH 不动（Surge App 自身上游 DoH 配置）
+- Bump: `v5.2.9-Surge.2` → `v5.2.10-Surge.1`（主版本追平到 v5.2.10）
+
 ## v5.2.9-Surge.2 (2026-04-25) — 移除 url-test 组非法参数 `select=0`
 
 - ★ **FIX-Surge-07-P1**：18 个 url-test 区域组包含不支持的 `select=0` 参数

@@ -6,6 +6,14 @@
 
 ---
 
+## v5.2.10-pw2.1 (2026-04-25) — 主版本追平（FIX#39 平台例外）
+
+- ★ **FIX#39 同构审计 — 平台例外（CLAUDE.md §1.4）**：与 `Passwall/v5.2.10-pw.1` 同因。
+  Passwall2 的 shunt-rules 与 Passwall 共用同一份 `.list`，同样没有 `dns.google` /
+  `cloudflare-dns.com` 的特化条目（由 `geosite:google` / `geosite:cloudflare` 覆盖）。
+  按 §1.4 标记为不同步，仅 bump 版本号追平基线。详见 `Passwall/CHANGELOG.md` 同版本节。
+- 唯一改动：脚本头部 `Version` 注释 `v5.2.9-pw2.1` → `v5.2.10-pw2.1`
+
 ## v5.2.8-pw2.4 (2026-04-24) — ★ 广告拦截规则置顶 + `apply.sh` 路径加引号
 
 与 `Passwall/v5.2.8-pw.4` 对等的同构 bug 修复（CLAUDE.md §1.5 触发 → 两份产物同步）。详细说明见 `Passwall/CHANGELOG.md` 同版本节；本节仅列具体改动文件。

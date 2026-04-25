@@ -2,9 +2,9 @@
 . /usr/share/openclash/log.sh
 
 # ============================================================================
-# Clash Smart v5.2.9-oc-full.5 — OpenClash 覆写脚本（与 Clash Party 主线同等规则量）
+# Clash Smart v5.2.10-oc-full.1 — OpenClash 覆写脚本（与 Clash Party 主线同等规则量）
 # ============================================================================
-# 定位：对齐 Clash Party v5.2.9 JS 主线的 OpenClash 全量版本。
+# 定位：对齐 Clash Party v5.2.10 JS 主线的 OpenClash 全量版本。
 #       与同目录 OpenClash(mihomo).sh（Normal）互补：
 #         - Normal 面向稳定版 mihomo / 经典 url-test
 #         - full  面向 4GB+ 路由器 / 需要与 Clash Party 桌面端一致的细粒度分流
@@ -15,14 +15,14 @@
 #   • ~975 条 rules
 #   • DNS fake-ip + 嗅探（HTTP/TLS/QUIC）+ nameserver-policy 救援
 #   • Ruby 阶段做：节点过滤 / 区域分类 / Smart 组生成 / TLS 指纹注入
-# 基线：Clash Party v5.2.8（唯一主线）── 任何规则/组/DNS 改动必须先改 Clash Party JS，
+# 基线：Clash Party v5.2.10（唯一主线）── 任何规则/组/DNS 改动必须先改 Clash Party JS，
 #       再同步到此文件。参见仓库根目录 CLAUDE.md / AGENTS.md。
 # 变更历史：见 `OpenClash/CHANGELOG.md`（Full 部分）。
 # ============================================================================
 
 
 
-VERSION_TAG="v5.2.9-oc-full.5"
+VERSION_TAG="v5.2.10-oc-full.1"
 CONFIG_FILE="$1"
 LOG_FILE="/tmp/openclash.log"
 
@@ -3256,8 +3256,8 @@ rules:
 - "DOMAIN-SUFFIX,binance.me,\U0001F4B0 加密货币"
 - "DOMAIN-SUFFIX,binance.org,\U0001F4B0 加密货币"
 - "DOMAIN-SUFFIX,binancefuture.com,\U0001F4B0 加密货币"
-- DOMAIN,dns.google,☁️ 云与CDN
-- DOMAIN,dns.google.com,☁️ 云与CDN
+- "DOMAIN,dns.google,\U0001F6AB 受限网站"
+- "DOMAIN,dns.google.com,\U0001F6AB 受限网站"
 - "DOMAIN-SUFFIX,youtube.com,\U0001F1FA\U0001F1F8 美国流媒体"
 - "DOMAIN-SUFFIX,youtu.be,\U0001F1FA\U0001F1F8 美国流媒体"
 - "DOMAIN-SUFFIX,googlevideo.com,\U0001F1FA\U0001F1F8 美国流媒体"
@@ -4014,7 +4014,7 @@ rules:
 - DOMAIN-SUFFIX,msecnd.net,☁️ 云与CDN
 - "DOMAIN-SUFFIX,jsdelivr.net,\U0001F6AB 受限网站"
 - DOMAIN-SUFFIX,unpkg.com,☁️ 云与CDN
-- DOMAIN-SUFFIX,cloudflare-dns.com,☁️ 云与CDN
+- "DOMAIN-SUFFIX,cloudflare-dns.com,\U0001F6AB 受限网站"
 - DOMAIN-SUFFIX,cloudflarestorage.com,☁️ 云与CDN
 - DOMAIN-SUFFIX,r2.dev,☁️ 云与CDN
 - DOMAIN-SUFFIX,ziffstatic.com,☁️ 云与CDN
@@ -4193,7 +4193,7 @@ cat > "$RUBY_SCRIPT" << 'RUBY_EOF'
 require 'yaml'
 require 'digest'
 
-VERSION = "v5.2.9-oc-full.5"
+VERSION = "v5.2.10-oc-full.1"
 
 STATUS_LOG = "/tmp/clash_smart_status.log"
 File.open(STATUS_LOG, 'w') { |f| f.puts "[#{VERSION}] start" }
