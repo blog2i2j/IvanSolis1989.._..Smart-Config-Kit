@@ -1,8 +1,8 @@
-# SingBox 使用教程（对齐 Clash Party v5.2.6 Full 语义）
+# SingBox 使用教程（对齐 Clash Party v5.3.0 Full 语义）
 
 > 配置文件：`SingBox/SingBox(sing-box)-full.json`（v5.2.6-sing.5）
 > 生成脚本：`SingBox/SingBox(sing-box)-generator.js`
-> 目标：在 **sing-box** 上复刻 Clash Party 的「9 个区域组 + 25 个业务组」策略结构，并只使用 sing-box 官方可消费的 SRS 规则集，保持 sing-box 1.12/1.13/1.14 官方配置兼容。
+> 目标：在 **sing-box** 上复刻 Clash Party 的「9 个区域组 + 31 个业务组」策略结构，并只使用 sing-box 官方可消费的 SRS 规则集，保持 sing-box 1.12/1.13/1.14 官方配置兼容。
 > 本目录只提供 Full 配置。
 
 ---
@@ -31,7 +31,7 @@
 
 ### 跑起来怎么验证？
 - 浏览器打开 `https://www.google.com` 能打开 = 代理通了
-- 客户端的"出站"/"策略"面板应看到 35 个组（1 `🚀 节点选择` + 9 区域 + 25 业务）
+- 客户端的"出站"/"策略"面板应看到 41 个组（1 `🚀 节点选择` + 9 区域 + 31 业务）
 - 首次启动后等 39 个 remote rule_set 下载完（约 1 分钟），日志不报 403/404 即可
 
 ### 最常见踩坑
@@ -98,10 +98,13 @@ sing-box 由 SagerNet 团队开发，是目前**新协议实现最前沿**的代
   - `🌎 美洲节点`
   - `🌍 非洲节点`
 
-- **业务层一致（25 组）**：
+- **业务层一致（31 组）**：
   - `🤖 AI 服务`、`💰 加密货币`、`🏦 金融支付`、`💬 即时通讯`、`📱 社交媒体`
-  - `🧑‍💼 会议协作`、`📺 国内流媒体`、`📺 东南亚流媒体`、`🇺🇸 美国流媒体`、`🇭🇰 香港流媒体`
-  - `🇹🇼 台湾流媒体`、`🇯🇵 日韩流媒体`、`🇪🇺 欧洲流媒体`、`🕹️ 国内游戏`、`🎮 国外游戏`
+  - `🧑‍💼 会议协作`、`📺 国内流媒体`
+  - `🎥 Netflix`、`🎬 Disney+`、`📡 HBO/Max`、`📺 Hulu`、`🎬 Prime Video`
+  - `📹 YouTube`、`🎵 音乐流媒体`
+  - `🇭🇰 香港流媒体`、`🇹🇼 台湾流媒体`、`🇯🇵 日韩流媒体`、`🇪🇺 欧洲流媒体`
+  - `🌐 其他国外流媒体`、`🕹️ 国内游戏`、`🎮 国外游戏`
   - `🔧 工具与服务`、`Ⓜ️ 微软服务`、`🍎 苹果服务`、`📥 下载更新`
   - `🛰️ BT/PT Tracker`、`🏠 国内网站`、`🚫 受限网站`、`🌐 国外网站`
   - `🐟 漏网之鱼`、`🛑 广告拦截`
@@ -132,7 +135,7 @@ sing-box 由 SagerNet 团队开发，是目前**新协议实现最前沿**的代
 
 1. 打开 Hiddify → 右上角 **配置 / Profile** → **添加新的配置** → **从剪贴板 / 从文件导入**。
 2. 选择本仓库的 `SingBox/SingBox(sing-box)-full.json`。
-3. Hiddify 会读取文件里的 `outbounds`、`route`、`dns`、`rule_set`，9 区域 + 25 业务组会全部出现在 Hiddify 的「策略」面板。
+3. Hiddify 会读取文件里的 `outbounds`、`route`、`dns`、`rule_set`，9 区域 + 31 业务组会全部出现在 Hiddify 的「策略」面板。
 
 ### 两个小提示
 
@@ -172,7 +175,7 @@ node 'SingBox/SingBox(sing-box)-generator.js'
 
 1. LuCI → 服务 → HomeProxy → **订阅** 面板（或 Subscriptions 标签）。
 2. 选择 **本地文件导入** 或 **URL 订阅**，指向 `SingBox/SingBox(sing-box)-full.json`。
-3. HomeProxy 会自动读取 JSON 里的 `outbounds`、`route`、`dns`、`rule_set`，然后把 9 区域 + 25 业务组全部展示在"出站组"面板里。
+3. HomeProxy 会自动读取 JSON 里的 `outbounds`、`route`、`dns`、`rule_set`，然后把 9 区域 + 31 业务组全部展示在"出站组"面板里。
 
 ### 小提示
 
@@ -232,7 +235,7 @@ node 'SingBox/SingBox(sing-box)-generator.js'
 
 启动后请按顺序确认：
 
-1. **出站组是否完整**：能看到 9 区域 + 25 业务组。  
+1. **出站组是否完整**：能看到 9 区域 + 31 业务组。  
 2. **DNS 是否生效**：国内域名走 `dns_direct`，国外域名走 `dns_proxy`。  
 3. **规则集下载是否成功**：应看到 39 个 remote `rule_set` 被加载，且无 403/404。
 4. **关键规则集是否存在**：`cn / cn-ip / proxy / geosite-category-ads-all`。
