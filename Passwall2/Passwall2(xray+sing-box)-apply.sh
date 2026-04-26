@@ -1,11 +1,13 @@
 #!/bin/sh
 # ═══════════════════════════════════════════════════════════════════════════
 # Smart-Config-Kit for Passwall / Passwall2 — UCI batch helper
-# Version: v5.3.0-pw2.3 | Build 2026-04-26
+# Version: v5.3.0-pw2.4 | Build 2026-04-26
 #
 # 用途：一次性在 Passwall2 中创建 31 条 shunt rule（含域名列表 + IP 列表），
 #       每条目标节点留空（NEED_CONFIG），用户之后到 LuCI 里手工选节点。
 #
+# 变更：v5.3.0-pw2.4 — 修复流媒体 .list 文件注释（Passwall → Passwall2）
+#   • 8 个流媒体 .list 文件（09~16）第 5 行注释从 "Passwall LuCI" 修正为 "Passwall2 LuCI"
 # 变更：v5.3.0-pw2.3 — 跟随基线将流媒体重组为按平台分组
 #   • 移除 📺 东南亚流媒体（合并到 🌐 其他国外流媒体）
 #   • 移除 🇺🇸 美国流媒体（拆分为 7 个平台组 + 🌐 其他国外流媒体）
