@@ -2,7 +2,7 @@
 . /usr/share/openclash/log.sh
 
 # ============================================================================
-# Clash Smart v5.3.0-oc-normal.1 — OpenClash 覆写脚本（非 Smart 内核 / url-test 区域组）
+# Clash Smart v5.3.0-oc-normal.2 — OpenClash 覆写脚本（非 Smart 内核 / url-test 区域组）
 # ============================================================================
 # 定位：与同目录 OpenClash(mihomo-smart).sh 规则 100% 等价的「非 Smart 内核」版本。
 #       两者唯一区别：18 个区域组（9 全部 + 9 家宽）从 type: smart（uselightgbm）换成 type: url-test。
@@ -25,7 +25,7 @@
 
 
 
-VERSION_TAG="v5.3.0-oc-normal.1"
+VERSION_TAG="v5.3.0-oc-normal.2"
 CONFIG_FILE="$1"
 LOG_FILE="/tmp/openclash.log"
 
@@ -67,9 +67,6 @@ dns:
   - +.stun.*.*.*
   - +.ntp.org
   - +.pool.ntp.org
-  - +.binance.com
-  - +.binancefuture.com
-  - +.binance.vision
   - +.n.n.srv.nintendo.net
   - +.stun.playstation.net
   - +.xboxlive.com
@@ -148,7 +145,6 @@ sniffer:
       - '4433'
   skip-domain:
   - +.push.apple.com
-  - Mijia Cloud
   skip-dst-address:
   - 91.105.192.0/23
   - 91.108.4.0/22
@@ -4172,7 +4168,7 @@ cat > "$RUBY_SCRIPT" << 'RUBY_EOF'
 require 'yaml'
 require 'digest'
 
-VERSION = "v5.3.0-oc-normal.1"
+VERSION = "v5.3.0-oc-normal.2"
 
 STATUS_LOG = "/tmp/clash_normal_status.log"
 File.open(STATUS_LOG, 'w') { |f| f.puts "[#{VERSION}] start" }
