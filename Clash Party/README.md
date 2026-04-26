@@ -5,7 +5,7 @@
 > - `ClashParty(mihomo).js`（**v5.2.5-normal.1**，2026-04-22）— 普通内核 url-test 延迟选路
 >
 > UI 补充配置：已整合到本文「四、粘贴 UI 补充配置」章节
-> 架构：**SUB-STORE 多机场融合** + 9 区域组 + 25 业务策略组 + **373+ rule-providers**
+> 架构：**SUB-STORE 多机场融合** + 9 区域组 + 31 业务策略组 + **373+ rule-providers**
 > 适用客户端：
 > - **Mihomo Party**（桌面端，推荐，原生支持 JS 覆写；内置 Smart 内核）
 > - **Clash Verge Rev**（桌面端，支持 JS/YAML 双覆写）
@@ -68,7 +68,7 @@
 
 ### 跑起来之后怎么验证成功？
 - 浏览器打开 `https://www.google.com`，能打开说明代理通了。
-- 客户端左侧「代理」页面应能看到 **34 个代理组**（9 区域 + 25 业务）。
+- 客户端左侧「代理」页面应能看到 **34 个代理组**（9 区域 + 31 业务）。
 - 左侧「连接」页面可以看每条请求走了哪个组/哪个节点。
 
 ### 最常见的第一次踩坑
@@ -271,7 +271,7 @@ sniffer:
 1. **代理组（Proxies）页面**
    - 应看到 **9 个区域组**（全球/香港/台湾/日韩/亚太/美国/欧洲/美洲/非洲），Smart 版显示为 `smart`，普通版显示为 `url-test`；
    - 每个区域组下方有对应地区的所有节点；
-   - **25 个业务策略组**（AI 服务、加密货币、Netflix、Disney+、YouTube、Telegram 等）可正常选择。
+   - **31 个业务策略组**（AI 服务、加密货币、Netflix、Disney+、YouTube、Telegram 等）可正常选择。
 
 2. **连接（Connections）页面**
    - 访问 `https://chat.openai.com`：Rule 应命中「🤖 AI 服务 → 🇺🇸 美国节点 → 某个 US 节点」；
