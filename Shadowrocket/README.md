@@ -1,9 +1,9 @@
 # Shadowrocket（小火箭）使用教程
 
 > 配置文件：`Shadowrocket.conf`
-> 版本：**v5.2.5-SR.3**（Build 2026-04-22，删除 72 条 Clash yaml 规则集 + anti-AD/Sukka 兼容修复，详见 `Shadowrocket/CHANGELOG.md`）
+> 版本：**v5.3.0-SR.1**（Build 2026-04-26，流媒体按平台重构 7→13 组，详见 `Shadowrocket/CHANGELOG.md`）
 > 目标：**Shadowrocket iOS（App Store 正版）** / macOS 通用
-> 架构：9 区域组（`url-test` + `policy-regex-filter` 按节点名自动分类）+ 31 业务策略组 + ~290 rule-set
+> 架构：18 区域组（9 全部 + 9 家宽，`url-test` + `policy-regex-filter` 按节点名自动分类）+ 31 业务策略组 + ~290 rule-set
 
 ---
 
@@ -45,7 +45,7 @@
 ### 跑起来之后怎么验证？
 - Safari 打开 `https://www.google.com` 能打开 = 代理通了。
 - SR「首页」最上方显示绿色的"Connected"。
-- SR「首页 → 代理组」应能看到 **9 区域 + 31 业务 = 34 个组**。
+- SR「首页 → 代理组」应能看到 **18 区域 + 31 业务 = 49 个组**。
 - SR「首页 → 连接信息（Connections）」能看到每次请求走了哪个组/节点。
 
 ### 最常见踩坑

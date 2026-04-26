@@ -1,8 +1,8 @@
 # SingBox 使用教程（对齐 Clash Party v5.3.0 Full 语义）
 
-> 配置文件：`SingBox/SingBox(sing-box)-full.json`（v5.2.6-sing.5）
+> 配置文件：`SingBox/SingBox(sing-box)-full.json`（v5.3.0-sing.1）
 > 生成脚本：`SingBox/SingBox(sing-box)-generator.js`
-> 目标：在 **sing-box** 上复刻 Clash Party 的「9 个区域组 + 31 个业务组」策略结构，并只使用 sing-box 官方可消费的 SRS 规则集，保持 sing-box 1.12/1.13/1.14 官方配置兼容。
+> 目标：在 **sing-box** 上复刻 Clash Party 的「18 区域组（9 全部 + 9 家宽）+ 31 业务组」策略结构，并只使用 sing-box 官方可消费的 SRS 规则集，保持 sing-box 1.12/1.13/1.14 官方配置兼容。
 > 本目录只提供 Full 配置。
 
 ---
@@ -31,7 +31,7 @@
 
 ### 跑起来怎么验证？
 - 浏览器打开 `https://www.google.com` 能打开 = 代理通了
-- 客户端的"出站"/"策略"面板应看到 41 个组（1 `🚀 节点选择` + 9 区域 + 31 业务）
+- 客户端的"出站"/"策略"面板应看到 50 个组（1 `🚀 节点选择` + 18 区域 + 31 业务）
 - 首次启动后等 39 个 remote rule_set 下载完（约 1 分钟），日志不报 403/404 即可
 
 ### 最常见踩坑

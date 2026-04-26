@@ -1,9 +1,9 @@
-# Loon 使用教程（对齐 Clash Party v5.2.4）
+# Loon 使用教程（对齐 Clash Party v5.3.0）
 
 > 配置文件：`Loon/Loon.conf`
-> 版本：**v5.2.4-Loon.4**（Build 2026-04-22，288 条 RULE-SET 迁移至 [Remote Rule] 段；此前累计修 v5.2.4-Loon.2/.3，见 `Loon/CHANGELOG.md`）
+> 版本：**v5.3.0-Loon.1**（Build 2026-04-26，流媒体按平台重构 7→13 组，详见 `Loon/CHANGELOG.md`）
 > 目标：**Loon iOS（App Store 付费正版）**
-> 架构：9 区域 url-test 组（[Remote Filter] NameRegex）+ 31 业务策略组 + 288 [Remote Rule] 订阅规则集
+> 架构：18 区域 url-test 组（9 全部 + 9 家宽，[Remote Filter] NameRegex）+ 31 业务策略组 + 288 [Remote Rule] 订阅规则集
 
 ---
 
@@ -41,7 +41,7 @@
 
 ### 跑起来验证？
 - 浏览器打开 `https://www.google.com` 能打开
-- Loon「策略组」面板应看到 40 组
+- Loon「策略组」面板应看到 49 组（18 区域 + 31 业务）
 - Loon「过滤器」面板应看到 9 个 Filter（GLOBAL / HK / TW / JPKR / APAC / US / EU / AM / AF）
 - Loon「设置 → 运行日志」看规则集 + MMDB 下载状态
 
@@ -246,7 +246,7 @@ Parsec / Zoom / Pornhub / Wayback）：
 ## 九、验证
 
 1. Loon → **首页** → 应显示 `Loon Smart v5.2.4-Loon.4`，协议已启用。
-2. **策略组** 面板应出现 40 组（9 区域 + 31 业务）。
+2. **策略组** 面板应出现 49 组（18 区域 + 31 业务）。
 3. **过滤器** 面板应出现 9 个 Filter（GLOBAL_Filter / HK_Filter / TW_Filter / JPKR_Filter / APAC_Filter / US_Filter / EU_Filter / AM_Filter / AF_Filter）。
 4. 测试分流：
    - `chat.openai.com` → 🤖 AI 服务

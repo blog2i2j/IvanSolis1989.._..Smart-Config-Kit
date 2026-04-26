@@ -4245,7 +4245,7 @@ rules:
 - 'DOMAIN-SUFFIX,azureedge.net,🌐 国外网站'
 - 'DOMAIN-SUFFIX,azurefd.net,🌐 国外网站'
 - 'DOMAIN-SUFFIX,msecnd.net,🌐 国外网站'
-- 'DOMAIN-SUFFIX,jsdelivr.net,🌐 国外网站'
+- 'DOMAIN-SUFFIX,jsdelivr.net,🚫 受限网站'
 - 'DOMAIN-SUFFIX,unpkg.com,🌐 国外网站'
 - 'DOMAIN-SUFFIX,cloudflare-dns.com,🚫 受限网站'
 - 'DOMAIN-SUFFIX,cloudflarestorage.com,🌐 国外网站'

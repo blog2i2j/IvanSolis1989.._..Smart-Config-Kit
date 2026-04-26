@@ -1,9 +1,9 @@
-# Quantumult X 使用教程（对齐 Clash Party v5.2.5）
+# Quantumult X 使用教程（对齐 Clash Party v5.3.0）
 
 > 配置文件：`Quantumult X/QuantumultX.conf`
-> 版本：**v5.2.5-QX.2**（Build 2026-04-22，删除 72 条 Clash yaml 规则集 + anti-AD/Sukka 兼容修复 + 主版本号对齐，详见 `Quantumult X/CHANGELOG.md`）
+> 版本：**v5.3.0-QX.1**（Build 2026-04-26，流媒体按平台重构 7→13 组，详见 `Quantumult X/CHANGELOG.md`）
 > 目标：**Quantumult X iOS（App Store 付费正版）**
-> 架构：9 区域 `url-latency-benchmark` 组 + 31 业务 `static` 组 + ~290 filter_remote + 567 filter_local 规则
+> 架构：18 区域 `url-latency-benchmark` 组（9 全部 + 9 家宽）+ 31 业务 `static` 组 + ~290 filter_remote + 567 filter_local 规则
 
 ---
 
@@ -41,7 +41,7 @@
 
 ### 跑起来验证？
 - 浏览器打开 `https://www.google.com` 能打开
-- QX「策略」面板应看到 40 组（9 url-latency-benchmark + 31 static）
+- QX「策略」面板应看到 49 组（18 url-latency-benchmark + 31 static）
 - QX「日志」面板看 filter_remote 下载成功无 404
 
 ### 最常见踩坑
@@ -231,7 +231,7 @@ QX 的真正优势是 **`resource_parser_url`（通用资源解析器）+ `rewri
 ## 八、验证
 
 1. QX → **设置** → **配置** → 查看当前配置名称，应显示 `Quantumult X Smart v5.2.5-QX.2`。
-2. **策略（Policy）** 面板应出现 40 组（9 `url-latency-benchmark` + 31 `static`）。
+2. **策略（Policy）** 面板应出现 49 组（18 `url-latency-benchmark` + 31 `static`）。
 3. **日志（Log）** 查看 filter_remote 下载状态，无 404 / timeout 即成功。
 4. 访问测试：
    - `chat.openai.com` → 🤖 AI 服务

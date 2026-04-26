@@ -28,8 +28,8 @@
 | 区域组类型 | `type: smart` | `type: url-test` |
 | LightGBM | 支持（`uselightgbm: true`） | 不支持 |
 | 规则覆盖 | 385 providers / 975 rules | 385 providers / 975 rules |
-| 业务组数量 | 25 | 25 |
-| 区域组数量 | 9 | 9 |
+| 业务组数量 | 31 | 31 |
+| 区域组数量 | 18 | 18 |
 | DNS / Sniffer / Rule-Providers | 完全一致 | 完全一致 |
 
 一句话：**想要 ML 自动择优就选 Smart；只想稳定跑在非 Smart 内核就选 Normal。**

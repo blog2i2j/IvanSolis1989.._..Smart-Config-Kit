@@ -1,9 +1,9 @@
-# Surge 使用教程（对齐 Clash Party v5.2.6）
+# Surge 使用教程（对齐 Clash Party v5.3.0）
 
 > 配置文件：`Surge/Surge.conf`
-> 版本：**v5.2.6-Surge.3**（Build 2026-04-23，修复 9 个区域组缺候选节点来源，详见 `Surge/CHANGELOG.md`）
+> 版本：**v5.3.0-Surge.2**（Build 2026-04-26，流媒体按平台重构 7→13 组，详见 `Surge/CHANGELOG.md`）
 > 目标：**Surge 5 / Surge Mac**（付费正版；iOS + macOS 通用）
-> 架构：9 区域 url-test 组（include-all-proxies + policy-regex-filter 自动按地区聚合）+ 31 业务策略组 + ~290 RULE-SET
+> 架构：18 区域 url-test 组（9 全部 + 9 家宽，include-all-proxies + policy-regex-filter 自动按地区聚合）+ 31 业务策略组 + ~290 RULE-SET
 
 ---
 
@@ -36,7 +36,7 @@
 
 ### 跑起来验证？
 - 浏览器打开 `https://www.google.com` 能打开
-- Surge「策略组」面板应看到 **40 组**（9 区域 + 31 业务）
+- Surge「策略组」面板应看到 **49 组**（18 区域 + 31 业务）
 - Surge「活动」面板可看每条请求命中的规则和节点
 
 ### 最常见踩坑
@@ -164,12 +164,18 @@ Surge 的节点来源有两种方式，任选其一：
 | 📱 社交媒体 | 🌍 全球 |
 | 🧑‍💼 会议协作 | 🌍 全球 或 🇯🇵 日韩 |
 | 📺 国内流媒体 | DIRECT（境内）/ 🇭🇰 香港（境外） |
-| 📺 东南亚流媒体 | 🌏 亚太节点 |
-| 🇺🇸 美国流媒体 | 🇺🇸 美国节点 |
+| 🎥 Netflix | 🇺🇸 美国节点 |
+| 🎬 Disney+ | 🇺🇸 美国节点 |
+| 📡 HBO/Max | 🇺🇸 美国节点 |
+| 📺 Hulu | 🇺🇸 美国节点 |
+| 🎬 Prime Video | 🇺🇸 美国节点 |
+| 📹 YouTube | 🌍 全球节点 |
+| 🎵 音乐流媒体（Spotify/Apple Music） | 🌍 全球节点 |
 | 🇭🇰 香港流媒体 | 🇭🇰 香港节点 |
 | 🇹🇼 台湾流媒体 | 🇹🇼 台湾节点 |
 | 🇯🇵 日韩流媒体 | 🇯🇵 日韩节点 |
 | 🇪🇺 欧洲流媒体 | 🇪🇺 欧洲节点 |
+| 🌐 其他国外流媒体 | 🌍 全球节点 |
 | 🕹️ 国内游戏 | DIRECT |
 | 🎮 国外游戏 | 🌍 全球 或 🇯🇵 日韩（低延迟） |
 | 🔧 工具与服务 | 🌍 全球 |
@@ -233,11 +239,11 @@ Surge 的节点来源有两种方式，任选其一：
 
 ## 九、验证
 
-1. Surge → **首页** → **已启用的配置**：应显示 `Surge Smart v5.2.6-Surge.3`。
-2. **策略组** 面板应出现 9 区域 + 31 业务共 40 组。
+1. Surge → **首页** → **已启用的配置**：应显示 `Surge Smart v5.3.0-Surge.2`。
+2. **策略组** 面板应出现 18 区域 + 31 业务共 49 组（不得少于 40 组）。
 3. 访问以下网站做功能验证：
    - `https://chat.openai.com` → 命中「🤖 AI 服务」
-   - `https://www.netflix.com` → 命中「🇺🇸 美国流媒体」
+   - `https://www.netflix.com` → 命中「🎥 Netflix」
    - `https://www.bilibili.com` → DIRECT 或「📺 国内流媒体」
    - `https://raw.githubusercontent.com` → 「🔧 工具与服务」或「🚫 受限网站」
 4. **活动（Activity）** 面板可查看每条实时请求命中的规则 + 上游节点。
