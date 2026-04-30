@@ -1,5 +1,7 @@
 # Shadowrocket 配置参考文档
 
+> 更新于 2026-04-30（上次获取 2026-04-26）：SR 最新版 v2.2.80（2026-02-19）。v2.2.78-2.2.80 新增 HTTP/3、VLESS 后量子加密、AnyTLS 会话池、NaiveProxy UoT、gRPC 分块传输等客户端侧能力。不涉及分流配置语法变更。RULE-SET/策略组/DNS 语法与当前基线兼容。
+>
 > 来源: https://help.shadowrocket.net/ (官方帮助站)
 >       https://raw.githubusercontent.com/Shadowrocket-Notes/Shadowrocket-Notes/master/README.md (社区维护)
 >       https://github.com/zjt003/Shadowrocket (社区手册)

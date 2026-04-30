@@ -1,5 +1,7 @@
 # OpenClash 配置参考文档
 
+> 更新于 2026-04-30（上次获取 2026-04-26）：OpenClash 最新版 v0.47.088（2026-04-10）。未发现 breaking change。覆写脚本格式、UCI 配置键无变更。
+>
 > 来源 URL:
 > - https://github.com/vernesong/OpenClash/wiki (官方 Wiki，18 页)
 > - https://deepwiki.com/vernesong/OpenClash/4-proxy-configuration (配置管理)

@@ -1,5 +1,7 @@
 # Passwall 配置参考文档
 
+> 更新于 2026-04-30（上次获取 2026-04-26）：Passwall 最新版 v26.4.15-1（2026-04-15）。自 v25.3.9 起适配 sing-box 1.12 Geo 数据移除，通过 Geoview 自动生成规则集。`shunt_rules.lua` 分流规则语法无变更。
+>
 > 来源 URL：
 > - https://github.com/Openwrt-Passwall/openwrt-passwall (Passwall 源码)
 > - https://github.com/Openwrt-Passwall/openwrt-passwall2/blob/main/luci-app-passwall2/luasrc/model/cbi/passwall2/client/shunt_rules.lua (分流规则解析器源码，Passwall2 与 Passwall 规则语法相同)

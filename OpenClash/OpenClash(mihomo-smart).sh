@@ -3,6 +3,7 @@
 
 # ============================================================================
 # Clash Smart v5.3.0-oc-full.2 — OpenClash 覆写脚本（与 Clash Party 主线同等规则量）
+# Build: 2026-04-26
 # ============================================================================
 # 定位：对齐 Clash Party v5.3.0 JS 主线的 OpenClash 全量版本。流媒体分组重构：7 区域 → 13 平台（v5.3.0）。
 #       与同目录 OpenClash(mihomo).sh（Normal）互补：
@@ -15,7 +16,7 @@
 #   • ~990 条 rules
 #   • DNS fake-ip + 嗅探（HTTP/TLS/QUIC）+ nameserver-policy 救援
 #   • Ruby 阶段做：节点过滤 / 区域分类 / Smart 组生成 / TLS 指纹注入
-# 基线：Clash Party v5.3.0（唯一主线）── 任何规则/组/DNS 改动必须先改 Clash Party JS，
+# 基线：Clash Party v5.3.2（唯一主线；v5.3.1/v5.3.2 为桌面端 PROCESS-NAME 改动，路由器端不适用）── 任何规则/组/DNS 改动必须先改 Clash Party JS，
 #       再同步到此文件。参见仓库根目录 CLAUDE.md / AGENTS.md。
 # 变更历史：见 `OpenClash/CHANGELOG.md`（Full 部分）。
 # ============================================================================

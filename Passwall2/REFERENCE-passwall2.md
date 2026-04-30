@@ -1,5 +1,7 @@
 # Passwall2 配置参考文档
 
+> 更新于 2026-04-30（上次获取 2026-04-26）：Passwall2 最新版 v26.4.20-1（2026-04-19）。新增 APK 包管理支持（OpenWrt 新包管理器）。`shunt_rules.lua` 分流规则语法无变更。
+>
 > 来源 URL：
 > - https://github.com/Openwrt-Passwall/openwrt-passwall2 (Passwall2 源码)
 > - https://github.com/Openwrt-Passwall/openwrt-passwall2/blob/main/luci-app-passwall2/luasrc/model/cbi/passwall2/client/shunt_rules.lua (分流规则解析器源码)

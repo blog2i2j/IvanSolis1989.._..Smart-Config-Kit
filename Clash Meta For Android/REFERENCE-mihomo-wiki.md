@@ -1,6 +1,7 @@
 # Mihomo (MetaCubeX) 官方配置文档参考
 
 > 抓取自 https://wiki.metacubex.one/ (2026-04-26)
+> 更新于 2026-04-30：最新稳定版 v1.19.24（2026-04-20）。v1.19.17 已移除 relay 组类型（改用 dialer-proxy）——本仓库未使用 relay，无影响。v1.19.24 新增 XHTTP H3/HTTP1.1 模式、BBR profile。Smart/LightGBM 字段无变更。
 > 本文件为本地参考，用于审核本仓库各配置文件与官方文档的兼容性。
 
 ---

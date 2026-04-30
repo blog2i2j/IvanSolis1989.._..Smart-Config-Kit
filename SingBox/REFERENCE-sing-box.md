@@ -1,5 +1,7 @@
 # Sing-Box 配置参考文档
 
+> 更新于 2026-04-30（上次获取 2026-04-26）：1.14.0-alpha.19 引入 `http_clients` 顶层字段（替代内联 `http_client`）、DNS 旧格式兼容将于 1.14 移除、TLS spoof/NaiveProxy/Tailscale 新能力、`default_http_client` 字段。本仓库 SingBox JSON 已完成 `download_detour` → `http_client` 迁移，兼容当前 1.11-1.13 稳定版。
+>
 > 来源 URL：
 > - https://sing-box.sagernet.org/configuration/ (配置索引)
 > - https://sing-box.sagernet.org/configuration/outbound/ (出站)
