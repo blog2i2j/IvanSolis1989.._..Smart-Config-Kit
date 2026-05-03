@@ -23,8 +23,7 @@
 
 ### 第 1 步：创建覆写脚本
 
-<img width="360" height="800" alt="5cea3c38d68a4f179fd4c3871052fd01" src="https://github.com/user-attachments/assets/c4b3cd7e-5e23-44ce-a2b7-0baccf2a2466" />
-
+<img width="360" height="800" alt="c54492ae7abbfa269f1a6cceaca65a7c" src="https://github.com/user-attachments/assets/35be12b0-39a0-43a5-8b4f-01f736c93704" />
 
 1. FlClash → 底部「配置」→ 顶部 **「覆写脚本」**
 2. 点右上角 **+**
@@ -36,8 +35,7 @@
 
 ### 第 2 步：关联到订阅
 
-<img width="360" height="800" alt="0f18df097344c63172aa7d0a8efd7a2d" src="https://github.com/user-attachments/assets/ac560cdb-d551-4099-b569-fc3f07c8fbc8" />
-
+<img width="360" height="800" alt="5cea3c38d68a4f179fd4c3871052fd01" src="https://github.com/user-attachments/assets/f133d259-3841-4719-9396-db2488a507fc" />
 
 1. 返回配置页 → 点订阅卡片右上角 ⋮
 2. **更多** → **覆写**
