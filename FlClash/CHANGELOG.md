@@ -16,6 +16,8 @@
   - TLS 指纹自动注入（client-fingerprint）
 - 适配 FlClash 覆写脚本环境：
   - `console.log` → 条件包装（兼容 QuickJS 引擎）
-  - `overwriteGeneral` 移除 TUN/端口覆写（由 FlClash App UI 管理）
+  - 全局设置精简：移除 `geox-url`/`geodata-mode`/TUN/端口覆写（由 FlClash App UI 管理）
+  - **QuickJS FFI 修复**：数组操作改用原地修改（`splice`+`push`），避免重赋值（`= []`）在 Dart↔QuickJS 桥接层丢失
+  - **必改配置文档化**：GeoX URL（外部资源）+ DNS（进阶配置）写入 README §第 4 步
   - 版本号独立：`v5.3.2-flclash.1`（跟随 Clash Party 主线）
 - 与 CMFA YAML 并行提供（用户二选一）

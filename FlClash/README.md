@@ -63,6 +63,72 @@ FlClash 用户现在有 **两种选择**：
    - **31 业务组**：🤖 AI 服务、🎥 Netflix、📱 社交媒体……
 3. 点底部「连接」标签，访问几个网站验证分流正确
 
+### 第 4 步：必改配置（FlClash 内手动设置）
+
+> 以下两项不能通过覆写脚本注入（FlClash App UI 托管），**必须手动配置**。
+
+#### ① 外部资源（GeoX 数据库）
+
+覆写脚本依赖 GeoIP/GeoSite 数据库作规则匹配，需要填入下方 URL。
+
+1. FlClash → 底部「配置」→ 点击订阅卡片右上角 ⋮ → **编辑**
+2. 切换到 **外部资源** 标签
+3. 填入以下 YAML：
+
+```yaml
+geox-url:
+  geoip: https://fastly.jsdelivr.net/gh/Loyalsoldier/geoip@release/geoip.dat
+  mmdb: https://fastly.jsdelivr.net/gh/Loyalsoldier/geoip@release/Country.mmdb
+  asn: https://fastly.jsdelivr.net/gh/Loyalsoldier/geoip@release/GeoLite2-ASN.mmdb
+  geosite: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat
+geo-auto-update: true
+```
+
+4. 保存后首次需等待数据库下载完成（~20MB），之后定期自动更新。
+
+#### ② 进阶配置（DNS）
+
+1. FlClash → 配置 → 订阅卡片 ⋮ → **编辑** → 切换到 **进阶配置** 标签
+2. 填入以下 YAML：
+
+```yaml
+dns:
+  use-hosts: false
+  use-system-hosts: false
+  respect-rules: true
+  default-nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+    - 1.1.1.1
+    - 8.8.8.8
+  nameserver:
+    - https://dns.alidns.com/dns-query
+    - https://doh.pub/dns-query
+  proxy-server-nameserver:
+    - https://cloudflare-dns.com/dns-query
+    - https://dns.google/dns-query
+    - https://dns.alidns.com/dns-query
+    - https://doh.pub/dns-query
+  direct-nameserver:
+    - https://dns.alidns.com/dns-query
+    - https://doh.pub/dns-query
+  fallback:
+    - https://cloudflare-dns.com/dns-query
+    - https://dns.google/dns-query
+  fallback-filter:
+    geoip: true
+    geoip-code: CN
+    ipcidr:
+      - 240.0.0.0/4
+      - 0.0.0.0/32
+      - 127.0.0.0/8
+      - 10.0.0.0/8
+      - 192.168.0.0/16
+    domain: []
+```
+
+3. 保存。
+
 ---
 
 ## 常见问题

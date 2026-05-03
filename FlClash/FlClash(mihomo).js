@@ -24,6 +24,12 @@
 // ⚠️ GitHub Raw / jsdelivr 在国内可能被墙，URL 导入前必须先确保代理已通。
 //    如果代理没通，先用方法 B 手动粘贴，脚本生效后后续自动更新可切回 URL。
 //
+// === 脚本导入后必做的手动配置（FlClash UI 内操作） ===
+// 以下两项由 FlClash App UI 托管，覆写脚本无法注入，必须手动配置：
+//   1. 外部资源（GeoX URL）：编辑订阅 →「外部资源」标签 → 粘贴 geox-url YAML
+//   2. 进阶配置（DNS）：编辑订阅 →「进阶配置」标签 → 粘贴 dns YAML
+//   完整 YAML 见：FlClash/README.md → 第 4 步 必改配置
+//
 // === 与 CMFA YAML 的选择 ===
 // - 本 JS 脚本：动态节点分类（word-boundary 正则，精确度高于 YAML filter:）、
 //   自动清理订阅垃圾组、家宽识别、空区域自动不建组
@@ -2203,16 +2209,10 @@ function overwriteGeneral(config) {
   config['find-process-mode'] = 'strict'
   config['keep-alive-idle'] = 30
   config['keep-alive-interval'] = 15
-  config['geodata-mode'] = true
-  // v5.1: Loyalsoldier 加强版 MMDB（含 cloudflare/telegram/netflix/facebook/twitter/google IP段）
-  // geoip.dat 保留 MetaCubeX（最全面），MMDB 切换 Loyalsoldier（精准标签）
-  config['geox-url'] = {
-    geoip:   'https://fastly.jsdelivr.net/gh/Loyalsoldier/geoip@release/geoip.dat',
-    mmdb:    'https://fastly.jsdelivr.net/gh/Loyalsoldier/geoip@release/Country.mmdb',
-    asn:     'https://fastly.jsdelivr.net/gh/Loyalsoldier/geoip@release/GeoLite2-ASN.mmdb',
-  }
-  config['geo-auto-update'] = true
-  // FlClash: 端口/TUN 由 App UI 管理，脚本不覆写（与 Clash Party Sub-Store 版不同）
+  // FlClash: 端口/TUN/DNS/GeoX 均由 App UI 管理，脚本不覆写。
+  //   - 外部资源（GeoX URL）：见 FlClash/README.md §必改配置
+  //   - 进阶配置（DNS）：见 FlClash/README.md §必改配置
+  //   （与 Clash Party Sub-Store 版不同，后者由脚本注入全部全局设置）
   if (!config.profile) config.profile = {}
   config.profile['store-selected'] = true
   config.profile['store-fake-ip'] = true
