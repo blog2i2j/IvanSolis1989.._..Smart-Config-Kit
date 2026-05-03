@@ -3,7 +3,7 @@
 > 配置文件：`CMFA(mihomo).yaml`
 > 适用客户端：**Clash Meta For Android（CMFA）** / **FlClash** / **mihomo-party-android**（Android 原生）· **[ClashMi](https://github.com/KaringX/clashmi)**（跨平台 Flutter GUI，iOS/macOS/Android/Windows/Linux，复用同一 YAML；详见 §九）
 > 内核要求：**Mihomo**（原生 YAML 导入；区域组用 `url-test`，**不含 Smart + LightGBM**——CMFA 的静态 YAML 不支持 JS 覆写）
-> **FlClash 用户**：FlClash v0.8.90+ 的 JS 覆写脚本功能存在未修复 bug（[#1541](https://github.com/chen08209/FlClash/issues/1541)），请直接使用本 YAML。详见 [`FlClash/README.md`](../FlClash/README.md)。
+> **FlClash 用户**：推荐使用 [FlClash 覆写脚本](../FlClash/FlClash(mihomo).js)（动态节点分类 + 家宽识别 + 订阅清理）。详见 [`FlClash/README.md`](../FlClash/README.md)。
 > 当前版本：**v5.3.0-cmfa.1**（跟随 Clash Party 主线）
 
 ---
