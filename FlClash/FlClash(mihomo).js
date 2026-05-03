@@ -1166,7 +1166,8 @@ function injectRuleProviders(config) {
 // ================================================================
 
 function injectRules(config) {
-  config.rules = [
+  // FlClash: 先构建完整数组，再原地写入（不能 config.rules = [...] 因为 QuickJS FFI 不支持数组重赋值）
+  var _newRules = [
     `RULE-SET,anti-ad,${BIZ.AD}`,
     // v5.1: P0 安全 - 钓鱼域名拦截（13万条，SukkaW）
     `RULE-SET,sukka-phishing,${BIZ.AD}`,
@@ -2186,6 +2187,9 @@ function injectRules(config) {
     `GEOIP,CN,${BIZ.CN_SITE},no-resolve`,
     `MATCH,${BIZ.FINAL}`,
   ]
+  // FlClash: 原地写入（splice 清空 + 逐个 push），不能在 QuickJS FFI 桥接层直接重赋值
+  config.rules.splice(0, config.rules.length)
+  for (var _ri = 0; _ri < _newRules.length; _ri++) { config.rules.push(_newRules[_ri]) }
   log(`[${VERSION}] Injected ${config.rules.length} rules`)
 }
 
@@ -2220,14 +2224,21 @@ function overwriteGeneral(config) {
 // ================================================================
 
 function cleanupSubscription(config) {
-  // v5.2.6-normal.1 FIX#26-P0: 与 Smart 版保持对齐 —— 清空订阅自带的所有 proxy-groups
-  //   原 4 关键词黑名单无法清除机场模板提供的地区组 / 流媒体组，导致代理组 60+。
-  //   本脚本 46 组（18 url-test + 28 select）是唯一权威来源。
+  // FlClash: 必须用原地修改（splice/length=0），不能重新赋值（= []）。
+  //    QuickJS ↔ Dart FFI 桥接层：若创建新数组，Dart 端仍持有旧引用 → 修改丢失。
+  //    旧注释(v5.2.6-normal.1 FIX#26-P0): 4 关键词黑名单无法清除机场模板 → 全量重建。
   var removed = (config['proxy-groups'] || []).length
-  config['proxy-groups'] = []
-  if (removed > 0) log(`[${VERSION}] Removed ${removed} subscription proxy-groups`)
-  config.rules = []
-  config['rule-providers'] = {}
+  if (config['proxy-groups'] && config['proxy-groups'].length > 0) {
+    config['proxy-groups'].splice(0, config['proxy-groups'].length)
+  }
+  if (removed > 0) log(`[${VERSION}] Cleared ${removed} subscription proxy-groups`)
+  if (config.rules && config.rules.length > 0) {
+    config.rules.splice(0, config.rules.length)
+  }
+  if (config['rule-providers']) {
+    var rpKeys = Object.keys(config['rule-providers'])
+    for (var i = 0; i < rpKeys.length; i++) { delete config['rule-providers'][rpKeys[i]] }
+  }
 }
 
 // ================================================================
@@ -2285,7 +2296,10 @@ function sortProxyGroups(config) {
   bizGroups.sort((a, b) => bizOrder.indexOf(a.name) - bizOrder.indexOf(b.name))
   const smartOrder = Object.values(SMART)
   smartGroups.sort((a, b) => { const ia = smartOrder.indexOf(a.name); const ib = smartOrder.indexOf(b.name); return (ia === -1 ? 999 : ia) - (ib === -1 ? 999 : ib) })
-  config['proxy-groups'] = [...bizGroups, ...otherGroups, ...smartGroups]
+  // FlClash: 必须原地修改，不能重新赋值（QuickJS FFI 桥接层限制）
+  config['proxy-groups'].splice(0, config['proxy-groups'].length)
+  var sorted = bizGroups.concat(otherGroups, smartGroups)
+  for (var i = 0; i < sorted.length; i++) { config['proxy-groups'].push(sorted[i]) }
 }
 
 // ================================================================
