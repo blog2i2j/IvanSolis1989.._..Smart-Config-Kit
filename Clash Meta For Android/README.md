@@ -1,8 +1,9 @@
 # Clash Meta For Android（CMFA）使用教程
 
 > 配置文件：`CMFA(mihomo).yaml`
-> 适用客户端：**Clash Meta For Android（CMFA）** / **FlClash** / **mihomo-party-android**（Android 原生）· **[ClashMi](https://github.com/KaringX/clashmi)**（跨平台 Flutter GUI，iOS/macOS/Android/Windows/Linux，复用同一 YAML；详见 §九）
+> 适用客户端：**Clash Meta For Android（CMFA）** / **mihomo-party-android**（Android 原生）· **[ClashMi](https://github.com/KaringX/clashmi)**（跨平台 Flutter GUI，iOS/macOS/Android/Windows/Linux，复用同一 YAML；详见 §九）
 > 内核要求：**Mihomo**（原生 YAML 导入；区域组用 `url-test`，**不含 Smart + LightGBM**——CMFA 的静态 YAML 不支持 JS 覆写）
+> **FlClash 用户注意**：自 v0.8.85 起 FlClash 支持 JS 覆写脚本，推荐使用 [`FlClash/FlClash(mihomo).js`](../FlClash/FlClash(mihomo).js)（动态节点分类 + 家宽识别 + 订阅清理），功能优于本静态 YAML。详见 [`FlClash/README.md`](../FlClash/README.md)。
 > 当前版本：**v5.3.0-cmfa.1**（跟随 Clash Party 主线）
 
 ---
@@ -42,7 +43,7 @@
 - ❌ **导入后节点列表是空的**：订阅链接返回的格式不对。换链接加 `?flag=clash.meta` 后缀；或用 Sub-Store 做格式转换。
 - ❌ **首次启动卡在"加载规则"**：CMFA 要下 375+ 条规则约 15–30 MB。**必须在 WiFi + 已开代理**（可以先用随便一个能用的节点启动，等规则下完再切到本配置），否则 GitHub/jsdelivr 在国内会 404。
 - ❌ **打开支付宝/银行 App 卡死**：已在配置里把 `+.alipay.com` / 主流银行域名排除了代理。如果你用的银行没排除，在 CMFA 的「应用 → 分应用代理」里把那个银行 App 设为"不走代理"。
-- ❌ **LightGBM 自动择优不生效**：CMFA YAML 用的是 `url-test`（按延迟择优），**不是** Mihomo Smart 组。如果你想要 Smart + LightGBM，要么用 FlClash（部分支持 Alpha 内核），要么改用桌面端 Clash Verge Rev + 仓库的 JS 覆写脚本。
+- ❌ **LightGBM 自动择优不生效**：CMFA YAML 用的是 `url-test`（按延迟择优），**不是** Mihomo Smart 组。Smart + LightGBM 需要 Mihomo Smart Alpha 内核，**目前仅桌面端 Clash Verge Rev / Mihomo Party + Clash Party Smart JS 支持**。FlClash 覆写脚本 (`../FlClash/FlClash(mihomo).js`) 也是 url-test（标准 Mihomo 内核限制），但提供动态节点分类/家宽识别/订阅清理等 YAML 没有的能力。
 
 ---
 
